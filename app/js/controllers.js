@@ -3,7 +3,7 @@
 /* Controllers */
 
 //angular.module('gameManager.controllers', []).
-gameManager.controller('GameConsoleController', function ($scope, $http) {
+gameManager.controller('ConsoleController',function ($scope, $http) {
     $scope.consoles = [
         {'name': 'ps1',
             'games': [
@@ -24,12 +24,18 @@ gameManager.controller('GameConsoleController', function ($scope, $http) {
             ]
         }
     ];
-    $scope.games = [
-        {'title': 'game1'},
-        {'title': 'game2'}
-    ];
     /* $http.get('consoles/consoles.json').success(function(data) {
      $scope.consoles = data;
      });*/
-})
+}).
+    controller('GameController', function ($scope, $http ) {
+
+        $scope.games = [
+            {'title': 'game1'},
+            {'title': 'game2'}
+        ];
+
+//        $scope.test = $routeParams;
+
+    })
 ;
