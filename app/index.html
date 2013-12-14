@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Game Manager App</title>
-    <!--<link rel="stylesheet" href="css/app.css"/>-->
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 <!--<ul class="menu">-->
@@ -12,8 +13,10 @@
 <!--</ul>-->
 
 <div ng-controller="ConsoleController">
+
+    Search: <input ng-model="consoleName">
     <ul class="unstyled">
-        <li ng-repeat="console in consoles">
+        <li ng-repeat="console in consoles | filter:consoleName">
             <span>{{console.name}}</span>
 
             <ul class="unstyled">
