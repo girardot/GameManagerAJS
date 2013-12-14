@@ -15,10 +15,11 @@
 <!--</ul>-->
 
 <div>
-    <span ng-controller="ConsoleController">
-        Search: <input ng-model="consoleNameSearch">
-         <ul>
-             <li ng-repeat="console in consoles | filter:consoleName">
+    <span ng-controller="ConsoleController" class="span4 well sidebar-nav ">
+         <ul class="nav nav-list">
+             <li class="nav-header"> Consoles <input class="input-mini" ng-model="consoleNameSearch"
+                                                     placeholder="search"></li>
+             <li ng-repeat="console in consoles | filter:consoleNameSearch">
                  <a href="#/{{console.name}}">{{console.name}}</a>
              </li>
          </ul>
@@ -29,11 +30,11 @@
          </form>
     </span>
 
-    <span ng-controller="GameController">
-        Search: <input ng-model="gameNameSearch">
-        <ul>
+    <span ng-controller="GameController" class="span5 well sidebar-nav">
+        <ul class="nav nav-list">
+            <li class="nav-header"> Games <input class="input-mini" ng-model="gameNameSearch" placeholder="search"></li>
             <li ng-repeat="game in games |filter:gameNameSearch">
-                <span>{{game.title}}</span>
+               {{game.title}}
                 <button type="button" class="btn btn-default active btn-mini">Todo</button>
                 <button type="button" class="btn btn-info btn-mini">InProgress</button>
                 <button type="button" class="btn btn-success btn-mini">Done</button>
@@ -45,7 +46,6 @@
                    placeholder="new game">
             <input class="btn-primary btn-mini" type="submit" value="+">
         </form>
-        {test}
     </span>
 
 </div>
