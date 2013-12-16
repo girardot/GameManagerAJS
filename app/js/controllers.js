@@ -2,8 +2,8 @@
 
 /* Controllers */
 
-//angular.module('gameManager.controllers', []).
-gameManager.controller('ConsoleController',function ($scope, $http) {
+angular.module('gameManager.controllers', []).
+controller('ConsoleController', function ($scope, $http) {
     $scope.consoles = [
         {'name': 'ps1',
             'games': [
@@ -28,14 +28,13 @@ gameManager.controller('ConsoleController',function ($scope, $http) {
      $scope.consoles = data;
      });*/
 }).
-    controller('GameController', function ($scope, $http ) {
+    controller('GameController', function ($scope, $http, $routeParams) {
 
         $scope.games = [
             {'title': 'game1'},
             {'title': 'game2'}
         ];
 
-//        $scope.test = $routeParams;
-
+        alert($routeParams.consoleName);
     })
 ;
