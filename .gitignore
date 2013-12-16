@@ -3,3 +3,9 @@ logs/*
 node_modules/
 tmp
 .DS_Store
+
+# Intellij
+############
+.idea/
+*.iml
+*.iws
