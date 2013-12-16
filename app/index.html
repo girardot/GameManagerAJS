@@ -20,7 +20,7 @@
              <li class="nav-header"> Consoles <input class="input-mini" ng-model="consoleNameSearch"
                                                      placeholder="search"></li>
              <li ng-repeat="console in consoles | filter:consoleNameSearch">
-                 <a href="#/games/{{console.name}}">{{console.name}}</a>
+                 <a href="#/games/{{console.id}}">{{console.name}}</a>
              </li>
          </ul>
          <form ng-submit="addConsole()">
