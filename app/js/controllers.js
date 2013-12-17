@@ -4,6 +4,8 @@
 
 angular.module('gameManager.controllers', []).
     controller('ConsoleController',function ($scope, $http) {
+
+    // $http.get('/http://localhost:5000').success(function (data) {
         $http.get('consoles/consoles.json').success(function (data) {
             $scope.consoles = data;
         });
