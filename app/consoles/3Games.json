@@ -1,8 +1,9 @@
 [
-    {"title":"ps3-game1"},
-    {"title":"ps3-game2"},
-    {"title":"ps3-game3"},
-    {"title":"ps3-game4"},
-    {"title":"ps3-game5"},
-    {"title":"ps3-game6"}
+    {"id": 14, "title":"ps3-game1", "progression":"TO_DO"},
+    {"id": 15, "title":"ps3-game2", "progression":"IN_PROGRESS"},
+    {"id": 16, "title":"ps3-game3", "progression":"DONE"},
+    {"id": 17, "title":"ps3-game4", "progression":"DONE"},
+    {"id": 18, "title":"ps3-game5", "progression":"TO_DO"},
+    {"id": 19, "title":"ps3-game6", "progression":"TO_DO"},
+    {"id": 20, "title":"ps3-game7", "progression":"TO_DO"}
 ]
