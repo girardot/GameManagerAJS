@@ -9,10 +9,6 @@
 
 </head>
 <body>
-<!--<ul class="menu">-->
-<!--<li><a href="#/view1">view1</a></li>-->
-<!--<li><a href="#/view2">view2</a></li>-->
-<!--</ul>-->
 
 <div>
     <span ng-controller="ConsoleController" class="span4 well sidebar-nav ">
@@ -23,22 +19,15 @@
                  <a href="#/games/{{console.id}}">{{console.name}}</a>
              </li>
          </ul>
-         <form ng-submit="addConsole()">
-             <input class="form-control" type="text" ng-model="newConsole" size="30"
-                    placeholder="new console">
-             <input class="btn-primary btn-mini" type="submit" value="+">
-         </form>
+        <input class="form-control" type="text" ng-model="newConsole" size="30" placeholder="new console">
+        <input class="btn-primary btn-mini" type="submit" value="+" ng-click="addConsole()">
     </span>
 
     <div ng-view></div>
 
 </div>
 
-
-<!--<div>Angular seed app: v<span app-version></span></div>-->
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
-<!--<script src="lib/angular/angular.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
