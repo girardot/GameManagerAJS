@@ -1,8 +1,9 @@
 [
-    {"title":"ps2-game1"},
-    {"title":"ps2-game2"},
-    {"title":"ps2-game3"},
-    {"title":"ps2-game4"},
-    {"title":"ps2-game5"},
-    {"title":"ps2-game6"}
+    {"id": 8, "title":"ps2-game1", "progression":"TO_DO"},
+    {"id": 9, "title":"ps2-game2", "progression":"IN_PROGRESS"},
+    {"id": 10, "title":"ps2-game3", "progression":"DONE"},
+    {"id": 11, "title":"ps2-game4", "progression":"DONE"},
+    {"id": 12, "title":"ps2-game5", "progression":"TO_DO"},
+    {"id": 13, "title":"ps2-game6", "progression":"TO_DO"},
+    {"id": 14, "title":"ps2-game7", "progression":"TO_DO"}
 ]
