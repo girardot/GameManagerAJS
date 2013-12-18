@@ -29,7 +29,7 @@ public class ServerGameManager extends HttpServlet {
         context.setContextPath("/");
         server.setHandler(context);
         context.addServlet(new ServletHolder(new ServerGameManager()), "/service/*");
-        context.setWelcomeFiles(new String[]{ "WEB-INF/index.html" });
+        context.setWelcomeFiles(new String[]{ "index.html" });
         server.start();
         server.join();
     }
