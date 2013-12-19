@@ -1,36 +1,22 @@
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static spark.Spark.get;
+import static spark.Spark.staticFileLocation;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
-public class ServerGameManager extends HttpServlet {
+public class ServerGameManager {
 
-    private final Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
+    public static void main(String[] args) {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+        staticFileLocation("/app"); // Static files
 
-        logger.info("Question : \n" + req);
+        get(new Route("/hello") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "Hello World!";
+            }
+        });
 
-        resp.getWriter().print("Hello World");
-    }
-
-    public static void main(String[] args) throws Exception {
-        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-        server.setHandler(context);
-        context.addServlet(new ServletHolder(new ServerGameManager()), "/service/*");
-        context.setWelcomeFiles(new String[]{ "index.html" });
-        server.start();
-        server.join();
     }
 }
