@@ -8,14 +8,9 @@
     <artifactId>gameManager</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>7.6.0.v20120127</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
