@@ -5,8 +5,8 @@
 angular.module('gameManager.controllers', []).
     controller('ConsoleController',function ($scope, $http) {
 
-    // $http.get('/http://localhost:5000').success(function (data) {
-        $http.get('consoles/consoles.json').success(function (data) {
+//        $http.get('consoles/consoles.json').success(function (data) {
+        $http.get('/services/consoles').success(function (data) {
             $scope.consoles = data;
         });
 
@@ -17,7 +17,8 @@ angular.module('gameManager.controllers', []).
 
     }).
     controller('GameController', function ($scope, $http, $routeParams) {
-        $http.get("consoles/"+$routeParams.consoleId+"Games.json").success(function (data) {
+//        $http.get("consoles/"+$routeParams.consoleId+"Games.json").success(function (data) {
+        $http.get("/services/games/"+$routeParams.consoleId+"").success(function (data) {
             $scope.games = data;
         });
 
