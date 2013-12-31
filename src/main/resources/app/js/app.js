@@ -1,9 +1,12 @@
-//'use strict';
+'use strict';
 //var gameManager = angular.module('gameManager', []);
 
 //Declare app level module which depends on filters, and services
 var gameManager = angular.module('gameManager', [
   'ngRoute',
+  'ngResource',
+  'gameManager.gameResource',
+  'gameManager.consoleResource',
   'gameManager.filters',
   'gameManager.services',
   'gameManager.directives',
