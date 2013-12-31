@@ -1,14 +1,11 @@
-//'use strict';
+'use strict';
 
 /* Controllers */
 
 angular.module('gameManager.controllers', []).
-    controller('ConsoleController',function ($scope, $http) {
+    controller('ConsoleController',function ($scope, consoleResource) {
 
-//        $http.get('consoles/consoles.json').success(function (data) {
-        $http.get('/services/consoles').success(function (data) {
-            $scope.consoles = data;
-        });
+        $scope.consoles = consoleResource.query();
 
         $scope.addConsole = function() {
             alert('call web service to add a new console : ' + $scope.newConsole);
@@ -16,11 +13,8 @@ angular.module('gameManager.controllers', []).
         }
 
     }).
-    controller('GameController', function ($scope, $http, $routeParams) {
-//        $http.get("consoles/"+$routeParams.consoleId+"Games.json").success(function (data) {
-        $http.get("/services/games/"+$routeParams.consoleId+"").success(function (data) {
-            $scope.games = data;
-        });
+    controller('GameController', function ($scope, gameResource, $routeParams) {
+        $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
 
         $scope.addGame = function() {
             alert('call web service to add a new game : ' + $scope.newGame);
