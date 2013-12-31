@@ -13,7 +13,7 @@ public class ServerGameManager {
         staticFileLocation("/app"); // Static files
         setPort(Integer.valueOf(System.getenv("PORT")));
 
-        get(new Route("/services/consoles") {
+        get(new Route("/services/console") {
             @Override
             public Object handle(Request request, Response response) {
                 return "[\n" +
@@ -30,7 +30,7 @@ public class ServerGameManager {
             }
         });
 
-        get(new Route("/services/games/:consoleId") {
+        get(new Route("/services/console/:consoleId/game") {
             @Override
             public Object handle(Request request, Response response) {
                 return "[\n" +
