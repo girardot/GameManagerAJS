@@ -2,6 +2,10 @@ import static spark.Spark.get;
 import static spark.Spark.setPort;
 import static spark.Spark.staticFileLocation;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repository.ConsoleRepository;
+import repository.GameRepository;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -10,12 +14,20 @@ public class ServerGameManager {
 
     public static void main(String[] args) {
 
+        ApplicationContext ap = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        final GameRepository gameRepository = ap.getBean(GameRepository.class);
+        final ConsoleRepository consoleRepository = ap.getBean(ConsoleRepository.class);
+
         staticFileLocation("/app"); // Static files
         setPort(Integer.valueOf(System.getenv("PORT")));
 
         get(new Route("/services/console") {
             @Override
             public Object handle(Request request, Response response) {
+
+                //List<Console> consoles = consoleRepository.findAll();
+
                 return "[\n" +
                         "    {\"id\":1, \"name\": \"ps1\",\n" +
                         "        \"games\": [{\"title\":\"game1\"}, {\"title\":\"game2\"}]\n" +
