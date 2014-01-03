@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.Iterables;
+
 @Repository
 public class GameRepository extends HibernateDaoSupport {
 
@@ -22,19 +24,23 @@ public class GameRepository extends HibernateDaoSupport {
     }
 
     public List<Game> findAll() {
-        return getHibernateTemplate().find("from game.manager.model.Game");
+        return getHibernateTemplate().find("from model.Game");
     }
 
-    public List<Game> findByTitle(String title) {
-        return getHibernateTemplate().find("from game.manager.model.Game g where g.title=?", title);
+    public Game findByTitle(String title) {
+        return (Game)Iterables.getFirst(getHibernateTemplate().find("from model.Game g where lower(g.title)=lower(?)", title), null);
     }
 
-    public void save(Game game) {
+    public void saveOrUpdate(Game game) {
         getHibernateTemplate().saveOrUpdate(game);
     }
 
     public void delete(Game game) {
         getHibernateTemplate().delete(game);
+    }
+
+    public List<Game> findByConsoleId(long consoleId) {
+        return getHibernateTemplate().find("from model.Game g where g.console.id=?", consoleId);
     }
 
 }
