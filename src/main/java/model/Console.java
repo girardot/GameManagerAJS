@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "CONSOLE")
 public class Console {
@@ -16,7 +18,7 @@ public class Console {
     @Column(name = "console_name")
     private String name;
 
-    @OneToMany(mappedBy = "console", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "console", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Game> games;
 
     public Console() {
@@ -44,6 +46,7 @@ public class Console {
         this.name = name;
     }
 
+    @JsonIgnore
     public List<Game> getGames() {
         return games;
     }
@@ -52,7 +55,7 @@ public class Console {
         this.games = games;
     }
 
-    public int getGameNumber() {
+    public int numberOfGames() {
         return games.size();
     }
 
