@@ -30,6 +30,10 @@
         <property name="maxOpenPreparedStatements" value="10"/>
     </bean>
 
+    <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
+        <jdbc:script location="classpath:init-data.sql"/>
+    </jdbc:initialize-database>
+
     <!-- Hibernate Session Factory  -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
