@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.Iterables;
+
 @Repository
 public class ConsoleRepository extends HibernateDaoSupport {
 
@@ -22,11 +24,11 @@ public class ConsoleRepository extends HibernateDaoSupport {
     }
 
     public List<Console> findAll() {
-        return getHibernateTemplate().find("from game.manager.model.Console");
+        return getHibernateTemplate().find("from model.Console");
     }
 
-    public List<Console> findByName(String name) {
-        return getHibernateTemplate().find("from game.manager.model.Console c where c.name=?", name);
+    public Console findByName(String name) {
+        return (Console)Iterables.getFirst(getHibernateTemplate().find("from model.Console c where lower(c.name)= lower(?)", name), null);
     }
 
 
