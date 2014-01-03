@@ -2,6 +2,12 @@ import static spark.Spark.get;
 import static spark.Spark.setPort;
 import static spark.Spark.staticFileLocation;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.List;
+
+import model.Console;
+import model.Game;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repository.ConsoleRepository;
@@ -9,6 +15,8 @@ import repository.GameRepository;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ServerGameManager {
 
@@ -19,6 +27,8 @@ public class ServerGameManager {
         final GameRepository gameRepository = ap.getBean(GameRepository.class);
         final ConsoleRepository consoleRepository = ap.getBean(ConsoleRepository.class);
 
+        final ObjectMapper objectMapper = new ObjectMapper();
+
         staticFileLocation("/app"); // Static files
         setPort(Integer.valueOf(System.getenv("PORT")));
 
@@ -26,34 +36,37 @@ public class ServerGameManager {
             @Override
             public Object handle(Request request, Response response) {
 
-                //List<Console> consoles = consoleRepository.findAll();
+                List<Console> consoles = consoleRepository.findAll();
 
-                return "[\n" +
-                        "    {\"id\":1, \"name\": \"ps1\",\n" +
-                        "        \"games\": [{\"title\":\"game1\"}, {\"title\":\"game2\"}]\n" +
-                        "    },\n" +
-                        "    {\"id\":2, \"name\": \"ps2\",\n" +
-                        "        \"games\": [{\"title\":\"game3\"}, {\"title\":\"game4\"}]\n" +
-                        "    },\n" +
-                        "    {\"id\":3, \"name\": \"ps3\",\n" +
-                        "        \"games\": [{\"title\":\"game5\"}, {\"title\":\"game6\"}]\n" +
-                        "    }\n" +
-                        "]";
+                StringWriter stringWriter = new StringWriter();
+
+                try {
+                    objectMapper.writeValue(stringWriter, consoles);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return stringWriter.toString();
             }
         });
 
         get(new Route("/services/console/:consoleId/game") {
             @Override
             public Object handle(Request request, Response response) {
-                return "[\n" +
-                        "    {\"id\": 1, \"title\":\"ps1-game1("+request.params("consoleId")+")\", \"progression\":\"TO_DO\"},\n" +
-                        "    {\"id\": 2, \"title\":\"ps1-game2\", \"progression\":\"IN_PROGRESS\"},\n" +
-                        "    {\"id\": 3, \"title\":\"ps1-game3\", \"progression\":\"DONE\"},\n" +
-                        "    {\"id\": 4, \"title\":\"ps1-game4\", \"progression\":\"DONE\"},\n" +
-                        "    {\"id\": 5, \"title\":\"ps1-game5\", \"progression\":\"TO_DO\"},\n" +
-                        "    {\"id\": 6, \"title\":\"ps1-game6\", \"progression\":\"TO_DO\"},\n" +
-                        "    {\"id\": 7, \"title\":\"ps1-game7\", \"progression\":\"TO_DO\"}\n" +
-                        "]";
+
+                long consoleId = Long.parseLong(request.params("consoleId"));
+                List<Game> games = gameRepository.findByConsoleId(consoleId);
+                StringWriter stringWriter = new StringWriter();
+
+                try {
+                    objectMapper.writeValue(stringWriter, games);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return stringWriter.toString();
             }
         });
 
