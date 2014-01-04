@@ -1,14 +1,36 @@
-<span class="span5 well sidebar-nav">
+<span class="span7 well sidebar-nav">
     <ul class="nav nav-list">
         <li class="nav-header"> Games <input class="input-mini" ng-model="gameNameSearch" placeholder="search"></li>
-        <li ng-repeat="game in games |filter:gameNameSearch">
-            {{game.title}}
-            <button type="button" class="btn btn-default btn-mini   {{game.progression == 'TO_DO' && 'active' }}">Todo</button>
-            <button type="button" class="btn btn-info btn-mini      {{game.progression == 'IN_PROGRESS' && 'active' }}">InProgress</button>
-            <button type="button" class="btn btn-success btn-mini   {{game.progression == 'DONE' && 'active' }}">Done</button>
-            <button type="button" class="btn btn-danger btn-mini">X</button>
-        </li>
+        <table ng-table="games" class="table">
+            <thead>
+            <th>Title</th>
+            <th>Status</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="game in games |filter:gameNameSearch" class="{{game.progression == 'DONE' && 'danger' }}">
+                    <td data-title="'Title'">{{game.title}}</td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-default btn-mini {{game.progression == 'TO_DO' && 'active' }}">
+                            Todo
+                        </button>
+                        <button type="button"
+                                class="btn btn-info btn-mini {{game.progression == 'IN_PROGRESS' && 'active' }}">
+                            InProgress
+                        </button>
+                        <button type="button"
+                                class="btn btn-success btn-mini {{game.progression == 'DONE' && 'active' }}">
+                            Done
+                        </button>
+                        <button type="button" class="btn btn-danger btn-mini">X</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
     </ul>
+
+
     <input class="form-control" type="text" ng-model="newGame" size="30" placeholder="new game">
     <input class="btn-primary btn-mini" type="submit" value="+" ng-click="addGame()">
 </span>
