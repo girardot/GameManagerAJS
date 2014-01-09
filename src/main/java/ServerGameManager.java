@@ -1,7 +1,3 @@
-import static spark.Spark.get;
-import static spark.Spark.setPort;
-import static spark.Spark.staticFileLocation;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
@@ -17,6 +13,8 @@ import spark.Response;
 import spark.Route;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static spark.Spark.*;
 
 public class ServerGameManager {
 
@@ -51,6 +49,26 @@ public class ServerGameManager {
             }
         });
 
+        post(new Route("/services/console") {
+            @Override
+            public Object handle(Request request, Response response) {
+
+                Console console = new Console(request.body());
+                consoleRepository.saveOrUpdate(console);
+
+                StringWriter stringWriter = new StringWriter();
+
+                try {
+                    objectMapper.writeValue(stringWriter, console);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return stringWriter.toString();
+            }
+        });
+
         get(new Route("/services/console/:consoleId/game") {
             @Override
             public Object handle(Request request, Response response) {
@@ -61,6 +79,26 @@ public class ServerGameManager {
 
                 try {
                     objectMapper.writeValue(stringWriter, games);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return stringWriter.toString();
+            }
+        });
+
+        post(new Route("/services/console/game") {
+            @Override
+            public Object handle(Request request, Response response) {
+
+                Game game = new Game(request.body());
+                gameRepository.saveOrUpdate(game);
+
+                StringWriter stringWriter = new StringWriter();
+
+                try {
+                    objectMapper.writeValue(stringWriter, game);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
