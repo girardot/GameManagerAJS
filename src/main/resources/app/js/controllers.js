@@ -8,8 +8,9 @@ angular.module('gameManager.controllers', []).
         $scope.consoles = consoleResource.query();
 
         $scope.addConsole = function() {
-            alert('call web service to add a new console : ' + $scope.newConsole);
-            $scope.consoles.push({"id":4, "name":$scope.newConsole});
+            consoleResource.save($scope.newConsole, function(data) {
+                $scope.consoles.push(data);
+            });
         }
 
     }).
@@ -17,8 +18,9 @@ angular.module('gameManager.controllers', []).
         $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
 
         $scope.addGame = function() {
-            alert('call web service to add a new game : ' + $scope.newGame);
-            $scope.games.push({"title":$scope.newGame});
+            gameResource.save($scope.newGame, function(data) {
+                $scope.games.push(data);
+            });
         }
 
     })
