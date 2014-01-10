@@ -39,5 +39,11 @@ public class ConsoleRepository extends HibernateDaoSupport {
     public void delete(Console console) {
         getHibernateTemplate().delete(console);
     }
+    
+    public Console delete(Long consoleId) {
+        Console console = getHibernateTemplate().get(Console.class, consoleId);
+        getHibernateTemplate().delete(console);
+        return console;
+    }
 
 }
