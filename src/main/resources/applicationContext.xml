@@ -13,6 +13,7 @@
 
     <!-- ANNOTATIONS POUR LA CREATION DE BEANS -->
     <context:component-scan base-package="repository"/>
+    <context:component-scan base-package="service"/>
 
     <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:application.properties"/>
