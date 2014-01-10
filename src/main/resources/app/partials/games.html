@@ -22,7 +22,7 @@
                                 class="btn btn-success btn-mini {{game.progression == 'DONE' && 'active' }}">
                             Done
                         </button>
-                        <button type="button" class="btn btn-danger btn-mini">X</button>
+                        <button type="button" class="btn btn-danger btn-mini" ng-click="removeGame(game.id)">X</button>
                     </td>
                 </tr>
             </tbody>
