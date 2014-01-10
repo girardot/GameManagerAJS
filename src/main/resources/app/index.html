@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="gameManager">
+<html lang="en" ng-app="gameManager" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>Game Manager App</title>
@@ -16,10 +16,13 @@
                                                      placeholder="search"></li>
              <li ng-repeat="console in consoles | filter:consoleNameSearch">
                  <a href="#/games/{{console.id}}">{{console.name}}</a>
+                 <button type="button" class="btn btn-danger btn-mini" ng-click="removeConsole(console.id)">X</button>
              </li>
          </ul>
-        <input class="form-control" type="text" ng-model="newConsole" size="30" placeholder="new console">
-        <input class="btn-primary btn-mini" type="submit" value="+" ng-click="addConsole()">
+        <form ng-submit="addConsole()" >
+            <input class="form-control" type="text" ng-model="newConsole" size="30" placeholder="new console">
+            <input class="btn-primary btn-mini" type="submit" value="+">
+        </form>
     </span>
 
     <div ng-view></div>
