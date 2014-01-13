@@ -1,1 +1,6 @@
 language: java
+deploy:
+provider: heroku
+api_key: ea3bcf10-2b9b-4d68-82f5-7f252d5ce902
+app: gamemanagerajs
+
