@@ -51,10 +51,13 @@ public class ServerGameManager {
             }
         });
 
-        post(new Route("/services/console/game") {
+        post(new Route("/services/console/:consoleId/game") {
             @Override
             public Object handle(Request request, Response response) {
-                Game game = new Game(request.body());
+                long consoleId = Long.parseLong(request.params("consoleId"));
+                Console console = consoleRepository.findById(consoleId);
+                Game game = jsonConverter.convertJsonToGame(request.body());
+                game.setConsole(console);
                 gameRepository.saveOrUpdate(game);
                 return jsonConverter.convertToJson(game);
             }
