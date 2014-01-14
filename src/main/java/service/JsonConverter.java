@@ -1,6 +1,7 @@
 package service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Game;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,6 +23,18 @@ public class JsonConverter {
         }
 
         return stringWriter.toString();
+    }
+
+    public Game convertJsonToGame(String json) {
+        Game game = null;
+
+        try {
+            game = objectMapper.readValue(json, Game.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return game;
     }
 
 }
