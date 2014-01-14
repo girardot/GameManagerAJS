@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "GAME")
@@ -68,7 +69,7 @@ public class Game implements Serializable {
         this.progression = progression;
     }
 
-    @JsonIgnore
+    @JsonProperty("consoleId")
     public Console getConsole() {
         return console;
     }
