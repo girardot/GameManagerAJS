@@ -19,49 +19,63 @@
         <property name="location" value="classpath:application.properties"/>
     </bean>
 
-    <!-- Data Source -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:file:testdb;shutdown=false"/>
-        <property name="username" value="SA"/>
-        <property name="password" value=""/>
-        <property name="initialSize" value="1"/>
-        <property name="maxActive" value="5"/>
-        <property name="poolPreparedStatements" value="true"/>
-        <property name="maxOpenPreparedStatements" value="10"/>
-    </bean>
+    <beans profile="dev">
+        <!-- Data Source -->
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+            <property name="url" value="jdbc:hsqldb:file:testdb;shutdown=false"/>
+            <property name="username" value="SA"/>
+            <property name="password" value=""/>
+            <property name="initialSize" value="1"/>
+            <property name="maxActive" value="5"/>
+            <property name="poolPreparedStatements" value="true"/>
+            <property name="maxOpenPreparedStatements" value="10"/>
+        </bean>
+    </beans>
 
-    <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
-        <jdbc:script location="classpath:init-data.sql"/>
-    </jdbc:initialize-database>
+    <beans profile="heroku">
+        <bean class="java.net.URI" id="dbUrl">
+            <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+        </bean>
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="url"
+                      value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+            <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+            <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        </bean>
+    </beans>
 
-    <!-- Hibernate Session Factory  -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+    <beans>
+        <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
+            <jdbc:script location="classpath:init-data.sql"/>
+        </jdbc:initialize-database>
 
-        <!-- Hibernate configuration -->
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.schema}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
-            </props>
-        </property>
+        <!-- Hibernate Session Factory  -->
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
 
-        <!-- The packages that contain our Hibernate game.manager.model classes -->
-        <property name="packagesToScan">
-            <list>
-                <value>model</value>
-            </list>
-        </property>
-    </bean>
+            <!-- Hibernate configuration -->
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                    <prop key="hibernate.hbm2ddl.auto">${hibernate.schema}</prop>
+                    <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
+                </props>
+            </property>
 
-    <!-- Hibernate transaction management -->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+            <!-- The packages that contain our Hibernate game.manager.model classes -->
+            <property name="packagesToScan">
+                <list>
+                    <value>model</value>
+                </list>
+            </property>
+        </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+        <!-- Hibernate transaction management -->
+        <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
 
+        <tx:annotation-driven transaction-manager="transactionManager"/>
+    </beans>
 </beans>
