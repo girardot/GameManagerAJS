@@ -15,14 +15,13 @@ import java.io.StringWriter;
 @Service
 public class JsonConverter {
 
-    ConsoleRepository consoleRepository;
+    private ConsoleRepository consoleRepository;
 
     final ObjectMapper objectMapper;
 
     @Inject
     public JsonConverter(ConsoleRepository consoleRepository) {
         objectMapper = new ObjectMapper();
-        objectMapper.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
         this.consoleRepository = consoleRepository;
         objectMapper.registerModule(initModule());
     }
@@ -59,8 +58,8 @@ public class JsonConverter {
             JsonNode node = oc.readTree(jsonParser);
             jsonParser.getValueAsString();
 
-            Game game = new Game(node.get("title").toString());
-            Console console = consoleRepository.findById(Long.parseLong(node.get("console_id").toString()));
+            Game game = new Game(node.get("title").asText());
+            Console console = consoleRepository.findById(node.get("console_id").asLong());
             game.setConsole(console);
 
             return game;
