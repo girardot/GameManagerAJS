@@ -15,11 +15,12 @@
     <context:component-scan base-package="repository"/>
     <context:component-scan base-package="service"/>
 
-    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:application.properties"/>
-    </bean>
-
     <beans profile="dev">
+
+        <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:dev-application.properties"/>
+        </bean>
+
         <!-- Data Source -->
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
             <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
@@ -34,6 +35,10 @@
     </beans>
 
     <beans profile="heroku">
+        <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:heroku-application.properties"/>
+        </bean>
+
         <bean class="java.net.URI" id="dbUrl">
             <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
         </bean>
@@ -57,7 +62,7 @@
             <!-- Hibernate configuration -->
             <property name="hibernateProperties">
                 <props>
-                     <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                    <prop key="hibernate.dialect">${org.hibernate.dialect}</prop>
                     <prop key="hibernate.hbm2ddl.auto">${hibernate.schema}</prop>
                     <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
                 </props>
