@@ -38,7 +38,6 @@
             <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
         </bean>
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-            <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
             <property name="url"
                       value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
             <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
@@ -58,7 +57,6 @@
             <!-- Hibernate configuration -->
             <property name="hibernateProperties">
                 <props>
-                    <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                     <prop key="hibernate.hbm2ddl.auto">${hibernate.schema}</prop>
                     <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
                 </props>
