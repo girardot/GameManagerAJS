@@ -34,9 +34,10 @@ public class JsonConverterTest {
         when(consoleRepository.findById(1L)).thenReturn(console);
 
         // When
-        Game game = jsonConverter.convertJsonToGame("{\"console_id\": \"1\", \"title\": \"newGame\"}");
+        Game game = jsonConverter.convertJsonToGame("{\"consoleId\": \"1\", \"title\": \"newGame\"}");
 
         // Then
+        assertThat(game.getConsole()).isEqualTo(console);
         assertThat(game.getTitle()).isEqualTo("newGame");
     }
 

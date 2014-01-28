@@ -59,7 +59,7 @@ public class JsonConverter {
             jsonParser.getValueAsString();
 
             Game game = new Game(node.get("title").asText());
-            Console console = consoleRepository.findById(node.get("console_id").asLong());
+            Console console = consoleRepository.findById(node.get("consoleId").asLong());
             game.setConsole(console);
 
             return game;
@@ -67,19 +67,6 @@ public class JsonConverter {
     };
 
     private final JsonSerializer<Game> GAME_JSON_SERIALIZER = new JsonSerializer<Game>() {
-
-
-        public Game deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-            ObjectCodec oc = jsonParser.getCodec();
-            JsonNode node = oc.readTree(jsonParser);
-            jsonParser.getValueAsString();
-
-            Game game = new Game(node.get("title").toString());
-            Console console = consoleRepository.findById(Long.parseLong(node.get("console_id").toString()));
-            game.setConsole(console);
-
-            return game;
-        }
 
         @Override
         public void serialize(Game game, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException, JsonProcessingException {
@@ -94,7 +81,7 @@ public class JsonConverter {
     };
 
     private Module initModule() {
-        SimpleModule module = new SimpleModule("GameManagerModul", new Version(1, 0, 0, null, null, null));
+        SimpleModule module = new SimpleModule("GameManagerModule", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(Game.class, GAME_JSON_DESERIALIZER);
         module.addSerializer(Game.class, GAME_JSON_SERIALIZER);
         return module;
