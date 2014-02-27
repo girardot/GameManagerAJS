@@ -24,11 +24,11 @@ public class ConsoleRepository extends HibernateDaoSupport {
     }
 
     public List<Console> findAll() {
-        return getHibernateTemplate().find("from model.Console");
+        return getHibernateTemplate().find("from jgt.model.Console");
     }
 
     public Console findByName(String name) {
-        return (Console)Iterables.getFirst(getHibernateTemplate().find("from model.Console c where lower(c.name)= lower(?)", name), null);
+        return (Console)Iterables.getFirst(getHibernateTemplate().find("from jgt.model.Console c where lower(c.name)= lower(?)", name), null);
     }
 
 

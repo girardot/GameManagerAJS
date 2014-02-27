@@ -24,11 +24,11 @@ public class GameRepository extends HibernateDaoSupport {
     }
 
     public List<Game> findAll() {
-        return getHibernateTemplate().find("from model.Game");
+        return getHibernateTemplate().find("from jgt.model.Game");
     }
 
     public Game findByTitle(String title) {
-        return (Game)Iterables.getFirst(getHibernateTemplate().find("from model.Game g where lower(g.title)=lower(?)", title), null);
+        return (Game)Iterables.getFirst(getHibernateTemplate().find("from jgt.model.Game g where lower(g.title)=lower(?)", title), null);
     }
 
     public void saveOrUpdate(Game game) {
