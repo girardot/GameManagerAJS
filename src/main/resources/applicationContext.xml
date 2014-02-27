@@ -12,8 +12,7 @@
     <context:annotation-config/>
 
     <!-- ANNOTATIONS POUR LA CREATION DE BEANS -->
-    <context:component-scan base-package="repository"/>
-    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="jgt"/>
 
     <beans profile="dev">
 
@@ -72,7 +71,7 @@
             <!-- The packages that contain our Hibernate game.manager.model classes -->
             <property name="packagesToScan">
                 <list>
-                    <value>model</value>
+                    <value>jgt.model</value>
                 </list>
             </property>
         </bean>

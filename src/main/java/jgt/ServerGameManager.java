@@ -1,12 +1,14 @@
+package jgt;
+
 import java.util.List;
 
-import model.Console;
-import model.Game;
+import jgt.model.Console;
+import jgt.model.Game;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import repository.ConsoleRepository;
-import repository.GameRepository;
-import service.JsonConverter;
+import jgt.repository.ConsoleRepository;
+import jgt.repository.GameRepository;
+import jgt.service.JsonConverter;
 import spark.Request;
 import spark.Response;
 import spark.Route;

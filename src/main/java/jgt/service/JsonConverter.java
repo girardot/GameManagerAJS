@@ -1,12 +1,12 @@
-package service;
+package jgt.service;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import model.Console;
-import model.Game;
+import jgt.model.Console;
+import jgt.model.Game;
 import org.springframework.stereotype.Service;
-import repository.ConsoleRepository;
+import jgt.repository.ConsoleRepository;
 
 import javax.inject.Inject;
 import java.io.IOException;

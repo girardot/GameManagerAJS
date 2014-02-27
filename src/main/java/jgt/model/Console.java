@@ -1,4 +1,4 @@
-package model;
+package jgt.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

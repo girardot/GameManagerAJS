@@ -1,10 +1,10 @@
-package repository;
+package jgt.repository;
 
 import javax.inject.Inject;
 
 import java.util.List;
 
-import model.Console;
+import jgt.model.Console;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;

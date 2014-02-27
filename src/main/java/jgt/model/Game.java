@@ -1,6 +1,6 @@
-package model;
+package jgt.model;
 
-import static model.GameProgression.TO_DO;
+import static jgt.model.GameProgression.TO_DO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
