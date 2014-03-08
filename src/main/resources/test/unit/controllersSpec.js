@@ -2,15 +2,39 @@
 
 /* jasmine specs for controllers go here */
 
-describe('controllers', function(){
-  beforeEach(module('gameManager.controllers'));
+describe('controllers', function () {
+    beforeEach(module('gameManager.controllers'));
+
+    describe('ConsoleController', function () {
+
+        var scope, consoleController, $httpBackend, consoleResource;
+
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET('/services/console').
+                respond([{name: 'ps2'}, {name: 'ps3'}]);
+
+            scope = $rootScope.$new();
+
+            consoleController = $controller("ConsoleController", {$scope: scope}, {$resource: consoleResource});
+        }));
+
+        it('should add a new console', inject(function () {
+            expect(scope.consoles).toEqual([]);
+            // when
+
+            // then
+            expect(scope.consoles).toEqual([]);
+        }));
+
+    });
 
 
-  it('should ....', inject(function() {
-    //spec body
-  }));
+    it('should ....', inject(function () {
+        //spec body
+    }));
 
-  it('should ....', inject(function() {
-    //spec body
-  }));
+    it('should ....', inject(function () {
+        //spec body
+    }));
 });
