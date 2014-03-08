@@ -1,9 +1,0 @@
-[
-    {"id": 1, "title":"ps1-game1", "progression":"TO_DO"},
-    {"id": 2, "title":"ps1-game2", "progression":"IN_PROGRESS"},
-    {"id": 3, "title":"ps1-game3", "progression":"DONE"},
-    {"id": 4, "title":"ps1-game4", "progression":"DONE"},
-    {"id": 5, "title":"ps1-game5", "progression":"TO_DO"},
-    {"id": 6, "title":"ps1-game6", "progression":"TO_DO"},
-    {"id": 7, "title":"ps1-game7", "progression":"TO_DO"}
-]
