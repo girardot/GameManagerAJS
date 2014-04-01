@@ -3,34 +3,55 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function () {
-    beforeEach(module('gameManager.controllers'));
+
+    beforeEach(function () {
+        this.addMatchers({
+            toEqualData: function (expected) {
+                return angular.equals(this.actual, expected);
+            }
+        });
+    });
 
     beforeEach(module('gameManager'));
+    beforeEach(module('gameManager.controllers'));
+    beforeEach(module('gameManager.consoleResource'));
 
     describe('ConsoleController', function () {
 
         var scope, consoleController, $httpBackend;
 
-
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
 
-            $httpBackend.expectGET('/services/console/').
-                respond([{name: 'ps2'}, {name: 'ps3'}]);
+            $httpBackend.expectGET('/services/console').respond([
+                {id: "1", name: 'ps1'}
+            ]);
+
+//            $httpBackend.expectPOST('/services/console').respond(201, '');
 
             scope = $rootScope.$new();
-
             consoleController = $controller("ConsoleController", {$scope: scope});
         }));
 
         it('should add a new console', inject(function () {
+            // Given
+            expect(scope.consoles).toEqualData([]);
+            $httpBackend.flush();
+            expect(scope.consoles).toEqualData([
+                {id: "1", name: 'ps1'}
+            ]);
 
-            console.log(scope.consoles);
-            expect(scope.consoles).toEqual([]);
-            // when
+            // When
+            scope.newConsole = {id: "2", name: "ps2"};
+            scope.addConsole();
 
-            // then
-//            expect(scope.consoles).toEqual([]);
+            // Then
+            expect(scope.consoles).toEqualData([
+                    [
+                        {id: "1", name: 'ps1'},
+                        {id: "2", name: 'ps2'}
+                    ]
+                ]);
         }));
 
     });

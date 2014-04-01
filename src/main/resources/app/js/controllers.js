@@ -8,7 +8,9 @@ angular.module('gameManager.controllers', []).
         $scope.consoles = consoleResource.query();
 
         $scope.addConsole = function () {
+            console.log("addConsole");
             consoleResource.save($scope.newConsole, function (data) {
+                console.log("saveCallback");
                 $scope.consoles.push(data);
             });
         }
