@@ -10,10 +10,11 @@ angular.module('gameManager.controllers', []).
         $scope.addConsole = function () {
             console.log("addConsole");
             consoleResource.save($scope.newConsole, function (data) {
-                console.log("saveCallback");
+                console.log("saveCallback data :" );
+                console.log(data);
                 $scope.consoles.push(data);
             });
-        }
+        };
 
         $scope.removeConsole = function (consoleId) {
             consoleResource.remove({consoleId: consoleId}, function (data) {
@@ -29,7 +30,7 @@ angular.module('gameManager.controllers', []).
             gameResource.save({consoleId: $routeParams.consoleId, title: $scope.newGame}, function (data) {
                 $scope.games.push(data);
             });
-        }
+        };
 
         $scope.removeGame = function (gameId) {
             gameResource.remove({gameId: gameId}, function (data) {
