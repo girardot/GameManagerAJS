@@ -27,7 +27,6 @@ describe('controllers', function () {
                 {id: "1", name: 'ps1'}
             ]);
 
-//            $httpBackend.expectPOST('/services/console').respond(201, '');
 
             scope = $rootScope.$new();
             consoleController = $controller("ConsoleController", {$scope: scope});
@@ -35,23 +34,37 @@ describe('controllers', function () {
 
         it('should add a new console', inject(function () {
             // Given
+            var existingConsole = {id: "1", name: 'ps1'};
+            var newConsole = {id: "2", name: "ps2"};
+
             expect(scope.consoles).toEqualData([]);
+            expect(scope.consoles.length).toEqual(0);
+
+            // load
             $httpBackend.flush();
+
+            expect(scope.consoles.length).toEqual(1);
             expect(scope.consoles).toEqualData([
-                {id: "1", name: 'ps1'}
+                existingConsole
             ]);
 
             // When
-            scope.newConsole = {id: "2", name: "ps2"};
+            scope.newConsole = newConsole;
             scope.addConsole();
 
+            $httpBackend.expectPOST('/services/console', newConsole).respond(newConsole, '');
+            $httpBackend.flush();
+
             // Then
-            expect(scope.consoles).toEqualData([
-                    [
-                        {id: "1", name: 'ps1'},
-                        {id: "2", name: 'ps2'}
-                    ]
-                ]);
+            console.log(scope.consoles);
+            expect(scope.consoles.length).toEqual(2);
+
+//            expect(scope.consoles).toEqualData([
+//                [
+//                    existingConsole,
+//                    newConsole
+//                ]
+//            ]);
         }));
 
     });
