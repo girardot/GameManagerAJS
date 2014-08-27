@@ -1,1 +1,1 @@
-web:    java -Dspring.profiles.active="heroku" -cp target/classes:target/dependency/* ServerGameManager
+web:    java -Dspring.profiles.active="heroku" -cp target/classes:target/dependency/jgt/* ServerGameManager
