@@ -1,5 +1,3 @@
-package jgt;
-
 import java.util.List;
 
 import jgt.model.Console;
