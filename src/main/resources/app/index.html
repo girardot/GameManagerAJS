@@ -1,32 +1,65 @@
 <!doctype html>
-<html lang="en" ng-app="gameManager" xmlns="http://www.w3.org/1999/html">
+<html lang="en" ng-app="gameManager">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Game Manager App</title>
     <link rel="stylesheet" href="css/app.css"/>
-    <link rel="stylesheet" href="css/bootstrap.css">
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+
 <body>
+<script src="js/bootstrap.min.js"></script>
 
-<div>
-    <span ng-controller="ConsoleController" class="span4 well sidebar-nav ">
-         <ul class="nav nav-list">
-             <li class="nav-header"> Consoles <input class="input-mini" ng-model="consoleNameSearch"
-                                                     placeholder="search"></li>
-             <li ng-repeat="console in consoles | filter:consoleNameSearch">
-                 <a href="#/games/{{console.id}}">{{console.name}}</a>
-                 <button type="button" class="btn btn-danger btn-mini" ng-click="removeConsole(console.id)">X</button>
-             </li>
-         </ul>
-        <form ng-submit="addConsole()" >
-            <input class="form-control" type="text" ng-model="newConsole" size="30" placeholder="new console">
-            <input class="btn-primary btn-mini" type="submit" value="+">
-        </form>
-    </span>
+<h1 class="text-center">Game Manager</h1>
 
-    <div ng-view></div>
+<div class="container">
+    <div class="row">
 
+        <!--CONSOLES-->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Consoles</div>
+                <div class="panel-body">
+
+                    <!--CONSOLE SEARCH-->
+                    <input class="form-control" type="text" ng-model="consoleNameSearch" placeholder="search">
+
+                    <div>&nbsp;</div>
+
+                    <!--CONSOLES LISTE-->
+                    <div class="list-group" ng-controller="ConsoleController">
+                        <a href="#/games/{{console.id}}" class="list-group-item"
+                           ng-repeat="console in consoles | filter:consoleNameSearch">
+                            {{console.name}}
+                            <button type="button" class="btn btn-xs btn-danger pull-right"
+                                    ng-click="removeConsole(console.id)">-
+                            </button>
+                        </a>
+
+                        <div>&nbsp;</div>
+
+                        <!--ADD NEW CONSOLE-->
+                        <form ng-submit="addConsole()">
+                            <div class="input-group">
+                                <input class="form-control" type="text" ng-model="newConsole" size="30"
+                                       placeholder="new console"/>
+                                <span class="input-group-addon" type="submit" ng-click="addConsole()"> + </span>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--GAMES-->
+        <div class="col-md-6">
+            <div ng-view></div>
+        </div>
+
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>

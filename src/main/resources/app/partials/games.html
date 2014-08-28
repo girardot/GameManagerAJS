@@ -1,36 +1,36 @@
-<span class="span7 well sidebar-nav">
-    <ul class="nav nav-list">
-        <li class="nav-header"> Games <input class="input-mini" ng-model="gameNameSearch" placeholder="search"></li>
-        <table ng-table="games" class="table">
-            <thead>
-            <th>Title</th>
-            <th>Status</th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="game in games |filter:gameNameSearch" class="{{game.progression == 'DONE' && 'danger' }}">
-                    <td data-title="'Title'">{{game.title}}</td>
-                    <td>
-                        <button type="button"
-                                class="btn btn-default btn-mini {{game.progression == 'TO_DO' && 'active' }}">
-                            Todo
-                        </button>
-                        <button type="button"
-                                class="btn btn-info btn-mini {{game.progression == 'IN_PROGRESS' && 'active' }}">
-                            InProgress
-                        </button>
-                        <button type="button"
-                                class="btn btn-success btn-mini {{game.progression == 'DONE' && 'active' }}">
-                            Done
-                        </button>
-                        <button type="button" class="btn btn-danger btn-mini" ng-click="removeGame(game.id)">X</button>
-                    </td>
-                </tr>
-            </tbody>
+<div class="panel panel-default">
+    <div class="panel-heading">Games</div>
+    <div class="panel-body">
 
-        </table>
-    </ul>
+        <input class="form-control" type="text" ng-model="gameNameSearch" placeholder="search">
 
+        <div>&nbsp;</div>
 
-    <input class="form-control" type="text" ng-model="newGame" size="30" placeholder="new game">
-    <input class="btn-primary btn-mini" type="submit" value="+" ng-click="addGame()">
-</span>
+        <div class="list-group" ng-table="games">
+
+            <div class="list-group" ng-repeat="game in games |filter:gameNameSearch">
+                <div class="list-group-item text-center">{{game.title}}
+                    <button class="btn btn-xs btn-danger pull-right" type="button" ng-click="removeGame(game.id)">-
+                    </button>
+                </div>
+                <div class="list-group-item">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                             height="20"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 100%"> {{game.progression}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form ng-submit="addGame()">
+            <div class="input-group">
+                <input class="form-control" type="text" ng-model="newGame" size="30"
+                       placeholder="new game">
+                <span class="input-group-addon" type="submit" ng-click="addGame()" >+</span>
+            </div>
+        </form>
+
+    </div>
+</div>
