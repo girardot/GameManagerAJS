@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import java.util.List;
 
+import jgt.model.Console;
 import jgt.model.Game;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -37,6 +38,12 @@ public class GameRepository extends HibernateDaoSupport {
 
     public void delete(Game game) {
         getHibernateTemplate().delete(game);
+    }
+
+    public Game delete(Long gameId) {
+        Game game = getHibernateTemplate().get(Game.class, gameId);
+        getHibernateTemplate().delete(game);
+        return game;
     }
 
     public List<Game> findByConsoleId(long consoleId) {

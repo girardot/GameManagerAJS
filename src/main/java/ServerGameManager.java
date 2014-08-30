@@ -67,5 +67,14 @@ public class ServerGameManager {
                 return consoleRepository.delete(consoleId);
             }
         });
+
+        delete(new Route("/services/console/game/:gameId") {
+            @Override
+            public Object handle(Request request, Response response) {
+                long gameId = Long.parseLong(request.params("gameId"));
+                return gameRepository.delete(gameId);
+            }
+        });
+
     }
 }
