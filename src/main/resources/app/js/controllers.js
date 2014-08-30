@@ -18,7 +18,6 @@ angular.module('gameManager.controllers', []).
 
         $scope.removeConsole = function (consoleId) {
             consoleResource.remove({consoleId: consoleId}, function (data) {
-                alert($scope.consoles.indexOf(data));
                 $scope.consoles.splice($scope.consoles.indexOf(data), 1);
             });
         }
