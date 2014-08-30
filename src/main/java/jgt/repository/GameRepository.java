@@ -40,10 +40,10 @@ public class GameRepository extends HibernateDaoSupport {
         getHibernateTemplate().delete(game);
     }
 
-    public Game delete(Long gameId) {
+    public Long delete(Long gameId) {
         Game game = getHibernateTemplate().get(Game.class, gameId);
         getHibernateTemplate().delete(game);
-        return game;
+        return gameId;
     }
 
     public List<Game> findByConsoleId(long consoleId) {

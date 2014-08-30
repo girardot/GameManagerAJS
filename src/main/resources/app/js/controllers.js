@@ -5,35 +5,43 @@
 angular.module('gameManager.controllers', []).
     controller('ConsoleController',function ($scope, consoleResource) {
 
-        $scope.consoles = consoleResource.query();
+        function refreshConsoles() {
+            $scope.consoles = consoleResource.query();
+        }
+
+        refreshConsoles();
 
         $scope.addConsole = function () {
             console.log("addConsole");
             consoleResource.save($scope.newConsole, function (data) {
                 console.log("saveCallback data :" );
                 console.log(data);
-                $scope.consoles.push(data);
+                refreshConsoles();
             });
         };
 
         $scope.removeConsole = function (consoleId) {
             consoleResource.remove({consoleId: consoleId}, function (data) {
-                $scope.consoles.splice($scope.consoles.indexOf(data), 1);
+                refreshConsoles();
             });
         }
     }).
     controller('GameController', function ($scope, gameResource, $routeParams) {
-        $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
+        function refreshGames() {
+            $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
+        }
+
+        refreshGames();
 
         $scope.addGame = function () {
             gameResource.save({consoleId: $routeParams.consoleId, title: $scope.newGame}, function (data) {
-                $scope.games.push(data);
+                refreshGames();
             });
         };
 
         $scope.removeGame = function (gameId) {
             gameResource.remove({gameId: gameId}, function (data) {
-                $scope.games.splice($scope.games.indexOf(data), 1);
+                refreshGames();
             });
         }
 
