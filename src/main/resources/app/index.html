@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<script src="js/bootstrap.min.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+<script src="js/jquery-1.11.1.min.js"></script>
 
 <h1 class="text-center">Game Manager</h1>
 
@@ -29,13 +30,15 @@
 
                     <!--CONSOLES LISTE-->
                     <div class="list-group" ng-controller="ConsoleController">
-                        <a href="#/games/{{console.id}}" class="list-group-item"
-                           ng-repeat="console in consoles | filter:consoleNameSearch">
-                            {{console.name}}
-                            <button type="button" class="btn btn-xs btn-danger pull-right"
-                                    ng-click="removeConsole(console.id)">-
-                            </button>
-                        </a>
+                        <span class="console-list-items">
+                            <a href="#/games/{{console.id}}" class="list-group-item"
+                               ng-repeat="console in consoles | filter:consoleNameSearch">
+                                {{console.name}}
+                                <button type="button" class="btn btn-xs btn-danger pull-right"
+                                        ng-click="removeConsole(console.id)">-
+                                </button>
+                            </a>
+                        </span>
 
                         <div>&nbsp;</div>
 
@@ -72,5 +75,8 @@
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/directives.js"></script>
+
+<script src="js/utils.js"></script>
 </body>
 </html>
+
