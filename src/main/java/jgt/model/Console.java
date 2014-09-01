@@ -12,7 +12,7 @@ public class Console {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "console_sequence")
+    @SequenceGenerator(name="console_sequence", sequenceName = "console_sequence")
     @Column(name = "id")
     private long id;
 

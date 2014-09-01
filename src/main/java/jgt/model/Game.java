@@ -15,7 +15,7 @@ public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "game_sequence")
+    @SequenceGenerator(name="console_sequence", sequenceName = "game_sequence")
     @Column(name = "id")
     private long id;
 
