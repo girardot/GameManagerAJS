@@ -65,6 +65,7 @@
                     <prop key="hibernate.dialect">${org.hibernate.dialect}</prop>
                     <prop key="hibernate.hbm2ddl.auto">${hibernate.schema}</prop>
                     <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
+                    <prop key="hibernate.format_sql">${hibernate.format.sql}</prop>
                 </props>
             </property>
 

@@ -2,14 +2,7 @@ package jgt.model;
 
 import static jgt.model.GameProgression.TO_DO;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.io.Serializable;
 
@@ -22,6 +15,7 @@ public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "game_sequence")
     @Column(name = "id")
     private long id;
 
