@@ -11,8 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Console {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name="console_sequence", sequenceName = "console_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
@@ -23,11 +22,11 @@ public class Console {
     private List<Game> games;
 
     public Console() {
-        games = new ArrayList<Game>();
+        games = new ArrayList<>();
     }
 
     public Console(String name) {
-        games = new ArrayList<Game>();
+        games = new ArrayList<>();
         this.name = name;
     }
 
@@ -64,4 +63,5 @@ public class Console {
         games.add(game);
         game.setConsole(this);
     }
+
 }

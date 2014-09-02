@@ -47,12 +47,13 @@ public class JsonConverterTest {
         gameToConvert.setId(1L);
         gameToConvert.setTitle("gameTitle");
         gameToConvert.setProgression(GameProgression.DONE);
+        gameToConvert.setConsole(new Console());
 
         // When
         String jsonGame = jsonConverter.convertToJson(gameToConvert);
 
         // Then
-        assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\"}");
+        assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\",\"console_id\":0,\"progression\":\"DONE\",\"percentProgression\":\"100\"}");
     }
 
     @Test
