@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import jgt.model.Console;
 import jgt.model.Game;
-import org.springframework.stereotype.Service;
+import jgt.model.GameProgression;
 import jgt.repository.ConsoleRepository;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
 
 @Service
 public class JsonConverter {
@@ -48,6 +50,18 @@ public class JsonConverter {
         }
 
         return game;
+    }
+
+    public GameProgression convertJsonToGameProgression(String json) {
+        Map jsonpObject = null;
+
+        try {
+            jsonpObject = objectMapper.readValue(json, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return GameProgression.valueOf((String) jsonpObject.get("status"));
     }
 
     private final JsonDeserializer<Game> GAME_JSON_DESERIALIZER = new JsonDeserializer<Game>() {

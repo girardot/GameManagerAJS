@@ -3,16 +3,11 @@ package jgt.service;
 import jgt.model.Console;
 import jgt.model.Game;
 import jgt.model.GameProgression;
-import org.fest.assertions.api.Assertions;
+import jgt.repository.ConsoleRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import jgt.repository.ConsoleRepository;
-
-import javax.inject.Inject;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -58,6 +53,18 @@ public class JsonConverterTest {
 
         // Then
         assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\"}");
+    }
+
+    @Test
+    public void should_convert_json_to_game_progression() {
+        // Given
+        String json = "{\"consoleId\":\"1\", \"gameId\":\"1\", \"status\":\"DONE\"}";
+
+        // When
+        GameProgression gameProgression = jsonConverter.convertJsonToGameProgression(json);
+
+        // Then
+        assertThat(gameProgression).isEqualTo(GameProgression.DONE);
     }
 
 }
