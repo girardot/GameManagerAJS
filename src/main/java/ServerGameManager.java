@@ -1,15 +1,16 @@
-import java.util.List;
-
 import jgt.model.Console;
 import jgt.model.Game;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import jgt.model.GameProgression;
 import jgt.repository.ConsoleRepository;
 import jgt.repository.GameRepository;
 import jgt.service.JsonConverter;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import java.util.List;
 
 import static spark.Spark.*;
 
@@ -57,6 +58,20 @@ public class ServerGameManager {
                 Game game = jsonConverter.convertJsonToGame(request.body());
                 gameRepository.saveOrUpdate(game);
                 return jsonConverter.convertToJson(game);
+            }
+        });
+
+        post(new Route("/services/console/:consoleId/game/:gameId/status") {
+            @Override
+            public Object handle(Request request, Response response) {
+                long gameId = Long.parseLong(request.params("gameId"));
+                Game game = gameRepository.findById(gameId);
+
+                GameProgression gameProgression = jsonConverter.convertJsonToGameProgression(request.body());
+                game.setProgression(gameProgression);
+                gameRepository.saveOrUpdate(game);
+
+                return jsonConverter.convertToJson(gameProgression);
             }
         });
 
