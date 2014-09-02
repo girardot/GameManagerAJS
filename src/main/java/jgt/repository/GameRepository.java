@@ -47,7 +47,7 @@ public class GameRepository extends HibernateDaoSupport {
     }
 
     public List<Game> findByConsoleId(long consoleId) {
-        return getHibernateTemplate().find("from jgt.model.Game g where g.console.id=?", consoleId);
+        return getHibernateTemplate().find("from jgt.model.Game g where g.console.id=? order by id", consoleId);
     }
 
 }
