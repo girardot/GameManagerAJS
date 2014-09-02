@@ -19,7 +19,9 @@
                                     {{game.progression == 'TO_DO' && 'progress-bar-danger' || ''}}
                                     {{game.progression == 'IN_PROGRESS' && 'progress-bar-info progress-bar-striped ' || '' }}
                                     {{game.progression == 'DONE' && 'progress-bar-success' || ''}}"
-                             role="progressbar" aria-valuenow="100"
+                             ng-click="changeStatus(game.id, game.progression)"
+                             role="progressbar"
+                             aria-valuenow="100"
                              height="20"
                              aria-valuemin="0" aria-valuemax="100" style="width: {{game.percentProgression}}%">
                             {{game.progression}}

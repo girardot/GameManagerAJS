@@ -26,7 +26,22 @@ angular.module('gameManager.controllers', []).
             });
         }
     }).
-    controller('GameController', function ($scope, gameResource, $routeParams) {
+    controller('GameController', function ($scope, gameResource, gameStatusResource, $routeParams) {
+
+        function getNextProgression(gameProgression) {
+            var nextGameProgression = 'DONE'
+            if (gameProgression == 'TO_DO') {
+                nextGameProgression = 'IN_PROGRESS';
+            }
+            else if (gameProgression == 'IN_PROGRESS') {
+                nextGameProgression = 'DONE';
+            }
+            else if (gameProgression == 'DONE') {
+                nextGameProgression = 'TO_DO';
+            }
+            return nextGameProgression;
+        }
+
         function refreshGames() {
             $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
         }
@@ -41,6 +56,13 @@ angular.module('gameManager.controllers', []).
 
         $scope.removeGame = function (gameId) {
             gameResource.remove({gameId: gameId}, function (data) {
+                refreshGames();
+            });
+        }
+
+        $scope.changeStatus = function (gameId, gameProgression) {
+            var nextGameProgression = getNextProgression(gameProgression);
+            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: gameId, status:nextGameProgression}, function (data) {
                 refreshGames();
             });
         }
