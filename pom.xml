@@ -28,7 +28,7 @@
         <mockito.version>1.8.4</mockito.version>
         <spring-test.version>2.5</spring-test.version>
         <fest-assert-core.version>2.0M7</fest-assert-core.version>
-        <jackson.version>2.3.0</jackson.version>
+        <jackson.version>2.4.0</jackson.version>
 
         <javassist.version>3.8.0.GA</javassist.version>
 
