@@ -12,7 +12,6 @@ public class Console {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "CONSOLE_SEQUENCE", sequenceName = "CONSOLE_SEQUENCE", allocationSize = 1, initialValue = 1000)
     @Column(name = "id")
     private long id;
 
