@@ -14,12 +14,11 @@
                     </button>
                 </div>
                 <div class="list-group-item">
-                    <div class="progress">
+                    <div class="progress cursor-pointer" ng-click="changeStatus(game.id, game.progression)">
                         <div class="progress-bar
                                     {{game.progression == 'TO_DO' && 'progress-bar-danger' || ''}}
                                     {{game.progression == 'IN_PROGRESS' && 'progress-bar-info progress-bar-striped ' || '' }}
                                     {{game.progression == 'DONE' && 'progress-bar-success' || ''}}"
-                             ng-click="changeStatus(game.id, game.progression)"
                              role="progressbar"
                              aria-valuenow="100"
                              height="20"
@@ -35,7 +34,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" ng-model="newGame" size="30"
                        placeholder="new game">
-                <span class="input-group-addon" type="submit" ng-click="addGame()">+</span>
+                <span class="input-group-addon cursor-pointer" type="submit" ng-click="addGame()">+</span>
             </div>
         </form>
 
