@@ -32,9 +32,9 @@ angular.module('gameManager.controllers', []).
 
             $('#consoleModalDeletionYes').unbind("click").on('click', function () {
                 $('#consoleModalDeletion').modal('hide');
-                consoleResource.remove({consoleId: consoleId}, function (data) {
+                consoleResource.remove({consoleId: consoleId}, function () {
                     refreshConsoles();
-                }, false);
+                });
             });
 
         }
@@ -53,9 +53,20 @@ angular.module('gameManager.controllers', []).
             });
         };
 
-        $scope.removeGame = function (gameId) {
-            gameResource.remove({gameId: gameId}, function (data) {
-                refreshGames();
+        $scope.displayRemoveGameModal = function (gameId) {
+            $('#consoleModalDeletion').modal({
+                keyboard: true
+            });
+
+            $('#consoleModalDeletionNo').unbind("click").on('click', function () {
+                $('#consoleModalDeletion').modal('hide');
+            });
+
+            $('#consoleModalDeletionYes').unbind("click").on('click', function () {
+                $('#consoleModalDeletion').modal('hide');
+                gameResource.remove({gameId: gameId}, function () {
+                    refreshGames();
+                });
             });
         }
 

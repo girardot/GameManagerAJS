@@ -10,7 +10,7 @@
 
             <div class="list-group" ng-repeat="game in games |filter:gameNameSearch">
                 <div class="list-group-item text-center">{{game.title}}
-                    <button class="btn btn-xs btn-danger pull-right" type="button" ng-click="removeGame(game.id)">-
+                    <button class="btn btn-xs btn-danger pull-right" type="button" ng-click="displayRemoveGameModal(game.id)">-
                     </button>
                 </div>
                 <div class="list-group-item">
