@@ -14,33 +14,32 @@ angular.module('gameManager.controllers', []).
         $scope.addConsole = function () {
             console.log("addConsole");
             consoleResource.save($scope.newConsole, function (data) {
-                console.log("saveCallback data :" );
+                console.log("saveCallback data :");
                 console.log(data);
                 refreshConsoles();
             });
         };
 
-        $scope.removeConsole = function (consoleId) {
-            consoleResource.remove({consoleId: consoleId}, function (data) {
-                refreshConsoles();
+        $scope.displayRemoveConsoleModal = function (consoleId) {
+
+            $('#consoleModalDeletion').modal({
+                keyboard: true
             });
+
+            $('#consoleModalDeletionNo').unbind("click").on('click', function () {
+                $('#consoleModalDeletion').modal('hide');
+            });
+
+            $('#consoleModalDeletionYes').unbind("click").on('click', function () {
+                $('#consoleModalDeletion').modal('hide');
+                consoleResource.remove({consoleId: consoleId}, function (data) {
+                    refreshConsoles();
+                }, false);
+            });
+
         }
     }).
     controller('GameController', function ($scope, gameResource, gameStatusResource, $routeParams) {
-
-        function getNextProgression(gameProgression) {
-            var nextGameProgression = 'DONE'
-            if (gameProgression == 'TO_DO') {
-                nextGameProgression = 'IN_PROGRESS';
-            }
-            else if (gameProgression == 'IN_PROGRESS') {
-                nextGameProgression = 'DONE';
-            }
-            else if (gameProgression == 'DONE') {
-                nextGameProgression = 'TO_DO';
-            }
-            return nextGameProgression;
-        }
 
         function refreshGames() {
             $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
@@ -62,7 +61,7 @@ angular.module('gameManager.controllers', []).
 
         $scope.changeStatus = function (gameId, gameProgression) {
             var nextGameProgression = getNextProgression(gameProgression);
-            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: gameId, status:nextGameProgression}, function (data) {
+            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: gameId, status: nextGameProgression}, function (data) {
                 refreshGames();
             });
         }

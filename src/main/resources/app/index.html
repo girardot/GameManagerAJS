@@ -9,10 +9,31 @@
 </head>
 
 <body>
-<!--<script src="js/bootstrap.min.js"></script>-->
 <script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 <h1 class="text-center">Game Manager</h1>
+
+<div class="modal fade" id="consoleModalDeletion">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">Game Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really whant to delete : </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="consoleModalDeletionNo">No
+                </button>
+                <button type="button" class="btn btn-danger" id="consoleModalDeletionYes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -35,7 +56,7 @@
                                ng-repeat="console in consoles | filter:consoleNameSearch">
                                 {{console.name}}
                                 <button type="button" class="btn btn-xs btn-danger pull-right"
-                                        ng-click="removeConsole(console.id)">-
+                                        ng-click="displayRemoveConsoleModal(console.id)">-
                                 </button>
                             </a>
                         </span>
@@ -47,7 +68,8 @@
                             <div class="input-group">
                                 <input class="form-control" type="text" ng-model="newConsole" size="30"
                                        placeholder="new console"/>
-                                <span class="input-group-addon cursor-pointer" type="submit" ng-click="addConsole()"> + </span>
+                                <span class="input-group-addon cursor-pointer" type="submit"
+                                      ng-click="addConsole()"> + </span>
                             </div>
                         </form>
 
@@ -64,6 +86,7 @@
 
     </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
