@@ -16,6 +16,12 @@
                 <div class="list-group-item text-center">{{game.title}}
                      <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
                            ng-click="displayRemoveGameModal($index)"></span>
+                    <span class="glyphicon glyphicon-cloud btn btn-xs pull-right {{game.isDematerialized == 'true' && 'btn-info' || ''}}"
+                          type="button"
+                          ng-click="toogleDematerialize($index)"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Is dematerialized game (from psn...)"></span>
                 </div>
                 <div class="list-group-item">
                     <div class="progress cursor-pointer" ng-click="changeStatus(game.id, game.progression)">

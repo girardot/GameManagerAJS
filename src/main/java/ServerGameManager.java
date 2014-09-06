@@ -33,6 +33,8 @@ public class ServerGameManager {
             return consoleGameService.changeGameStatus(gameId, gameProgression);
         });
 
+        post("/services/console/:consoleId/game/:gameId/toogleDematerialized", (request, response) -> consoleGameService.toogleDematerialized(parseLong(request.params("gameId"))));
+
         delete("/services/console/:consoleId", (request, response) -> consoleGameService.deleteConsole(parseLong(request.params("consoleId"))));
 
         delete("/services/console/game/:gameId", (request, response) -> consoleGameService.deleteGame(parseLong(request.params("gameId"))));

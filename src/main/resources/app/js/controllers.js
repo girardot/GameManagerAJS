@@ -34,7 +34,7 @@ angular.module('gameManager.controllers', []).
 
         }
     }).
-    controller('GameController', function ($scope, gameResource, gameStatusResource, $routeParams) {
+    controller('GameController', function ($scope, gameResource, gameStatusResource, gameDematerializeResource, $routeParams) {
 
         function refreshGames() {
             $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
@@ -64,6 +64,14 @@ angular.module('gameManager.controllers', []).
         $scope.changeStatus = function (gameId, gameProgression) {
             var nextGameProgression = getNextProgression(gameProgression);
             gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: gameId, status: nextGameProgression}, function (data) {
+                refreshGames();
+            });
+        }
+
+        $scope.toogleDematerialize = function (index){
+            var game = $scope.games[index];
+
+            gameDematerializeResource.save({consoleId: $routeParams.consoleId, gameId: game.id}, function (data) {
                 refreshGames();
             });
         }

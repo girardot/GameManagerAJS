@@ -6,7 +6,7 @@ import jgt.model.Game;
 import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
-public class GameServiceIntegrationTest extends AbstractIntegrationTest {
+public class GameRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Inject
     private GameRepository gameRepository;

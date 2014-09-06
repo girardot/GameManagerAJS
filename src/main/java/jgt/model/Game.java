@@ -24,6 +24,9 @@ public class Game implements Serializable {
     @Column(name = "progression")
     private GameProgression progression = TO_DO;
 
+    @Column(name = "dematerialized")
+    private Boolean dematerialized = false;
+
     @ManyToOne
     @JoinColumn(name = "console_id")
     private Console console;
@@ -76,12 +79,29 @@ public class Game implements Serializable {
         this.progression = progression;
     }
 
+    public Boolean isDematerialized() {
+        return dematerialized;
+    }
+
+    public void setDematerialized(Boolean dematerialized) {
+        this.dematerialized = dematerialized;
+    }
+
     public Console getConsole() {
         return console;
     }
 
     public void setConsole(Console console) {
         this.console = console;
+    }
+
+    public void toogleDematerialized() {
+        if(dematerialized == null) {
+            dematerialized = true;
+        }
+        else {
+            this.dematerialized = !this.dematerialized;
+        }
     }
 
 }

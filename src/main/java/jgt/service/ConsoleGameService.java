@@ -64,4 +64,12 @@ public class ConsoleGameService {
         return jsonConverter.convertToJson(gameProgression);
     }
 
+    @Transactional
+    public boolean toogleDematerialized(long gameId) {
+        Game game = gameRepository.findById(gameId);
+        game.toogleDematerialized();
+        gameRepository.saveOrUpdate(game);
+        return game.isDematerialized();
+    }
+
 }
