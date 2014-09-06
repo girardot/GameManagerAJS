@@ -1,95 +1,48 @@
-import jgt.model.Console;
-import jgt.model.Game;
 import jgt.model.GameProgression;
-import jgt.repository.ConsoleRepository;
-import jgt.repository.GameRepository;
+import jgt.service.ConsoleGameService;
 import jgt.service.JsonConverter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
-import java.util.List;
-
+import static java.lang.Long.parseLong;
 import static spark.Spark.*;
 
 public class ServerGameManager {
 
     public static void main(String[] args) {
 
-        ApplicationContext ap = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        final GameRepository gameRepository = ap.getBean(GameRepository.class);
-        final ConsoleRepository consoleRepository = ap.getBean(ConsoleRepository.class);
-        final JsonConverter jsonConverter = ap.getBean(JsonConverter.class);
+        final JsonConverter jsonConverter = applicationContext.getBean(JsonConverter.class);
+        final ConsoleGameService consoleGameService = applicationContext.getBean(ConsoleGameService.class);
 
         staticFileLocation("/app"); // Static files
         setPort(Integer.valueOf(System.getenv("PORT")));
 
-        get(new Route("/services/console") {
-            @Override
-            public Object handle(Request request, Response response) {
-                return jsonConverter.convertToJson(consoleRepository.findAll());
-            }
+        get("/services/console", (request, response) -> consoleGameService.findAll());
+
+        post("/services/console", (request, response) -> consoleGameService.saveConsole(request.body()));
+
+        get("/services/console/:consoleId/game", (request, response) -> consoleGameService.findGameByConsoleId(parseLong(request.params("consoleId"))));
+
+        post("/services/console/:consoleId/game", (request, response) -> consoleGameService.saveGame(request.body()));
+
+        post("/services/console/:consoleId/game/:gameId/status", (request, response) -> {
+            long gameId = parseLong(request.params("gameId"));
+            GameProgression gameProgression = jsonConverter.convertJsonToGameProgression(request.body());
+            return consoleGameService.changeGameStatus(gameId, gameProgression);
         });
 
-        post(new Route("/services/console") {
-            @Override
-            public Object handle(Request request, Response response) {
-                Console console = new Console(request.body());
-                consoleRepository.saveOrUpdate(console);
-                return jsonConverter.convertToJson(console);
-            }
-        });
+        delete("/services/console/:consoleId", (request, response) -> consoleGameService.deleteConsole(parseLong(request.params("consoleId"))));
 
-        get(new Route("/services/console/:consoleId/game") {
-            @Override
-            public Object handle(Request request, Response response) {
-                long consoleId = Long.parseLong(request.params("consoleId"));
-                List<Game> games = gameRepository.findByConsoleId(consoleId);
-                return jsonConverter.convertToJson(games);
-            }
-        });
+        delete("/services/console/game/:gameId", (request, response) -> consoleGameService.deleteGame(parseLong(request.params("gameId"))));
 
-        post(new Route("/services/console/:consoleId/game") {
-            @Override
-            public Object handle(Request request, Response response) {
-                Game game = jsonConverter.convertJsonToGame(request.body());
-                gameRepository.saveOrUpdate(game);
-                return jsonConverter.convertToJson(game);
-            }
-        });
-
-        post(new Route("/services/console/:consoleId/game/:gameId/status") {
-            @Override
-            public Object handle(Request request, Response response) {
-                long gameId = Long.parseLong(request.params("gameId"));
-                Game game = gameRepository.findById(gameId);
-
-                GameProgression gameProgression = jsonConverter.convertJsonToGameProgression(request.body());
-                game.setProgression(gameProgression);
-                gameRepository.saveOrUpdate(game);
-
-                return jsonConverter.convertToJson(gameProgression);
-            }
-        });
-
-        delete(new Route("/services/console/:consoleId") {
-            @Override
-            public Object handle(Request request, Response response) {
-                long consoleId = Long.parseLong(request.params("consoleId"));
-                return consoleRepository.delete(consoleId);
-            }
-        });
-
-        delete(new Route("/services/console/game/:gameId") {
-            @Override
-            public Object handle(Request request, Response response) {
-                long gameId = Long.parseLong(request.params("gameId"));
-                return gameRepository.delete(gameId);
-            }
+        exception(Exception.class, (e, request, response) -> {
+            System.out.println(request.body());
+            System.out.println(e.getMessage());
+            response.status(500);
         });
 
     }
+
 }

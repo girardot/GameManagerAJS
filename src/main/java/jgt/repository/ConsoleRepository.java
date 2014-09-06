@@ -1,15 +1,14 @@
 package jgt.repository;
 
-import javax.inject.Inject;
-
-import java.util.List;
-
+import com.google.common.collect.Iterables;
 import jgt.model.Console;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.google.common.collect.Iterables;
+import javax.inject.Inject;
+import java.util.List;
 
 @Repository
 public class ConsoleRepository extends HibernateDaoSupport {
@@ -20,17 +19,18 @@ public class ConsoleRepository extends HibernateDaoSupport {
     }
 
     public Console findById(long id) {
-        return (Console) getHibernateTemplate().get(Console.class, id);
+        return getHibernateTemplate().get(Console.class, id);
     }
 
-    public List<Console> findAll() {
-        return getHibernateTemplate().find("from jgt.model.Console");
+    public List findAll() {
+        DetachedCriteria criteria = DetachedCriteria.forClass(Console.class);
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     public Console findByName(String name) {
-        return (Console)Iterables.getFirst(getHibernateTemplate().find("from jgt.model.Console c where lower(c.name)= lower(?)", name), null);
+        Iterable consoles = getHibernateTemplate().find("from jgt.model.Console c where lower(c.name)= lower(?)", name);
+        return (Console) Iterables.getFirst(consoles, null);
     }
-
 
     public void saveOrUpdate(Console console) {
         getHibernateTemplate().saveOrUpdate(console);
@@ -39,7 +39,7 @@ public class ConsoleRepository extends HibernateDaoSupport {
     public void delete(Console console) {
         getHibernateTemplate().delete(console);
     }
-    
+
     public Long delete(Long consoleId) {
         Console console = getHibernateTemplate().get(Console.class, consoleId);
         getHibernateTemplate().delete(console);
