@@ -31,6 +31,11 @@
             <property name="poolPreparedStatements" value="true"/>
             <property name="maxOpenPreparedStatements" value="10"/>
         </bean>
+
+        <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
+            <jdbc:script location="classpath:init-data-dev.sql"/>
+        </jdbc:initialize-database>
+
     </beans>
 
     <beans profile="heroku">
@@ -48,13 +53,14 @@
             <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
             <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
         </bean>
-    </beans>
 
-    <beans>
         <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
             <jdbc:script location="classpath:init-data.sql"/>
         </jdbc:initialize-database>
 
+    </beans>
+
+    <beans>
         <!-- Hibernate Session Factory  -->
         <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
             <property name="dataSource" ref="dataSource"/>
