@@ -20,19 +20,14 @@ angular.module('gameManager.controllers', []).
             });
         };
 
-        $scope.displayRemoveConsoleModal = function (consoleId) {
+        $scope.displayRemoveConsoleModal = function (index) {
+            var console = $scope.consoles[index];
 
-            $('#consoleModalDeletion').modal({
-                keyboard: true
-            });
+            openModalDeletion('Console', console.name);
 
-            $('#consoleModalDeletionNo').unbind("click").on('click', function () {
-                $('#consoleModalDeletion').modal('hide');
-            });
-
-            $('#consoleModalDeletionYes').unbind("click").on('click', function () {
-                $('#consoleModalDeletion').modal('hide');
-                consoleResource.remove({consoleId: consoleId}, function () {
+            $('#modalDeletionButtonYes').unbind("click").on('click', function () {
+                closeModalDeletion();
+                consoleResource.remove({consoleId: console.id}, function () {
                     refreshConsoles();
                 });
             });
@@ -53,18 +48,14 @@ angular.module('gameManager.controllers', []).
             });
         };
 
-        $scope.displayRemoveGameModal = function (gameId) {
-            $('#consoleModalDeletion').modal({
-                keyboard: true
-            });
+        $scope.displayRemoveGameModal = function (index) {
+            var game = $scope.games[index];
 
-            $('#consoleModalDeletionNo').unbind("click").on('click', function () {
-                $('#consoleModalDeletion').modal('hide');
-            });
+            openModalDeletion('Game', game.title);
 
-            $('#consoleModalDeletionYes').unbind("click").on('click', function () {
-                $('#consoleModalDeletion').modal('hide');
-                gameResource.remove({gameId: gameId}, function () {
+            $('#modalDeletionButtonYes').unbind("click").on('click', function () {
+                closeModalDeletion();
+                gameResource.remove({gameId: game.id}, function () {
                     refreshGames();
                 });
             });

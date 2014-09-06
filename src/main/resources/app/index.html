@@ -14,41 +14,21 @@
 
 <h1 class="text-center">Game Manager</h1>
 
-<div class="modal fade" id="consoleModalDeletion">
+<div class="modal fade" id="modalDeletion">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <h4 class="modal-title">Game Deletion</h4>
+                <h4 class="modal-title"><span id="modalDeletionItemType">...</span> Deletion</h4>
             </div>
             <div class="modal-body">
-                <p>Do you really whant to delete : </p>
+                <p>Do you really whant to delete : <h4><span id="modalDeletionItemName">...</span></h4></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="consoleModalDeletionNo">No
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="modalDeletionButtonNo">No
                 </button>
-                <button type="button" class="btn btn-danger" id="consoleModalDeletionYes">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="gameModalDeletion">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                        class="sr-only">Close</span></button>
-                <h4 class="modal-title">Game Deletion</h4>
-            </div>
-            <div class="modal-body">
-                <p>Do you really whant to delete : </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="gameModalDeletionNo">No
-                </button>
-                <button type="button" class="btn btn-danger" id="gameModalDeletionYes">Yes</button>
+                <button type="button" class="btn btn-danger" id="modalDeletionButtonYes">Yes</button>
             </div>
         </div>
     </div>
@@ -78,7 +58,7 @@
                                ng-repeat="console in consoles | filter:consoleNameSearch">
                                 {{console.name}}
                                 <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
-                                      ng-click="displayRemoveConsoleModal(console.id)"></span>
+                                      ng-click="displayRemoveConsoleModal($index)"></span>
                             </a>
                         </span>
 
@@ -120,8 +100,9 @@
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/directives.js"></script>
-
 <script src="js/utils.js"></script>
+<script src="js/modalControl.js"></script>
+
 </body>
 </html>
 
