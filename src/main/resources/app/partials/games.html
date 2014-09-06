@@ -10,8 +10,8 @@
 
             <div class="list-group" ng-repeat="game in games |filter:gameNameSearch">
                 <div class="list-group-item text-center">{{game.title}}
-                    <button class="btn btn-xs btn-danger pull-right" type="button" ng-click="displayRemoveGameModal(game.id)">-
-                    </button>
+                     <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                           ng-click="displayRemoveGameModal(game.id)"></span>
                 </div>
                 <div class="list-group-item">
                     <div class="progress cursor-pointer" ng-click="changeStatus(game.id, game.progression)">

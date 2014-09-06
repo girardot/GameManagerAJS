@@ -74,9 +74,8 @@
                             <a href="#/games/{{console.id}}" class="list-group-item"
                                ng-repeat="console in consoles | filter:consoleNameSearch">
                                 {{console.name}}
-                                <button type="button" class="btn btn-xs btn-danger pull-right"
-                                        ng-click="displayRemoveConsoleModal(console.id)">-
-                                </button>
+                                <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                                      ng-click="displayRemoveConsoleModal(console.id)"></span>
                             </a>
                         </span>
 
