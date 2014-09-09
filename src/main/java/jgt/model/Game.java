@@ -63,10 +63,10 @@ public class Game implements Serializable {
         int percentProgression = 0;
         switch (progression) {
             case TO_DO:
-                percentProgression = 20;
+                percentProgression = 40;
                 break;
             case IN_PROGRESS:
-                percentProgression = 50;
+                percentProgression = 70;
                 break;
             case DONE:
                 percentProgression = 100;
