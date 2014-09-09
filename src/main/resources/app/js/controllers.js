@@ -37,7 +37,12 @@ angular.module('gameManager.controllers', []).
     controller('GameController', function ($scope, gameResource, gameStatusResource, gameDematerializeResource, $routeParams) {
 
         function refreshGames() {
-            $scope.games = gameResource.query({consoleId: $routeParams.consoleId});
+            $scope.games = gameResource.query({consoleId: $routeParams.consoleId}, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var game = data[i];
+                    fillPercentProgression(game);
+                }
+            });
         }
 
         refreshGames();
@@ -68,7 +73,7 @@ angular.module('gameManager.controllers', []).
             });
         }
 
-        $scope.toogleDematerialize = function (index){
+        $scope.toogleDematerialize = function (index) {
             var game = $scope.games[index];
 
             gameDematerializeResource.save({consoleId: $routeParams.consoleId, gameId: game.id}, function (data) {

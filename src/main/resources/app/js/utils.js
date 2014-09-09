@@ -19,3 +19,17 @@ function getNextProgression(gameProgression) {
     }
     return nextGameProgression;
 }
+
+function fillPercentProgression(game) {
+    switch (game.progression) {
+        case "TO_DO":
+            game.percentProgression = 40;
+            break;
+        case "IN_PROGRESS":
+            game.percentProgression = 70;
+            break;
+        case "DONE":
+            game.percentProgression = 100;
+            break;
+    }
+}
