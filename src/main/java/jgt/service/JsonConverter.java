@@ -90,7 +90,6 @@ public class JsonConverter {
             jsonGenerator.writeStringField("title", String.valueOf(game.getTitle()));
             jsonGenerator.writeNumberField("console_id", game.getConsole().getId());
             jsonGenerator.writeStringField("progression", game.getProgression().toString());
-            jsonGenerator.writeStringField("percentProgression", game.getPercentProgression().toString());
             jsonGenerator.writeStringField("isDematerialized", game.isDematerialized() != null ? game.isDematerialized().toString() : "false");
 
             jsonGenerator.writeEndObject();
