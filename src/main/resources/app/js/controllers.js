@@ -46,7 +46,7 @@ angular.module('gameManager.controllers', []).
 
         $scope.addGame = function () {
             gameResource.save({consoleId: $routeParams.consoleId, title: $scope.newGame}, function (data) {
-                $scope.games.push(data);
+                $scope.games.push(fillPercentProgression(data));
             });
         };
 
