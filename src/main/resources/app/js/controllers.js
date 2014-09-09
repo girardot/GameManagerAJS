@@ -12,11 +12,8 @@ angular.module('gameManager.controllers', []).
         refreshConsoles();
 
         $scope.addConsole = function () {
-            console.log("addConsole");
             consoleResource.save($scope.newConsole, function (data) {
-                console.log("saveCallback data :");
-                console.log(data);
-                refreshConsoles();
+                $scope.consoles.push(data);
             });
         };
 
@@ -28,7 +25,7 @@ angular.module('gameManager.controllers', []).
             $('#modalDeletionButtonYes').unbind("click").on('click', function () {
                 closeModalDeletion();
                 consoleResource.remove({consoleId: console.id}, function () {
-                    refreshConsoles();
+                    $scope.consoles.splice(index, 1);
                 });
             });
 
@@ -49,7 +46,7 @@ angular.module('gameManager.controllers', []).
 
         $scope.addGame = function () {
             gameResource.save({consoleId: $routeParams.consoleId, title: $scope.newGame}, function (data) {
-                refreshGames();
+                $scope.games.push(data);
             });
         };
 
@@ -61,15 +58,16 @@ angular.module('gameManager.controllers', []).
             $('#modalDeletionButtonYes').unbind("click").on('click', function () {
                 closeModalDeletion();
                 gameResource.remove({gameId: game.id}, function () {
-                    refreshGames();
+                    $scope.games.splice(index, 1);
                 });
             });
         }
 
-        $scope.changeStatus = function (gameId, gameProgression) {
+        $scope.changeStatus = function (index, gameProgression) {
+            var game = $scope.games[index];
             var nextGameProgression = getNextProgression(gameProgression);
-            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: gameId, status: nextGameProgression}, function (data) {
-                refreshGames();
+            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: game.id, status: nextGameProgression}, function (data) {
+                $scope.games[index] = fillPercentProgression(data);
             });
         }
 
@@ -77,7 +75,7 @@ angular.module('gameManager.controllers', []).
             var game = $scope.games[index];
 
             gameDematerializeResource.save({consoleId: $routeParams.consoleId, gameId: game.id}, function (data) {
-                refreshGames();
+                $scope.games[index] = fillPercentProgression(data);
             });
         }
 

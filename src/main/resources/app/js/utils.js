@@ -32,4 +32,5 @@ function fillPercentProgression(game) {
             game.percentProgression = 100;
             break;
     }
+    return game;
 }

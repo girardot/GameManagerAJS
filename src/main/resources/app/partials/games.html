@@ -22,7 +22,7 @@
                           data-toggle="tooltip"
                           data-placement="top"
                           title="Is dematerialized game (from psn...)"></span>
-                    <div class="progress cursor-pointer" ng-click="changeStatus(game.id, game.progression)">
+                    <div class="progress cursor-pointer" ng-click="changeStatus($index, game.progression)">
                         <div class="progress-bar
                                     {{game.progression == 'TO_DO' && 'progress-bar-danger' || ''}}
                                     {{game.progression == 'IN_PROGRESS' && 'progress-bar-info progress-bar-striped ' || '' }}
