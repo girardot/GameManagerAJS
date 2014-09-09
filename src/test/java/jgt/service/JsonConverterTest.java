@@ -53,7 +53,7 @@ public class JsonConverterTest {
         String jsonGame = jsonConverter.convertToJson(gameToConvert);
 
         // Then
-        assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\",\"console_id\":0,\"progression\":\"DONE\",\"percentProgression\":\"100\",\"isDematerialized\":\"false\"}");
+        assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\",\"console_id\":0,\"progression\":\"DONE\",\"isDematerialized\":\"false\"}");
     }
 
     @Test
