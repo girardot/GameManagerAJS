@@ -5,4 +5,9 @@ angular.module('gameManager.directives', [])
         return {
             templateUrl: 'partials/delete-modal.html'
         };
+    })
+    .directive('consoles', function() {
+        return {
+            templateUrl: 'partials/consoles.html'
+        };
     });

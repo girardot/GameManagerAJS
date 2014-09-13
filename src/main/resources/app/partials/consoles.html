@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Consoles</div>
+    <div class="panel-body">
+
+        <!--CONSOLE SEARCH-->
+        <div class="input-group">
+            <input class="form-control" type="text" ng-model="consoleNameSearch" placeholder="search">
+            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!--CONSOLES LISTE-->
+        <div class="list-group" ng-controller="ConsoleController">
+                        <span class="console-list-items">
+                            <a href="#/games/{{console.id}}" class="list-group-item"
+                               ng-repeat="console in consoles | filter:consoleNameSearch">
+                                {{console.name}}
+                                <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                                      ng-click="displayRemoveConsoleModal($index)"></span>
+                            </a>
+                        </span>
+
+            <div>&nbsp;</div>
+
+            <!--ADD NEW CONSOLE-->
+            <form ng-submit="addConsole()">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="newConsole" size="30"
+                           placeholder="new console"/>
+                                <span class="input-group-addon cursor-pointer" type="submit"
+                                      data-original-title="New Console Name"
+                                      ng-click="addConsole()"> + </span>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
