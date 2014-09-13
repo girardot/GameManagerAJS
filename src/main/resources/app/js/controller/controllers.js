@@ -1,13 +1,34 @@
 'use strict';
 
-angular.module('gameManager.controllers', []).
-    controller('ConsoleController',function ($scope, consoleResource) {
-
+angular.module('gameManager.controllers', [])
+    .controller('BiblioController', function ($scope, consoleResource, gameResource) {
         function refreshConsoles() {
             $scope.consoles = consoleResource.query();
         }
 
         refreshConsoles();
+
+        function refreshGames(consoleId) {
+            $scope.games = gameResource.query({consoleId: consoleId}, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var game = data[i];
+                    fillPercentProgression(game);
+                }
+            });
+        }
+
+        refreshGames($scope.consoleId);
+
+        $scope.displayGames = function (index) {
+            var console = $scope.consoles[index];
+            $scope.selectedConsoleId = console.id;
+
+
+            refreshGames(console.id);
+        }
+
+    })
+    .controller('ConsoleController', function ($scope, consoleResource) {
 
         $scope.addConsole = function () {
             consoleResource.save($scope.newConsole, function (data) {
@@ -28,22 +49,11 @@ angular.module('gameManager.controllers', []).
             });
 
         }
-    }).
-    controller('GameController', function ($scope, gameResource, gameStatusResource, gameDematerializeResource, $routeParams) {
-
-        function refreshGames() {
-            $scope.games = gameResource.query({consoleId: $routeParams.consoleId}, function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var game = data[i];
-                    fillPercentProgression(game);
-                }
-            });
-        }
-
-        refreshGames();
+    })
+    .controller('GameController', function ($scope, gameResource, gameStatusResource, gameDematerializeResource) {
 
         $scope.addGame = function () {
-            gameResource.save({consoleId: $routeParams.consoleId, title: $scope.newGame}, function (data) {
+            gameResource.save({consoleId: $scope.selectedConsoleId, title: $scope.newGame}, function (data) {
                 $scope.games.push(fillPercentProgression(data));
             });
         };
@@ -64,7 +74,7 @@ angular.module('gameManager.controllers', []).
         $scope.changeStatus = function (index, gameProgression) {
             var game = $scope.games[index];
             var nextGameProgression = getNextProgression(gameProgression);
-            gameStatusResource.save({consoleId: $routeParams.consoleId, gameId: game.id, status: nextGameProgression}, function (data) {
+            gameStatusResource.save({consoleId: $scope.selectedConsoleId, gameId: game.id, status: nextGameProgression}, function (data) {
                 $scope.games[index] = fillPercentProgression(data);
             });
         }
@@ -72,7 +82,7 @@ angular.module('gameManager.controllers', []).
         $scope.toogleDematerialize = function (index) {
             var game = $scope.games[index];
 
-            gameDematerializeResource.save({consoleId: $routeParams.consoleId, gameId: game.id}, function (data) {
+            gameDematerializeResource.save({consoleId: $scope.selectedConsoleId, gameId: game.id}, function (data) {
                 $scope.games[index] = fillPercentProgression(data);
             });
         }

@@ -14,10 +14,13 @@
 
 <h1 class="text-center">Game Manager</h1>
 
+
 <div class="container">
+    <div ng-view></div>
+
     <div delete-modal></div>
 
-    <div class="row">
+    <div class="row" ng-controller="BiblioController">
 
         <!--CONSOLES-->
         <div class="col-md-6">
@@ -28,7 +31,9 @@
 
         <!--GAMES-->
         <div class="col-md-6">
-            <div ng-view></div>
+            <div ng-controller="GameController">
+                <div games></div>
+            </div>
         </div>
 
     </div>
