@@ -1,8 +1,5 @@
 'use strict';
 
-/* Directives */
-
-
 angular.module('gameManager.directives', [])
     .directive('deleteModal', function() {
         return {

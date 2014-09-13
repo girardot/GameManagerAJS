@@ -1,7 +1,5 @@
 'use strict';
 
-/* Controllers */
-
 angular.module('gameManager.controllers', []).
     controller('ConsoleController',function ($scope, consoleResource) {
 
