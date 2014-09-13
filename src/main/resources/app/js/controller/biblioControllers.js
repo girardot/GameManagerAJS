@@ -2,11 +2,12 @@
 
 angular.module('gameManager.controllers', [])
     .controller('BiblioController', function ($scope, consoleResource, gameResource) {
+        refreshConsoles();
+        $scope.selectedConsoleId = 0;
+
         function refreshConsoles() {
             $scope.consoles = consoleResource.query();
         }
-
-        refreshConsoles();
 
         function refreshGames(consoleId) {
             $scope.games = gameResource.query({consoleId: consoleId}, function (data) {
@@ -17,13 +18,9 @@ angular.module('gameManager.controllers', [])
             });
         }
 
-        refreshGames($scope.consoleId);
-
         $scope.displayGames = function (index) {
             var console = $scope.consoles[index];
             $scope.selectedConsoleId = console.id;
-
-
             refreshGames(console.id);
         }
 
@@ -32,7 +29,9 @@ angular.module('gameManager.controllers', [])
 
         $scope.addConsole = function () {
             consoleResource.save($scope.newConsole, function (data) {
-                $scope.consoles.push(data);
+                var newConsoleIndex = $scope.consoles.push(data);
+                $scope.displayGames(newConsoleIndex - 1);
+                $scope.newConsole = "";
             });
         };
 
@@ -53,8 +52,10 @@ angular.module('gameManager.controllers', [])
     .controller('GameController', function ($scope, gameResource, gameStatusResource, gameDematerializeResource) {
 
         $scope.addGame = function () {
+
             gameResource.save({consoleId: $scope.selectedConsoleId, title: $scope.newGame}, function (data) {
                 $scope.games.push(fillPercentProgression(data));
+                $scope.newGame = "";
             });
         };
 
