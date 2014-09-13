@@ -3,9 +3,9 @@
 /* Directives */
 
 
-angular.module('gameManager.directives', []).
-  directive('appVersion', ['version', function(version) {
-    return function(scope, elm, attrs) {
-      elm.text(version);
-    };
-  }]);
+angular.module('gameManager.directives', [])
+    .directive('deleteModal', function() {
+        return {
+            templateUrl: 'partials/delete-modal.html'
+        };
+    });

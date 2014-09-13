@@ -14,25 +14,7 @@
 
 <h1 class="text-center">Game Manager</h1>
 
-<div class="modal fade" id="modalDeletion">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                        class="sr-only">Close</span></button>
-                <h4 class="modal-title"><span id="modalDeletionItemType">...</span> Deletion</h4>
-            </div>
-            <div class="modal-body">
-                <p>Do you really whant to delete : <h4><span id="modalDeletionItemName">...</span></h4></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="modalDeletionButtonNo">No
-                </button>
-                <button type="button" class="btn btn-danger" id="modalDeletionButtonYes">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div delete-modal></div>
 
 <div class="container">
     <div class="row">
@@ -69,7 +51,8 @@
                             <div class="input-group">
                                 <input class="form-control" type="text" ng-model="newConsole" size="30"
                                        placeholder="new console"/>
-                                <span class="input-group-addon cursor-pointer" type="submit" data-original-title="New Console Name"
+                                <span class="input-group-addon cursor-pointer" type="submit"
+                                      data-original-title="New Console Name"
                                       ng-click="addConsole()"> + </span>
                             </div>
                         </form>
