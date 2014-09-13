@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Game Manager App</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/lib/boostrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css"/>
 </head>
 
@@ -16,27 +16,15 @@
 
 
 <div class="container">
+
+    <ul class="menu">
+        <li><a href="#/biblio">biblio</a></li>
+        <li><a href="#/todo">todo</a></li>
+        <li><a href="#/tobuy">tobuy</a></li>
+    </ul>
+
     <div ng-view></div>
 
-    <div delete-modal></div>
-
-    <div class="row" ng-controller="BiblioController">
-
-        <!--CONSOLES-->
-        <div class="col-md-6">
-            <div ng-controller="ConsoleController">
-                <div consoles></div>
-            </div>
-        </div>
-
-        <!--GAMES-->
-        <div class="col-md-6">
-            <div ng-controller="GameController">
-                <div games></div>
-            </div>
-        </div>
-
-    </div>
 </div>
 
 

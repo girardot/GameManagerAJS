@@ -14,7 +14,8 @@ var gameManager = angular.module('gameManager', [
         'gameManager.controllers'
     ])
     .config(['$routeProvider', function ($routeProvider) {
-//        $routeProvider.when('/games/:consoleId', {templateUrl: 'partials/games.html', controller: 'GameController'});
-        $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-        $routeProvider.otherwise({redirectTo: '/view1'});
+        $routeProvider.when('/biblio', {templateUrl: 'partials/biblio.html', controller: 'BiblioController'});
+        $routeProvider.when('/todo', {templateUrl: 'partials/todo.html', controller: 'BiblioController'});
+        $routeProvider.when('/tobuy', {templateUrl: 'partials/tobuy.html', controller: 'BiblioController'});
+        $routeProvider.otherwise({redirectTo: '/biblio'});
     }]);
