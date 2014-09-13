@@ -28,3 +28,8 @@ function fillPercentProgression(game) {
     }
     return game;
 }
+
+$('#my-nav-bar').on('click', function (e) {
+    $(this).children("li").removeClass('active');
+    $(e.target).closest("li").addClass('active'); // activated list-item
+});
