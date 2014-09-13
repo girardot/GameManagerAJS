@@ -17,11 +17,19 @@
 
 <div class="container">
 
-    <ul class="menu">
-        <li><a href="#/biblio">biblio</a></li>
-        <li><a href="#/todoList">todo</a></li>
-        <li><a href="#/tobuyList">tobuy</a></li>
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#/biblio">BIBLIO&nbsp;<span class='glyphicon glyphicon-list-alt'></span></a>
+        </li>
+        <li>
+            <a href="#/todoList">TODO&nbsp;<span class='glyphicon glyphicon-ok'></span></a>
+        </li>
+        <li>
+            <a href="#/tobuyList">TOBUY&nbsp;<span class='glyphicon glyphicon-euro'></span></a>
+        </li>
     </ul>
+
+    <div>&nbsp;</div>
 
     <div ng-view></div>
 
