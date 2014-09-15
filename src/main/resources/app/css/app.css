@@ -42,7 +42,6 @@
     padding-bottom: 5px;
 }
 
-.psn {
-    height: 15px;
-    width: 15px;
+.to-buy-list {
+    cursor: move;
 }
