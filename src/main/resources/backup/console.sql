@@ -1,0 +1,14 @@
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PS4');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'SUPER NES');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PSP');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'DS');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PS ONE');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'WII');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'GBA');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'GAMECUBE');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PS2');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PS VITA');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'WII U');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), '3DS');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'XBOX 360');
+INSERT INTO CONSOLE(ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), 'PS3');
