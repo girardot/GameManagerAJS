@@ -1,13 +1,13 @@
 package jgt.repository;
 
-import static org.fest.assertions.groups.Properties.extractProperty;
+import jgt.model.Console;
+import jgt.model.Game;
+import org.junit.Test;
 
 import javax.inject.Inject;
 
-import jgt.model.Console;
-import jgt.model.Game;
-import org.fest.assertions.api.Assertions;
-import org.junit.Test;
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.groups.Properties.extractProperty;
 
 public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
 
@@ -24,7 +24,7 @@ public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
 
         //Then
         Console consoleResult = consoleRepository.findByName("ps3");
-        Assertions.assertThat(consoleResult.getName()).isEqualTo("ps3");
+        assertThat(consoleResult.getName()).isEqualTo("ps3");
     }
 
     @Test
@@ -41,8 +41,8 @@ public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
         // Then
         Console consoleResult = consoleRepository.findByName("ps3-test");
 
-        Assertions.assertThat(consoleResult.getName()).isEqualTo("ps3-test");
-        Assertions.assertThat(extractProperty("title").from(consoleResult.getGames())).contains("Call of duty", "Call of duty 2", "Call of duty 3");
+        assertThat(consoleResult.getName()).isEqualTo("ps3-test");
+        assertThat(extractProperty("title").from(consoleResult.getGames())).contains("Call of duty", "Call of duty 2", "Call of duty 3");
     }
 
     @Test
@@ -51,8 +51,8 @@ public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
         Console console = consoleRepository.findByName("PS2");
 
         //Then
-        Assertions.assertThat(console.getName()).isEqualTo("ps2");
-        Assertions.assertThat(extractProperty("title").from(console.getGames())).contains("gta3", "nhl 2004");
+        assertThat(console.getName()).isEqualTo("ps2");
+        assertThat(extractProperty("title").from(console.getGames())).contains("gta3", "nhl 2004");
     }
 
 }
