@@ -1,6 +1,8 @@
 import jgt.model.GameProgression;
 import jgt.service.ConsoleGameService;
 import jgt.service.JsonConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,6 +12,8 @@ import static spark.Spark.*;
 public class ServerGameManager {
 
     public static void main(String[] args) {
+
+        Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -44,6 +48,8 @@ public class ServerGameManager {
             System.out.println(e.getMessage());
             response.status(500);
         });
+
+        before((request, response) -> logger.info("request {}", request));
 
     }
 
