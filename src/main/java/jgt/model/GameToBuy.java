@@ -49,4 +49,8 @@ public class GameToBuy {
         this.toBuyOrder = toBuyOrder;
     }
 
+    public String getTitle() {
+        return game.getTitle();
+    }
+
 }
