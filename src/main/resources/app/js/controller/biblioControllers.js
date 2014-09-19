@@ -70,7 +70,7 @@ angular.module('gameManager.controllers', [])
                     $scope.games.splice(index, 1);
                 });
             });
-        }
+        };
 
         $scope.changeStatus = function (index, gameProgression) {
             var game = $scope.games[index];
@@ -78,7 +78,7 @@ angular.module('gameManager.controllers', [])
             gameStatusResource.save({consoleId: $scope.selectedConsoleId, gameId: game.id, status: nextGameProgression}, function (data) {
                 $scope.games[index] = fillPercentProgression(data);
             });
-        }
+        };
 
         $scope.toogleDematerialize = function (index) {
             var game = $scope.games[index];
@@ -86,7 +86,7 @@ angular.module('gameManager.controllers', [])
             gameDematerializeResource.save({consoleId: $scope.selectedConsoleId, gameId: game.id}, function (data) {
                 $scope.games[index] = fillPercentProgression(data);
             });
-        }
+        };
 
     })
 ;
