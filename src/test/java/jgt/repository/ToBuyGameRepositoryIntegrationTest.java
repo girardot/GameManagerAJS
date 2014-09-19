@@ -17,7 +17,7 @@ public class ToBuyGameRepositoryIntegrationTest extends AbstractIntegrationTest 
     @Test
     public void should_find_all_games_to_buy() throws Exception {
         // When
-        List allGameToBuy = toBuyGameRepository.findAll();
+        List allGameToBuy = toBuyGameRepository.findAllByOrder();
 
         // Then
         assertThat(allGameToBuy).hasSize(2);

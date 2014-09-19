@@ -1,9 +1,8 @@
 package jgt.repository;
 
-import jgt.model.Console;
 import jgt.model.GameToBuy;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +17,8 @@ public class ToBuyGameRepository extends HibernateDaoSupport {
         setSessionFactory(sessionFactory);
     }
 
-    public List findAll() {
-        DetachedCriteria criteria = DetachedCriteria.forClass(GameToBuy.class);
-        return getHibernateTemplate().findByCriteria(criteria);
+    public List findAllByOrder() {
+        return currentSession().createCriteria(GameToBuy.class).addOrder(Order.asc("toBuyOrder")).list();
     }
 
 }
