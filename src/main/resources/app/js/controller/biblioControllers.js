@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gameManager.controllers', [])
+angular.module('gameManager.biblioControllers', [])
     .controller('BiblioController', function ($scope, consoleResource, gameResource) {
         refreshConsoles();
         $scope.selectedConsoleId = 0;

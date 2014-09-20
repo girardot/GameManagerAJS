@@ -12,7 +12,9 @@ var gameManager = angular.module('gameManager', [
         'gameManager.filters',
         'gameManager.services',
         'gameManager.directives',
-        'gameManager.controllers'
+        'gameManager.biblioControllers',
+        'gameManager.gameToBuyControllers',
+        'gameManager.todoListControllers'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/biblio', {templateUrl: 'partials/biblio.html', controller: 'BiblioController'});
