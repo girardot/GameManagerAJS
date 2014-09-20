@@ -53,7 +53,7 @@ public class ServerGameManager {
             response.status(500);
         });
 
-        before((request, response) -> logger.info("request {}", request));
+        before((request, response) -> logger.info("request {}", request.pathInfo()));
 
     }
 
