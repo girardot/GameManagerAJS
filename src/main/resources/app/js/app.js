@@ -5,6 +5,7 @@ var gameManager = angular.module('gameManager', [
         'ngRoute',
         'ngResource',
         'gameManager.gameResource',
+        'gameManager.gameToBuyResource',
         'gameManager.gameStatusResource',
         'gameManager.gameDematerializeResource',
         'gameManager.consoleResource',
@@ -16,6 +17,6 @@ var gameManager = angular.module('gameManager', [
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/biblio', {templateUrl: 'partials/biblio.html', controller: 'BiblioController'});
         $routeProvider.when('/todoList', {templateUrl: 'partials/todoList.html', controller: 'TodoListController'});
-        $routeProvider.when('/tobuyList', {templateUrl: 'partials/tobuyList.html', controller: 'TobuyController'});
+        $routeProvider.when('/tobuyList', {templateUrl: 'partials/tobuyList.html', controller: 'GameToBuyListController'});
         $routeProvider.otherwise({redirectTo: '/biblio'});
     }]);
