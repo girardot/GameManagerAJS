@@ -1,16 +1,14 @@
 <div class="panel panel-primary">
 
     <ol class="list-group to-buy-list">
-        <li class="list-group-item text-center ">
-            Jeux 1
-        </li>
 
-        <li class="list-group-item text-center">
-            Jeux 2
-        </li>
-
-        <li class="list-group-item text-center">
-            Jeux 3
+        <li class="list-group-item text-center " ng-repeat="gameToBuy in gameToBuyList">
+            {{gameToBuy.title}}
+            {{gameToBuy.to_buy_order}}
+            <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                   ng-click="displayRemoveGameModal($index)"></span>
+            <span class="glyphicon glyphicon-euro btn btn-xs btn-info pull-right"
+                      ng-click="displayRemoveGameModal($index)"></span>
         </li>
     </ol>
 
