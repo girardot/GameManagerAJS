@@ -1,1 +1,14 @@
-todo
+<div class="panel panel-primary">
+
+    <ol class="list-group to-buy-list">
+
+        <li class="list-group-item text-center " ng-repeat="todo in todoList">
+            {{todo.title}}
+            <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                  ng-click="displayRemoveGameModal($index)"></span>
+            <span class="glyphicon glyphicon-euro btn btn-xs btn-info pull-right"
+                  ng-click="displayRemoveGameModal($index)"></span>
+        </li>
+    </ol>
+
+</div>
