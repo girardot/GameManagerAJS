@@ -45,6 +45,7 @@ public class ServerGameManager {
 
         // TO_BUY_GAME
         get("/services/toBuyGame", (request, response) -> toBuyGameService.findAllByOrder());
+        post("/services/toBuyGame", (request, response) -> toBuyGameService.saveGameToBuy(request.body()));
 
         // OTHER
         exception(Exception.class, (e, request, response) -> {
