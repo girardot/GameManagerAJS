@@ -12,7 +12,7 @@ import static org.fest.assertions.api.Assertions.extractProperty;
 public class ToBuyGameRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Inject
-    private ToBuyGameRepository toBuyGameRepository;
+    private GameToBuyRepository toBuyGameRepository;
 
     @Test
     public void should_find_all_games_to_buy() throws Exception {
