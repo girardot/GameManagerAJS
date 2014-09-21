@@ -12,6 +12,14 @@
         </li>
     </ol>
 
+    <form ng-submit="addGameToBuy()">
+        <div class="input-group">
+            <input class="form-control" type="text" ng-model="newGameToBuy" size="30"
+                   placeholder="new game to buy">
+            <span class="input-group-addon cursor-pointer" data-original-title="New Game To Buy Title" type="submit" ng-click="addGameToBuy()">+</span>
+        </div>
+    </form>
+
 </div>
 
 <script type="text/javascript">
