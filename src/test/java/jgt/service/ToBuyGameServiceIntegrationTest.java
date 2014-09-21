@@ -25,4 +25,16 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
         JSONAssert.assertEquals(s, gamesToBuyInJson, false);
     }
 
+    @Test
+    public void should_add_a_new_game_to_buy() throws JSONException {
+        // Given
+        String newGameToBuyTitle = "new game to buy";
+
+        // When
+        String gameToBuySaved = toBuyGameService.saveGameToBuy(newGameToBuyTitle);
+
+        // Then
+        JSONAssert.assertEquals("{\"title\":\"new game to buy\"}", gameToBuySaved, false);
+    }
+
 }
