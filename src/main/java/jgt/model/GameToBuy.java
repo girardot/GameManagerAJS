@@ -11,11 +11,14 @@ public class GameToBuy {
     @Column(name = "id")
     private long id;
 
-    @OneToOne(optional = false)
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false)
     private Game game;
 
     @Column(name = "to_buy_order")
     private Integer toBuyOrder;
+
+    public GameToBuy() {
+    }
 
     public GameToBuy(String title) {
         toBuyOrder = 0;
