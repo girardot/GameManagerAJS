@@ -10,15 +10,19 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Repository
-public class ToBuyGameRepository extends HibernateDaoSupport {
+public class GameToBuyRepository extends HibernateDaoSupport {
 
     @Inject
-    public ToBuyGameRepository(SessionFactory sessionFactory) {
+    public GameToBuyRepository(SessionFactory sessionFactory) {
         setSessionFactory(sessionFactory);
     }
 
     public List findAllByOrder() {
         return currentSession().createCriteria(GameToBuy.class).addOrder(Order.asc("toBuyOrder")).list();
+    }
+
+    public void saveOrUpdate(GameToBuy gameToBuy) {
+        getHibernateTemplate().saveOrUpdate(gameToBuy);
     }
 
 }
