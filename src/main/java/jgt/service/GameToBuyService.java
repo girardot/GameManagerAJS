@@ -1,7 +1,8 @@
 package jgt.service;
 
 
-import jgt.repository.ToBuyGameRepository;
+import jgt.model.GameToBuy;
+import jgt.repository.GameToBuyRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +15,18 @@ public class GameToBuyService {
     private JsonConverter jsonConverter;
 
     @Inject
-    private ToBuyGameRepository toBuyGameRepository;
+    private GameToBuyRepository GameToBuyRepository;
 
     @Transactional(readOnly = true)
     public String findAllByOrder() {
-        return jsonConverter.convertToJson(toBuyGameRepository.findAllByOrder());
+        return jsonConverter.convertToJson(GameToBuyRepository.findAllByOrder());
+    }
+
+    @Transactional
+    public String saveGameToBuy(String gameToBuyTitle) {
+        GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle);
+        GameToBuyRepository.saveOrUpdate(gameToBuy);
+        return jsonConverter.convertToJson(gameToBuy);
     }
 
 }
