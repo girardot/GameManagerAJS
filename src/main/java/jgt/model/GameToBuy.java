@@ -17,12 +17,9 @@ public class GameToBuy {
     @Column(name = "to_buy_order")
     private Integer toBuyOrder;
 
-    public GameToBuy() {
-    }
-
-    public GameToBuy(Game game, Integer order) {
-        this.game = game;
-        this.toBuyOrder = order;
+    public GameToBuy(String title) {
+        toBuyOrder = 0;
+        game = new Game(title);
     }
 
     public long getId() {
