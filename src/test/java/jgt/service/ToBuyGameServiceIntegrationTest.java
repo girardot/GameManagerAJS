@@ -1,5 +1,6 @@
 package jgt.service;
 
+import jgt.model.GameToBuy;
 import jgt.repository.AbstractIntegrationTest;
 import org.fest.assertions.api.Assertions;
 import org.json.JSONException;
@@ -8,7 +9,10 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static org.fest.assertions.api.Assertions.*;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
 
@@ -18,11 +22,12 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void should_find_all_game_to_buy_in_order() throws JSONException {
         // Given / When
-        String gamesToBuyInJson = toBuyGameService.findAllByOrder();
+        List gamesToBuy = toBuyGameService.findAllByOrder();
 
         // Then
-        String s = "[{\"to_buy_order\":1,\"title\":\"game to buy\"},{\"to_buy_order\":2,\"title\":\"game to buy 2\"}]";
-        JSONAssert.assertEquals(s, gamesToBuyInJson, false);
+        assertThat(gamesToBuy).hasSize(2);
+        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2);
+        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly("game to buy", "game to buy 2");
     }
 
     @Test
@@ -31,10 +36,12 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
         String newGameToBuyTitle = "new game to buy";
 
         // When
-        String gameToBuySaved = toBuyGameService.saveGameToBuy(newGameToBuyTitle);
+        GameToBuy gameToBuySaved = toBuyGameService.saveGameToBuy(newGameToBuyTitle);
 
         // Then
-        JSONAssert.assertEquals("{\"title\":\"new game to buy\"}", gameToBuySaved, false);
+        assertThat(gameToBuySaved).isNotNull();
+//        assertThat(gameToBuySaved.getToBuyOrder()).isEqualTo(3);
+        assertThat(gameToBuySaved.getTitle()).isEqualTo(newGameToBuyTitle);
     }
 
 }

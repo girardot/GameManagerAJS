@@ -23,27 +23,27 @@ public class ConsoleGameService {
     @Inject
     private JsonConverter jsonConverter;
 
-    public String findAll() {
-        return jsonConverter.convertToJson(consoleRepository.findAll());
+    public List findAll() {
+        return consoleRepository.findAll();
     }
 
     @Transactional
-    public String saveConsole(String consoleJson) {
+    public Console saveConsole(String consoleJson) {
         Console console = new Console(consoleJson);
         consoleRepository.saveOrUpdate(console);
-        return jsonConverter.convertToJson(console);
+        return console;
     }
 
-    public String findGameByConsoleId(Long consoleId) {
+    public List findGameByConsoleId(Long consoleId) {
         List games = gameRepository.findByConsoleId(consoleId);
-        return jsonConverter.convertToJson(games);
+        return games;
     }
 
     @Transactional
-    public String saveGame(String gameJson) {
+    public Game saveGame(String gameJson) {
         Game game = jsonConverter.convertJsonToGame(gameJson);
         gameRepository.saveOrUpdate(game);
-        return jsonConverter.convertToJson(game);
+        return game;
     }
 
     @Transactional
@@ -57,19 +57,19 @@ public class ConsoleGameService {
     }
 
     @Transactional
-    public String changeGameStatus(Long gameId, GameProgression gameProgression) {
+    public Game changeGameStatus(Long gameId, GameProgression gameProgression) {
         Game game = gameRepository.findById(gameId);
         game.setProgression(gameProgression);
         gameRepository.saveOrUpdate(game);
-        return jsonConverter.convertToJson(game);
+        return game;
     }
 
     @Transactional
-    public String toogleDematerialized(long gameId) {
+    public Game toogleDematerialized(long gameId) {
         Game game = gameRepository.findById(gameId);
         game.toogleDematerialized();
         gameRepository.saveOrUpdate(game);
-        return jsonConverter.convertToJson(game);
+        return game;
     }
 
 }

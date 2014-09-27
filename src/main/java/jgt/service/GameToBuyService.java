@@ -7,26 +7,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 public class GameToBuyService {
 
     @Inject
-    private JsonConverter jsonConverter;
-
-    @Inject
-    private GameToBuyRepository GameToBuyRepository;
+    private GameToBuyRepository gameToBuyRepository;
 
     @Transactional(readOnly = true)
-    public String findAllByOrder() {
-        return jsonConverter.convertToJson(GameToBuyRepository.findAllByOrder());
+    public List findAllByOrder() {
+        return gameToBuyRepository.findAllByOrder();
     }
 
     @Transactional
-    public String saveGameToBuy(String gameToBuyTitle) {
+    public GameToBuy saveGameToBuy(String gameToBuyTitle) {
         GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle);
-        GameToBuyRepository.saveOrUpdate(gameToBuy);
-        return jsonConverter.convertToJson(gameToBuy);
+        gameToBuyRepository.saveOrUpdate(gameToBuy);
+        return gameToBuy;
     }
+
+//    @Transactional
+//    public String deleteGame(long gameToBuyId) {
+//        return null;
+//    }
 
 }
