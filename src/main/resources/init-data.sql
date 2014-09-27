@@ -173,3 +173,7 @@ INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nex
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), false, 'call of duty Modern warfare 2', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), false, 'battlefield3 Limited edition', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), false, 'uncharted drake s fortune', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
+
+INSERT INTO GAME (id, title) VALUES (nextval('hibernate_sequence'), 'Out There');
+INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (nextval('hibernate_sequence'), (SELECT id FROM GAME WHERE title='Out There'), 1);
+
