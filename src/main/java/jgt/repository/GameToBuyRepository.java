@@ -1,5 +1,6 @@
 package jgt.repository;
 
+import com.google.common.collect.Iterables;
 import jgt.model.GameToBuy;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -10,7 +11,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Repository
-public class GameToBuyRepository extends HibernateDaoSupport {
+public class GameToBuyRepository extends HibernateDaoSupport{
 
     @Inject
     public GameToBuyRepository(SessionFactory sessionFactory) {
@@ -23,6 +24,15 @@ public class GameToBuyRepository extends HibernateDaoSupport {
 
     public void saveOrUpdate(GameToBuy gameToBuy) {
         getHibernateTemplate().saveOrUpdate(gameToBuy);
+    }
+
+    public void delete(long gameToBuyId) {
+        GameToBuy gameToBuy = getHibernateTemplate().get(GameToBuy.class, gameToBuyId);
+        getHibernateTemplate().delete(gameToBuy);
+    }
+
+    public GameToBuy findByTitle(String gameToBuyTitle) {
+        return Iterables.getOnlyElement((Iterable<? extends GameToBuy>) getHibernateTemplate().find("from GameToBuy g where lower(g.title)=lower(?)", gameToBuyTitle), new GameToBuy());
     }
 
 }
