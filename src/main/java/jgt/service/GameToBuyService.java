@@ -27,9 +27,10 @@ public class GameToBuyService {
         return gameToBuy;
     }
 
-//    @Transactional
-//    public String deleteGame(long gameToBuyId) {
-//        return null;
-//    }
+    @Transactional
+    public long deleteGame(long gameToBuyId) {
+        gameToBuyRepository.delete(gameToBuyId);
+        return gameToBuyId;
+    }
 
 }
