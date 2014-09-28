@@ -1,31 +1,48 @@
 <div delete-modal></div>
 
-<div class="panel panel-primary">
+<div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Game To Buy</div>
 
-    <ol class="list-group to-buy-list">
+        <div class="panel-body">
 
-        <li class="list-group-item text-center " ng-repeat="gameToBuy in gameToBuyList">
-            {{gameToBuy.title}}
-            {{gameToBuy.to_buy_order}}
+            <div class="input-group">
+                <input class="form-control" type="text" ng-model="gameToBuyTitleSearch" placeholder="search">
+                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+            </div>
+
+            <div>&nbsp;</div>
+
+            <ol class="list-group to-buy-list">
+
+                <li class="list-group-item text-center "
+                    ng-repeat="gameToBuy in gameToBuyList | filter:gameToBuyTitleSearch">
+                    {{gameToBuy.title}}
+                    {{gameToBuy.to_buy_order}}
+                    <span class="glyphicon glyphicon-move btn btn-xs btn-default pull-left"></span>
             <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
-                   ng-click="displayRemoveGameToBuyModal($index)"></span>
+                  ng-click="displayRemoveGameToBuyModal($index)"></span>
             <span class="glyphicon glyphicon-euro btn btn-xs btn-info pull-right"
-                      ng-click="displayRemoveGameToBuyModal($index)"></span>
-        </li>
-    </ol>
+                  ng-click="displayRemoveGameToBuyModal($index)"></span>
+                </li>
+            </ol>
 
-    <form ng-submit="addGameToBuy()">
-        <div class="input-group">
-            <input class="form-control" type="text" ng-model="newGameToBuy" size="30"
-                   placeholder="new game to buy">
-            <span class="input-group-addon cursor-pointer" data-original-title="New Game To Buy Title" type="submit" ng-click="addGameToBuy()">+</span>
+
+            <form ng-submit="addGameToBuy()">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="newGameToBuy" size="30"
+                           placeholder="new game to buy">
+            <span class="input-group-addon cursor-pointer" data-original-title="New Game To Buy Title" type="submit"
+                  ng-click="addGameToBuy()">+</span>
+                </div>
+            </form>
+
         </div>
-    </form>
-
+    </div>
 </div>
 
 <script type="text/javascript">
     $(function () {
-        $("ol.to-buy-list").sortable();
+        $(".to-buy-list").sortable();
     })
 </script>
