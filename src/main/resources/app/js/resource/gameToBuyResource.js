@@ -2,5 +2,5 @@
 
 angular.module('gameManager.gameToBuyResource', [])
     .factory('gameToBuyResource', function ($resource) {
-        return $resource('/services/toBuyGame/');
+        return $resource('/services/toBuyGame/:gameToBuyId', {gameToBuyId:'@gameToBuyId'});
     });

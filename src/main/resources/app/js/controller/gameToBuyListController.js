@@ -12,5 +12,18 @@ angular.module('gameManager.gameToBuyControllers', [])
             });
         };
 
+        $scope.displayRemoveGameToBuyModal = function (index) {
+            var gameToBuy = $scope.gameToBuyList[index];
+
+            openModalDeletion('Game To Buy', gameToBuy.title);
+
+            $('#modalDeletionButtonYes').unbind("click").on('click', function () {
+                closeModalDeletion();
+                gameToBuyResource.remove({gameToBuyId: gameToBuy.id}, function () {
+                    $scope.gameToBuyList.splice(index, 1);
+                });
+            });
+        };
+
     })
 ;
