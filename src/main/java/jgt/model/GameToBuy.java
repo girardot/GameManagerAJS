@@ -21,7 +21,7 @@ public class GameToBuy {
     }
 
     public GameToBuy(String title) {
-        toBuyOrder = 0;
+        toBuyOrder = 1;
         game = new Game(title);
     }
 
@@ -51,6 +51,10 @@ public class GameToBuy {
 
     public String getTitle() {
         return game.getTitle();
+    }
+
+    public void increaseOrder() {
+        toBuyOrder ++;
     }
 
 }

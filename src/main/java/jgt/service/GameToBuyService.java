@@ -1,6 +1,7 @@
 package jgt.service;
 
 
+import jgt.model.Game;
 import jgt.model.GameToBuy;
 import jgt.repository.GameToBuyRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class GameToBuyService {
 
     @Transactional
     public GameToBuy saveGameToBuy(String gameToBuyTitle) {
+        List<GameToBuy> allGameToBuy = gameToBuyRepository.findAllByOrder();
+        allGameToBuy.forEach(GameToBuy::increaseOrder);
+
         GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle);
         gameToBuyRepository.saveOrUpdate(gameToBuy);
         return gameToBuy;
@@ -32,5 +36,6 @@ public class GameToBuyService {
         gameToBuyRepository.delete(gameToBuyId);
         return gameToBuyId;
     }
+
 
 }

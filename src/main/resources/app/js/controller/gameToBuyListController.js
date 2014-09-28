@@ -2,12 +2,16 @@
 
 angular.module('gameManager.gameToBuyControllers', [])
     .controller('GameToBuyListController', function ($scope, gameToBuyResource) {
-        $scope.gameToBuyList = gameToBuyResource.query();
+        function refeshGameToBuyList() {
+            $scope.gameToBuyList = gameToBuyResource.query();
+        }
+
+        refeshGameToBuyList();
 
         $scope.addGameToBuy = function () {
 
             gameToBuyResource.save($scope.newGameToBuy, function (data) {
-                $scope.gameToBuyList.push(data);
+                refeshGameToBuyList();
                 $scope.newGameToBuy = "";
             });
         };
@@ -20,7 +24,7 @@ angular.module('gameManager.gameToBuyControllers', [])
             $('#modalDeletionButtonYes').unbind("click").on('click', function () {
                 closeModalDeletion();
                 gameToBuyResource.remove({gameToBuyId: gameToBuy.id}, function () {
-                    $scope.gameToBuyList.splice(index, 1);
+                    refeshGameToBuyList();
                 });
             });
         };

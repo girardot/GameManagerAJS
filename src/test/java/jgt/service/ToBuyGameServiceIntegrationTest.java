@@ -40,8 +40,22 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
 
         // Then
         assertThat(gameToBuySaved).isNotNull();
-//        assertThat(gameToBuySaved.getToBuyOrder()).isEqualTo(3);
         assertThat(gameToBuySaved.getTitle()).isEqualTo(newGameToBuyTitle);
+    }
+
+    @Test
+    public void should_reorder_games_when_add_a_new_one() throws JSONException {
+        // Given
+        String newGameToBuyTitle = "new game to buy";
+
+        // When
+        toBuyGameService.saveGameToBuy(newGameToBuyTitle);
+
+        // Then
+        List gamesToBuy = toBuyGameService.findAllByOrder();
+        assertThat(gamesToBuy).hasSize(3);
+        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3);
+        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly(newGameToBuyTitle, "game to buy", "game to buy 2");
     }
 
 }
