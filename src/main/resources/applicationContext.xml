@@ -14,6 +14,31 @@
     <!-- ANNOTATIONS POUR LA CREATION DE BEANS -->
     <context:component-scan base-package="jgt"/>
 
+    <beans profile="local-server">
+
+        <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:local-server-application.properties"/>
+        </bean>
+
+        <!-- Data Source -->
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+            <property name="url" value="jdbc:hsqldb:file:localserverdb;shutdown=false"/>
+            <property name="username" value="SA"/>
+            <property name="password" value=""/>
+            <property name="initialSize" value="1"/>
+            <property name="maxActive" value="5"/>
+            <property name="poolPreparedStatements" value="true"/>
+            <property name="maxOpenPreparedStatements" value="10"/>
+        </bean>
+
+        <jdbc:initialize-database data-source="dataSource" enabled="${initload}">
+            <jdbc:script location="classpath:init-data-dev.sql"/>
+        </jdbc:initialize-database>
+
+    </beans>
+
+
     <beans profile="dev">
 
         <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -23,7 +48,7 @@
         <!-- Data Source -->
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
             <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-            <property name="url" value="jdbc:hsqldb:file:testdb;shutdown=false"/>
+            <property name="url" value="jdbc:hsqldb:file:testdb"/>
             <property name="username" value="SA"/>
             <property name="password" value=""/>
             <property name="initialSize" value="1"/>
