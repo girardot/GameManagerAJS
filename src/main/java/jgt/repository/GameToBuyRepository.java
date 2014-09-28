@@ -32,7 +32,7 @@ public class GameToBuyRepository extends HibernateDaoSupport{
     }
 
     public GameToBuy findByTitle(String gameToBuyTitle) {
-        return Iterables.getOnlyElement((Iterable<? extends GameToBuy>) getHibernateTemplate().find("from GameToBuy g where lower(g.title)=lower(?)", gameToBuyTitle), new GameToBuy());
+        return Iterables.getOnlyElement((Iterable<? extends GameToBuy>) getHibernateTemplate().find("from GameToBuy g where lower(g.game.title)=lower(?)", gameToBuyTitle), null);
     }
 
 }

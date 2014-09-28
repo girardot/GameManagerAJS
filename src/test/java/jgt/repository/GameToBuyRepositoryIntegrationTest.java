@@ -50,7 +50,7 @@ public class GameToBuyRepositoryIntegrationTest extends AbstractIntegrationTest 
         gameToBuyRepository.delete(gameToBuyToDelete.getId());
 
         // Then
-        assertThat(gameToBuyRepository.findByTitle("game to buy").getId()).isNull();
+        assertThat(gameToBuyRepository.findByTitle("game to buy")).isNull();
     }
 
 }
