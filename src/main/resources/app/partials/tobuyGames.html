@@ -1,0 +1,36 @@
+<ol class="list-group to-buy-list">
+
+    <li class="list-group-item text-center "
+        ng-repeat="gameToBuy in gameToBuyList | filter:gameToBuyTitleSearch">
+        <span class="gameToBuyId">{{gameToBuy.id}}</span>
+        {{gameToBuy.title}}
+        {{gameToBuy.to_buy_order}}
+        <span class="glyphicon glyphicon-move btn btn-xs btn-default pull-left"></span>
+                    <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
+                          ng-click="displayRemoveGameToBuyModal($index)"></span>
+                    <span class="glyphicon glyphicon-euro btn btn-xs btn-info pull-right"
+                          ng-click="displayRemoveGameToBuyModal($index)"></span>
+    </li>
+</ol>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        var group = $(".to-buy-list").sortable({
+            group: 'to-buy-list',
+            onDrop: function (item, container, _super) {
+                alert(group.sortable("serialize").get().join(";"));
+
+                _super(item, container);
+            },
+            serialize: function (parent, children, isContainer) {
+                if (isContainer) {
+                    return children.join()
+                }
+
+                return $(parent).children(".gameToBuyId").text();
+            }
+        });
+    })
+</script>
