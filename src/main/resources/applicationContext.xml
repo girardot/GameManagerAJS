@@ -48,7 +48,7 @@
         <!-- Data Source -->
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
             <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-            <property name="url" value="jdbc:hsqldb:file:testdb"/>
+            <property name="url" value="jdbc:hsqldb:."/>
             <property name="username" value="SA"/>
             <property name="password" value=""/>
             <property name="initialSize" value="1"/>
