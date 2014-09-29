@@ -2,17 +2,14 @@ package jgt.service;
 
 import jgt.model.GameToBuy;
 import jgt.repository.AbstractIntegrationTest;
-import org.fest.assertions.api.Assertions;
 import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
-import static org.fest.assertions.api.Assertions.*;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.extractProperty;
 
 public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
 
