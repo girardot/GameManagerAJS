@@ -1,8 +1,10 @@
-package jgt.repository;
+package jgt.service;
 
 import javax.inject.Inject;
 
 import jgt.model.Game;
+import jgt.repository.AbstractIntegrationTest;
+import jgt.repository.GameRepository;
 import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
@@ -14,14 +16,14 @@ public class GameServiceIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void should_add_new_game() {
         // Given
-        Game game = new Game("Call of duty");
+        Game game = new Game("new game");
 
         // When
         gameRepository.saveOrUpdate(game);
 
         //Then
-        Game gameResult = gameRepository.findByTitle("Call of duty");
-        Assertions.assertThat(gameResult.getTitle()).isEqualTo("call of duty");
+        Game gameResult = gameRepository.findByTitle("new game");
+        Assertions.assertThat(gameResult.getTitle()).isEqualTo("new game");
     }
 
     @Test

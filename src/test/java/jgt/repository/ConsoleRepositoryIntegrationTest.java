@@ -17,14 +17,14 @@ public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void should_add_new_console() {
         // Given
-        Console console = new Console("ps3");
+        Console console = new Console("new console");
 
         // When
         consoleRepository.saveOrUpdate(console);
 
         //Then
-        Console consoleResult = consoleRepository.findByName("ps3");
-        assertThat(consoleResult.getName()).isEqualTo("ps3");
+        Console consoleResult = consoleRepository.findByName("new console");
+        assertThat(consoleResult.getName()).isEqualTo("new console");
     }
 
     @Test

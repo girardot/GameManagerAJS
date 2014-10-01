@@ -1,38 +1,43 @@
 package jgt.repository;
 
-import com.google.common.collect.Iterables;
+import com.mysema.query.jpa.impl.JPADeleteClause;
+import com.mysema.query.jpa.impl.JPAQuery;
 import jgt.model.GameToBuy;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import jgt.model.QGameToBuy;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class GameToBuyRepository extends HibernateDaoSupport{
+public class GameToBuyRepository {
 
-    @Inject
-    public GameToBuyRepository(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public List findAllByOrder() {
-        return currentSession().createCriteria(GameToBuy.class).addOrder(Order.asc("toBuyOrder")).list();
+    public List<GameToBuy> findAllByOrder() {
+        JPAQuery query = new JPAQuery(entityManager);
+
+        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
+
+        return query.from(gameToBuy).orderBy(gameToBuy.toBuyOrder.asc()).list(gameToBuy);
     }
 
     public void saveOrUpdate(GameToBuy gameToBuy) {
-        getHibernateTemplate().saveOrUpdate(gameToBuy);
+        entityManager.persist(gameToBuy);
     }
 
     public void delete(long gameToBuyId) {
-        GameToBuy gameToBuy = getHibernateTemplate().get(GameToBuy.class, gameToBuyId);
-        getHibernateTemplate().delete(gameToBuy);
+        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
+        new JPADeleteClause(entityManager, gameToBuy).where(gameToBuy.id.eq(gameToBuyId)).execute();
     }
 
     public GameToBuy findByTitle(String gameToBuyTitle) {
-        return Iterables.getOnlyElement((Iterable<? extends GameToBuy>) getHibernateTemplate().find("from GameToBuy g where lower(g.game.title)=lower(?)", gameToBuyTitle), null);
+        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
+
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(gameToBuy).where(gameToBuy.game.title.equalsIgnoreCase(gameToBuyTitle)).uniqueResult(gameToBuy);
     }
 
 }

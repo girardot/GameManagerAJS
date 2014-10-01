@@ -1,48 +1,46 @@
 package jgt.repository;
 
-import com.google.common.collect.Iterables;
+import com.mysema.query.jpa.impl.JPADeleteClause;
+import com.mysema.query.jpa.impl.JPAQuery;
 import jgt.model.Console;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import jgt.model.QConsole;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class ConsoleRepository extends HibernateDaoSupport {
+public class ConsoleRepository {
 
-    @Inject
-    public ConsoleRepository(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Console findById(long id) {
-        return getHibernateTemplate().get(Console.class, id);
+        QConsole console = QConsole.console;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(console).where(console.id.eq(id)).uniqueResult(console);
     }
 
-    public List findAll() {
-        DetachedCriteria criteria = DetachedCriteria.forClass(Console.class);
-        return getHibernateTemplate().findByCriteria(criteria);
+    public List<Console> findAll() {
+        QConsole console = QConsole.console;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(console).list(console);
     }
 
     public Console findByName(String name) {
-        Iterable consoles = getHibernateTemplate().find("from jgt.model.Console c where lower(c.name)= lower(?)", name);
-        return (Console) Iterables.getFirst(consoles, null);
+        QConsole console = QConsole.console;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(console).where(console.name.equalsIgnoreCase(name)).uniqueResult(console);
     }
 
     public void saveOrUpdate(Console console) {
-        getHibernateTemplate().saveOrUpdate(console);
-    }
-
-    public void delete(Console console) {
-        getHibernateTemplate().delete(console);
+        entityManager.persist(console);
     }
 
     public Long delete(Long consoleId) {
-        Console console = getHibernateTemplate().get(Console.class, consoleId);
-        getHibernateTemplate().delete(console);
+        QConsole console = QConsole.console;
+        new JPADeleteClause(entityManager, console).where(console.id.eq(consoleId)).execute();
         return consoleId;
     }
 

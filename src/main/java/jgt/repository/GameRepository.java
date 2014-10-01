@@ -1,52 +1,54 @@
 package jgt.repository;
 
 import com.google.common.collect.Iterables;
+import com.mysema.query.jpa.impl.JPADeleteClause;
+import com.mysema.query.jpa.impl.JPAQuery;
+import jgt.model.Console;
 import jgt.model.Game;
+import jgt.model.QConsole;
+import jgt.model.QGame;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class GameRepository extends HibernateDaoSupport {
+public class GameRepository {
 
-    @Inject
-    public GameRepository(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Game findById(long id) {
-        return getHibernateTemplate().get(Game.class, id);
-    }
-
-    public List findAll() {
-        DetachedCriteria criteria = DetachedCriteria.forClass(Game.class);
-        return getHibernateTemplate().findByCriteria(criteria);
+        QGame game = QGame.game;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(game).where(game.id.eq(id)).uniqueResult(game);
     }
 
     public Game findByTitle(String title) {
-        return Iterables.getFirst((Iterable<? extends Game>) getHibernateTemplate().find("from jgt.model.Game g where lower(g.title)=lower(?)", title), null);
+        QGame game = QGame.game;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(game).where(game.title.equalsIgnoreCase(title)).uniqueResult(game);
     }
 
     public void saveOrUpdate(Game game) {
-        getHibernateTemplate().saveOrUpdate(game);
-    }
-
-    public void delete(Game game) {
-        getHibernateTemplate().delete(game);
+        entityManager.persist(game);
     }
 
     public Long delete(Long gameId) {
-        Game game = getHibernateTemplate().get(Game.class, gameId);
-        getHibernateTemplate().delete(game);
+        QGame game = QGame.game;
+        new JPADeleteClause(entityManager, game).where(game.id.eq(gameId)).execute();
         return gameId;
     }
 
-    public List findByConsoleId(long consoleId) {
-        return getHibernateTemplate().find("from jgt.model.Game g where g.console.id=? order by id", consoleId);
+    public List<Game> findByConsoleId(long consoleId) {
+        QGame game = QGame.game;
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(game).where(game.console.id.eq(consoleId)).list(game);
     }
 
 }

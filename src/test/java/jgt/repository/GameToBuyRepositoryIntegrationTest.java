@@ -53,4 +53,16 @@ public class GameToBuyRepositoryIntegrationTest extends AbstractIntegrationTest 
         assertThat(gameToBuyRepository.findByTitle("game to buy")).isNull();
     }
 
+    @Test
+    public void should_delete_game_to_qsdbuy() throws Exception {
+        // Given
+        GameToBuy newGameToBuy = new GameToBuy("test");
+
+        // When
+        gameToBuyRepository.saveOrUpdate(newGameToBuy);
+
+        // Then
+        assertThat(gameToBuyRepository.findByTitle("test")).isNotNull();
+    }
+
 }

@@ -19,8 +19,9 @@
         <persistence-api.version>1.0.2</persistence-api.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <hsqldb.version>2.2.9</hsqldb.version>
+        <querydsl-apt.version>3.1.1</querydsl-apt.version>
 
-        <slf4j-log4j12.version>1.7.5</slf4j-log4j12.version>
+        <slf4j-log4j12.version>1.6.1</slf4j-log4j12.version>
 
         <junit.version>4.11</junit.version>
         <mockito.version>1.8.4</mockito.version>
@@ -30,7 +31,7 @@
 
         <jackson.version>2.4.0</jackson.version>
 
-        <javassist.version>3.12.1.GA</javassist.version>
+        <javassist.version>3.17.1-GA</javassist.version>
 
     </properties>
 
@@ -79,13 +80,38 @@
         </dependency>
 
         <dependency>
-            <groupId>javassist</groupId>
+            <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>${javassist.version}</version>
         </dependency>
 
         <!-- database -->
         <!-- Hibernate Dependencies -->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.7.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>1.2.0.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -95,13 +121,13 @@
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
-            <version> ${persistence-api.version}</version>
+            <version>${persistence-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version> ${commons-dbcp.version}</version>
+            <version>${commons-dbcp.version}</version>
         </dependency>
 
         <dependency>
@@ -110,10 +136,23 @@
             <version>${hsqldb.version}</version>
         </dependency>
 
-         <dependency>
+        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl-apt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl-apt.version}</version>
         </dependency>
 
         <!-- Jackson Dependencies -->
@@ -162,6 +201,22 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.0.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
