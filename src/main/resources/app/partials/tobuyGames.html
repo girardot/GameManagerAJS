@@ -12,25 +12,3 @@
                           ng-click="displayRemoveGameToBuyModal($index)"></span>
     </li>
 </ol>
-
-
-<script type="text/javascript">
-
-    $(function () {
-        var group = $(".to-buy-list").sortable({
-            group: 'to-buy-list',
-            onDrop: function (item, container, _super) {
-                alert(group.sortable("serialize").get().join(";"));
-
-                _super(item, container);
-            },
-            serialize: function (parent, children, isContainer) {
-                if (isContainer) {
-                    return children.join()
-                }
-
-                return $(parent).children(".gameToBuyId").text();
-            }
-        });
-    })
-</script>

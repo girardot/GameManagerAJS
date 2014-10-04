@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gameManager.gameToBuyControllers', [])
-    .controller('GameToBuyListController', function ($scope, gameToBuyResource) {
+    .controller('GameToBuyListController', function ($scope, gameToBuyResource, changeGameToBuyOrderResource) {
         function refeshGameToBuyList() {
             $scope.gameToBuyList = gameToBuyResource.query();
         }
@@ -28,6 +28,10 @@ angular.module('gameManager.gameToBuyControllers', [])
                 });
             });
         };
+
+        $scope.changeOrder = function (idsInNewOrder) {
+            changeGameToBuyOrderResource.save(idsInNewOrder);
+        }
 
     })
 ;

@@ -21,9 +21,26 @@ angular.module('gameManager.directives', [])
     })
     .directive('toBuyGames', function () {
 
+        function init($scope) {
+            var group = $(".to-buy-list").sortable({
+                group: 'to-buy-list',
+                onDrop: function (item, container, _super) {
+                    $scope.changeOrder(group.sortable("serialize").get().join(";"));
+                    _super(item, container);
+                },
+                serialize: function (parent, children, isContainer) {
+                    if (isContainer) {
+                        return children.join()
+                    }
+                    return $(parent).children(".gameToBuyId").text();
+                }
+            });
+        }
+
         return {
             restrict: 'E',
-            templateUrl: 'partials/tobuyGames.html'
+            templateUrl: 'partials/tobuyGames.html',
+            controller: init
         };
     })
-    ;
+;
