@@ -16,11 +16,10 @@ public class GameToBuyRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private static QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
+
     public List<GameToBuy> findAllByOrder() {
         JPAQuery query = new JPAQuery(entityManager);
-
-        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
-
         return query.from(gameToBuy).orderBy(gameToBuy.toBuyOrder.asc()).list(gameToBuy);
     }
 
@@ -29,15 +28,17 @@ public class GameToBuyRepository {
     }
 
     public void delete(long gameToBuyId) {
-        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
         new JPADeleteClause(entityManager, gameToBuy).where(gameToBuy.id.eq(gameToBuyId)).execute();
     }
 
     public GameToBuy findByTitle(String gameToBuyTitle) {
-        QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
-
         JPAQuery query = new JPAQuery(entityManager);
         return query.from(gameToBuy).where(gameToBuy.game.title.equalsIgnoreCase(gameToBuyTitle)).uniqueResult(gameToBuy);
+    }
+
+    public List<GameToBuy> findAll() {
+        JPAQuery query = new JPAQuery(entityManager);
+        return query.from(gameToBuy).list(gameToBuy);
     }
 
 }
