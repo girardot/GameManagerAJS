@@ -11,6 +11,8 @@ INSERT INTO GAME (id, title, console_id) VALUES (NEXT VALUE FOR hibernate_sequen
 
 INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to buy');
 INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to buy 2');
+INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to buy 3');
 
 INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM GAME WHERE title='game to buy 2'), 2);
 INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM GAME WHERE title='game to buy'), 1);
+INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM GAME WHERE title='game to buy 3'), 3);

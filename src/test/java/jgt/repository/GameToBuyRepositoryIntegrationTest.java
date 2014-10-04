@@ -21,9 +21,9 @@ public class GameToBuyRepositoryIntegrationTest extends AbstractIntegrationTest 
         List allGameToBuyByOrder = gameToBuyRepository.findAllByOrder();
 
         // Then
-        assertThat(allGameToBuyByOrder).hasSize(2);
-        assertThat(extractProperty("toBuyOrder").from(allGameToBuyByOrder)).containsExactly(1, 2);
-        assertThat(extractProperty("game.title").from(allGameToBuyByOrder)).containsExactly("game to buy", "game to buy 2");
+        assertThat(allGameToBuyByOrder).hasSize(3);
+        assertThat(extractProperty("toBuyOrder").from(allGameToBuyByOrder)).containsExactly(1, 2, 3);
+        assertThat(extractProperty("game.title").from(allGameToBuyByOrder)).containsExactly("game to buy", "game to buy 2", "game to buy 3");
     }
 
     @Test
@@ -36,7 +36,8 @@ public class GameToBuyRepositoryIntegrationTest extends AbstractIntegrationTest 
         gameToBuyRepository.saveOrUpdate(newGameToBuy);
 
         // Then
-        List allGameToBuyByOrder = gameToBuyRepository.findAllByOrder();  assertThat(allGameToBuyByOrder).hasSize(3);
+        List allGameToBuyByOrder = gameToBuyRepository.findAllByOrder();
+        assertThat(allGameToBuyByOrder).hasSize(4);
         assertThat(extractProperty("game.title").from(allGameToBuyByOrder)).contains("game to buy", "game to buy 2", newGameToBuyTitle);
     }
 
