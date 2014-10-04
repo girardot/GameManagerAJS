@@ -49,6 +49,8 @@ public class ServerGameManager {
         get("/services/toBuyGame", (request, response) -> toBuyGameService.findAllByOrder(), jsonTransformer);
         post("/services/toBuyGame", (request, response) -> toBuyGameService.saveGameToBuy(request.body()), jsonTransformer);
         delete("/services/toBuyGame/:gameToBuyId", (request, response) -> toBuyGameService.deleteGame(parseLong(request.params("gameToBuyId"))));
+        post("/services/toBuyGameOrder", (request, response) -> toBuyGameService.changerOrders(request.body()));
+
 
         // OTHER
         exception(Exception.class, (e, request, response) -> {
