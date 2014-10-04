@@ -22,9 +22,9 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
         List gamesToBuy = toBuyGameService.findAllByOrder();
 
         // Then
-        assertThat(gamesToBuy).hasSize(2);
-        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2);
-        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly("game to buy", "game to buy 2");
+        assertThat(gamesToBuy).hasSize(3);
+        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3);
+        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly("game to buy", "game to buy 2", "game to buy 3");
     }
 
     @Test
@@ -50,9 +50,9 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
 
         // Then
         List gamesToBuy = toBuyGameService.findAllByOrder();
-        assertThat(gamesToBuy).hasSize(3);
-        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3);
-        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly(newGameToBuyTitle, "game to buy", "game to buy 2");
+        assertThat(gamesToBuy).hasSize(4);
+        assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3, 4);
+        assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly(newGameToBuyTitle, "game to buy", "game to buy 2", "game to buy 3");
     }
 
 }
