@@ -20,8 +20,8 @@ public class ToBuyGameRepositoryIntegrationTest extends AbstractIntegrationTest 
         List allGameToBuy = toBuyGameRepository.findAllByOrder();
 
         // Then
-        assertThat(allGameToBuy).hasSize(2);
-        assertThat(extractProperty("game.title").from(allGameToBuy)).containsExactly("game to buy", "game to buy 2");
+        assertThat(allGameToBuy).hasSize(3);
+        assertThat(extractProperty("game.title").from(allGameToBuy)).containsExactly("game to buy", "game to buy 2", "game to buy 3");
 
         GameToBuy firstGameToBuy = (GameToBuy) allGameToBuy.get(0);
         assertThat(firstGameToBuy.getToBuyOrder()).isEqualTo(1);
