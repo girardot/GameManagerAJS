@@ -5,6 +5,8 @@ GameManagerAJS
 
 [In Heroku](http://gamemanagerajs.herokuapp.com/)
 
+[Trello](https://trello.com/b/1NKIycMK/gamemanagerajs)
+
 
 
 
