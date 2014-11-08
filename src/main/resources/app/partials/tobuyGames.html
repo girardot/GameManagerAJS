@@ -2,9 +2,8 @@
 
     <li class="list-group-item text-center "
         ng-repeat="gameToBuy in gameToBuyList | filter:gameToBuyTitleSearch">
-        <span class="gameToBuyId">{{gameToBuy.id}}</span>
+        <span class="gameToBuyId" hidden="hidden">{{gameToBuy.id}}</span>
         {{gameToBuy.title}}
-        {{gameToBuy.to_buy_order}}
         <span class="glyphicon glyphicon-move btn btn-xs btn-default pull-left"></span>
                     <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
                           ng-click="displayRemoveGameToBuyModal($index)"></span>
