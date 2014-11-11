@@ -15,11 +15,13 @@ var gameManager = angular.module('gameManager', [
         'gameManager.directives',
         'gameManager.biblioControllers',
         'gameManager.gameToBuyControllers',
-        'gameManager.todoListControllers'
+        'gameManager.todoListControllers',
+        'gameManager.authenticationControllers'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/biblio', {templateUrl: 'partials/biblio.html', controller: 'BiblioController'});
         $routeProvider.when('/todoList', {templateUrl: 'partials/todoList.html', controller: 'TodoListController'});
         $routeProvider.when('/tobuyList', {templateUrl: 'partials/tobuyList.html', controller: 'GameToBuyListController'});
-        $routeProvider.otherwise({redirectTo: '/biblio'});
+        $routeProvider.when('/signIn', {templateUrl: 'partials/authentication.html', controller: 'AuthenticationController'});
+        $routeProvider.otherwise({redirectTo: '/signIn'});
     }]);
