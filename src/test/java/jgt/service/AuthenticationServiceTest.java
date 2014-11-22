@@ -1,5 +1,6 @@
 package jgt.service;
 
+import jgt.model.Credentials;
 import jgt.repository.AuthenticationRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,9 +29,10 @@ public class AuthenticationServiceTest {
     public void authentication_should_success_when_already_authenticated() {
         // Given
         boolean authenticatedSessionField = true;
+        Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
 
         // When
-        boolean success = authenticationService.tryToAuthenticate("girardot.jul@gmail.com", "myPassword", authenticatedSessionField);
+        boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);
 
         // Then
         assertThat(success).isTrue();
@@ -40,13 +42,12 @@ public class AuthenticationServiceTest {
     public void authentication_should_fail() {
         // Given
         boolean authenticatedSessionField = false;
+        Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
 
-        String login = "girardot.jul@gmail.com";
-        String password = "myPassword";
-        when(authenticationRepository.authenticate(login, password)).thenReturn(FALSE);
+        when(authenticationRepository.authenticate(credentials)).thenReturn(FALSE);
 
         // When
-        boolean success = authenticationService.tryToAuthenticate(login, password, authenticatedSessionField);
+        boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);
 
         // Then
         assertThat(success).isFalse();
@@ -57,12 +58,12 @@ public class AuthenticationServiceTest {
         // Given
         boolean authenticatedSessionField = false;
 
-        String login = "girardot.jul@gmail.com";
-        String password = "myPassword";
-        when(authenticationRepository.authenticate(login, password)).thenReturn(TRUE);
+        Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
+
+        when(authenticationRepository.authenticate(credentials)).thenReturn(TRUE);
 
         // When
-        boolean success = authenticationService.tryToAuthenticate(login, password, authenticatedSessionField);
+        boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);
 
         // Then
         assertThat(success).isTrue();

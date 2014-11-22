@@ -1,5 +1,6 @@
 package jgt.service;
 
+import jgt.model.Credentials;
 import jgt.repository.AuthenticationRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,15 @@ public class AuthenticationService {
         this.authenticationRepository = authenticationRepository;
     }
 
-    private boolean authenticate(String email, String password) {
-        return authenticationRepository.authenticate(email, password);
+    private boolean authenticate(Credentials credentials) {
+        return authenticationRepository.authenticate(credentials);
     }
 
-    public boolean tryToAuthenticate(String login, String password, boolean isAuthenticatedSessionField) {
+    public boolean tryToAuthenticate(Credentials credentials, boolean isAuthenticatedSessionField) {
         if (isAuthenticatedSessionField) {
             return true;
         } else {
-            boolean authenticationSuccess = authenticate(login, password);
+            boolean authenticationSuccess = authenticate(credentials);
             if (authenticationSuccess) {
                 return true;
             } else {
