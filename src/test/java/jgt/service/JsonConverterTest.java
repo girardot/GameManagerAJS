@@ -1,6 +1,7 @@
 package jgt.service;
 
 import jgt.model.Console;
+import jgt.model.Credentials;
 import jgt.model.Game;
 import jgt.model.GameProgression;
 import jgt.repository.ConsoleRepository;
@@ -38,6 +39,18 @@ public class JsonConverterTest {
         // Then
         assertThat(game.getConsole()).isEqualTo(console);
         assertThat(game.getTitle()).isEqualTo("newGame");
+    }
+
+    @Test
+    public void should_convert_json_to_credentials() {
+        // Given
+
+        // When
+        Credentials credentials = jsonConverter.convertJsonToCredential("{\"email\": \"girardot.jul@gmail.com\", \"password\": \"1234\"}");
+
+        // Then
+        assertThat(credentials.getEmail()).isEqualTo("girardot.jul@gmail.com");
+        assertThat(credentials.getPassword()).isEqualTo("1234");
     }
 
     @Test

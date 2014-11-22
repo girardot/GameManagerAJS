@@ -3,10 +3,7 @@ package jgt.service;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import jgt.model.Console;
-import jgt.model.Game;
-import jgt.model.GameProgression;
-import jgt.model.GameToBuy;
+import jgt.model.*;
 import jgt.repository.ConsoleRepository;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +48,18 @@ public class JsonConverter {
         }
 
         return game;
+    }
+
+    public Credentials convertJsonToCredential(String json) {
+        Credentials credentials = null;
+
+        try {
+            credentials = objectMapper.readValue(json, Credentials.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return credentials;
     }
 
     public GameProgression convertJsonToGameProgression(String json) {
@@ -111,11 +120,25 @@ public class JsonConverter {
         }
     };
 
+    private final JsonSerializer<Credentials> CREDENTIALS_JSON_SERIALIZER = new JsonSerializer<Credentials>() {
+
+        @Override
+        public void serialize(Credentials credentials, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+
+            jsonGenerator.writeStartObject();
+            jsonGenerator.writeStringField("email", credentials.getEmail());
+            jsonGenerator.writeStringField("password", credentials.getPassword());
+
+            jsonGenerator.writeEndObject();
+        }
+    };
+
     private Module initModule() {
         SimpleModule module = new SimpleModule("GameManagerModule", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(Game.class, GAME_JSON_DESERIALIZER);
         module.addSerializer(Game.class, GAME_JSON_SERIALIZER);
         module.addSerializer(GameToBuy.class, GAME_TO_BUY_JSON_SERIALIZER);
+        module.addSerializer(Credentials.class, CREDENTIALS_JSON_SERIALIZER);
         return module;
     }
 
