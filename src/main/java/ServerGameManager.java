@@ -65,7 +65,10 @@ public class ServerGameManager {
                 halt(UNAUTHORIZED_401, "Authentication Failed");
             }
 
+
             createSessionIfDoesNotExist(request, credentials.getEmail());
+            request.session().attribute(SESSION_AUTHENTICATION_FIELD, true);
+
             response.status(ACCEPTED_202);
 
             return true;
@@ -81,9 +84,9 @@ public class ServerGameManager {
 
         before((request, response) -> {
             logger.info("request {}", request.pathInfo());
-            if(request.pathInfo().contains("/services/") && request.session().attribute(SESSION_AUTHENTICATION_FIELD) != Boolean.TRUE) {
+            if(request.pathInfo().contains("/services/") && !request.pathInfo().contains("/services/authentication")&& request.session().attribute(SESSION_AUTHENTICATION_FIELD) != Boolean.TRUE) {
                 response.redirect("/#/signIn", 401);
-//                halt(401, "You are not welcome here");
+                halt(401, "You are not welcome here");
             }
         });
 
