@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -39,12 +37,12 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void authentication_should_fail() {
+    public void authentication_should_fail_when_password_is_wrong() {
         // Given
         boolean authenticatedSessionField = false;
         Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
 
-        when(authenticationRepository.authenticate(credentials)).thenReturn(FALSE);
+        when(authenticationRepository.findCredentialsBy("girardot.jul@gmail.com")).thenReturn(new Credentials("girardot.jul@gmail.com", "abc"));
 
         // When
         boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);
@@ -54,13 +52,29 @@ public class AuthenticationServiceTest {
     }
 
     @Test
+    public void authentication_should_fail_when_user_does_not_exist() {
+        // Given
+        boolean authenticatedSessionField = false;
+        Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
+
+        when(authenticationRepository.findCredentialsBy("girardot.jul@gmail.com")).thenReturn(null);
+
+        // When
+        boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);
+
+        // Then
+        assertThat(success).isFalse();
+    }
+
+
+    @Test
     public void authentication_should_success() {
         // Given
         boolean authenticatedSessionField = false;
 
         Credentials credentials = new Credentials("girardot.jul@gmail.com", "myPassword");
 
-        when(authenticationRepository.authenticate(credentials)).thenReturn(TRUE);
+        when(authenticationRepository.findCredentialsBy("girardot.jul@gmail.com")).thenReturn(new Credentials("girardot.jul@gmail.com", "myPassword"));
 
         // When
         boolean success = authenticationService.tryToAuthenticate(credentials, authenticatedSessionField);

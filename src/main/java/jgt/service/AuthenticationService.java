@@ -5,6 +5,8 @@ import jgt.repository.AuthenticationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AuthenticationService {
@@ -17,20 +19,20 @@ public class AuthenticationService {
     }
 
     private boolean authenticate(Credentials credentials) {
-        return authenticationRepository.authenticate(credentials);
+        if(credentials == null) {
+            return false;
+        }
+
+        Credentials storedCredentials = authenticationRepository.findCredentialsBy(credentials.getEmail());
+        if(storedCredentials == null) {
+            return false;
+        }
+
+        return Objects.equals(storedCredentials.getPassword(), credentials.getPassword());
     }
 
     public boolean tryToAuthenticate(Credentials credentials, boolean isAuthenticatedSessionField) {
-        if (isAuthenticatedSessionField) {
-            return true;
-        } else {
-            boolean authenticationSuccess = authenticate(credentials);
-            if (authenticationSuccess) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return isAuthenticatedSessionField || authenticate(credentials);
     }
-
 }
+
