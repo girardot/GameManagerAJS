@@ -19,7 +19,6 @@ public class ServerGameManager {
 
         Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
 
-
         final String SESSION_AUTHENTICATION_FIELD = "authenticated";
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
