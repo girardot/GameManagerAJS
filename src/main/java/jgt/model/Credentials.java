@@ -1,9 +1,19 @@
 package jgt.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CREDENTIALS")
 public class Credentials {
 
+    @Id
+    @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "PASSWORD")
     private String password;
 
     public Credentials() {
