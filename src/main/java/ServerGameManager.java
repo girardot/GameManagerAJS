@@ -68,8 +68,8 @@ public class ServerGameManager {
             createSessionIfDoesNotExist(request, credentials.getEmail());
             request.session().attribute(SESSION_AUTHENTICATION_FIELD, true);
 
-            response.status(ACCEPTED_202);
             logger.info("authentication success for {}", credentials.getEmail());
+            response.status(ACCEPTED_202);
             return true;
         }, jsonTransformer);
 
