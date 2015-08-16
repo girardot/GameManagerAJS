@@ -83,7 +83,8 @@ public class ServerGameManager {
 
         before((request, response) -> {
             logger.info("request {}", request.pathInfo());
-            if(request.pathInfo().contains("/services/") && !request.pathInfo().contains("/services/authentication")&& request.session().attribute(SESSION_AUTHENTICATION_FIELD) != Boolean.TRUE) {
+            if (request.pathInfo().contains("/services/") && !request.pathInfo().contains("/services/authentication") && request.session().attribute(SESSION_AUTHENTICATION_FIELD) != Boolean.TRUE) {
+                logger.info("You are not welcome here {}", request.session().attribute("SESSION_AUTHENTICATION_FIELD").toString() );
                 response.redirect("/#/signIn", 401);
                 halt(401, "You are not welcome here");
             }
