@@ -169,3 +169,5 @@ INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'The Las
 INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM GAME WHERE title='The Last Of Us'), 1);
 INSERT INTO GAME_TO_BUY (id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM GAME WHERE title='Out There'), 2);
 
+INSERT INTO CREDENTIALS(email, password) VALUES ('girardot.jul@gmail.com', 'abc');
+
