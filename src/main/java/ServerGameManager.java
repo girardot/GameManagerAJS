@@ -70,7 +70,7 @@ public class ServerGameManager {
             request.session().attribute(SESSION_AUTHENTICATION_FIELD, true);
 
             response.status(ACCEPTED_202);
-
+            logger.info("authentication success for {}", credentials.getEmail());
             return true;
         }, jsonTransformer);
 
