@@ -1,13 +1,15 @@
 import jgt.model.Credentials;
 import jgt.model.GameProgression;
 import jgt.service.*;
+import jgt.session.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spark.Request;
+import spark.Session;
 
 import static java.lang.Long.parseLong;
+import static jgt.session.SessionUtils.*;
 import static org.eclipse.jetty.http.HttpStatus.ACCEPTED_202;
 import static org.eclipse.jetty.http.HttpStatus.UNAUTHORIZED_401;
 import static spark.Spark.*;
@@ -18,8 +20,6 @@ public class ServerGameManager {
     public static void main(String[] args) {
 
         Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
-
-        final String SESSION_AUTHENTICATION_FIELD = "authenticated";
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -57,18 +57,17 @@ public class ServerGameManager {
         // AUTHENTICATION
         post("/services/authentication", (request, response) -> {
 
+            Session session = request.session();
             Credentials credentials = jsonConverter.convertJsonToCredential(request.body());
 
-            Boolean isAuthenticatedSessionField = request.session().attribute(SESSION_AUTHENTICATION_FIELD) == null ? false : request.session().attribute(SESSION_AUTHENTICATION_FIELD);
-            if (!authenticationService.tryToAuthenticate(credentials, isAuthenticatedSessionField)) {
+            if (!authenticationService.tryToAuthenticate(credentials, isUserAuthenticated(session))) {
                 halt(UNAUTHORIZED_401, "Authentication Failed");
             }
 
+            createNewSession(request, credentials.getEmail());
+            session.attribute(SESSION_AUTHENTICATION_FIELD, true);
 
-            createSessionIfDoesNotExist(request, credentials.getEmail());
-            request.session().attribute(SESSION_AUTHENTICATION_FIELD, true);
-
-            logger.info("authentication success for {}", credentials.getEmail());
+            logger.info("authentication success for {}", SessionUtils.getConnectedUserEmail(session));
             response.status(ACCEPTED_202);
             return true;
         }, jsonTransformer);
@@ -84,19 +83,12 @@ public class ServerGameManager {
         before((request, response) -> {
             logger.info("request {}", request.pathInfo());
             if (request.pathInfo().contains("/services/") && !request.pathInfo().contains("/services/authentication") && request.session().attribute(SESSION_AUTHENTICATION_FIELD) != Boolean.TRUE) {
-                logger.info("You are not welcome here {}", request.session().attribute("SESSION_AUTHENTICATION_FIELD").toString() );
+                logger.info("You are not welcome here {}", request.session().attribute("SESSION_AUTHENTICATION_FIELD").toString());
                 response.redirect("/#/signIn", 401);
                 halt(401, "You are not welcome here");
             }
         });
 
-    }
-
-    private static void createSessionIfDoesNotExist(Request request, String login) {
-        if (request.session().id() == null) {
-            request.session(true);
-            request.session().attribute("email", login);
-        }
     }
 
 }
