@@ -1,5 +1,7 @@
 package jgt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,10 @@ public class GameToBuy {
 
     @Column(name = "to_buy_order")
     private Integer toBuyOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public GameToBuy() {
     }
@@ -54,7 +60,16 @@ public class GameToBuy {
     }
 
     public void increaseOrder() {
-        toBuyOrder ++;
+        toBuyOrder++;
+    }
+
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

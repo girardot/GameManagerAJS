@@ -1,10 +1,10 @@
 package jgt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "CONSOLE")
@@ -20,6 +20,10 @@ public class Console {
 
     @OneToMany(mappedBy = "console", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Game> games;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Console() {
         games = new ArrayList<>();
@@ -62,6 +66,15 @@ public class Console {
     public void addGame(Game game) {
         games.add(game);
         game.setConsole(this);
+    }
+
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
