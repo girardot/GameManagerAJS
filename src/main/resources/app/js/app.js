@@ -10,6 +10,7 @@ var gameManager = angular.module('gameManager', [
         'gameManager.gameStatusResource',
         'gameManager.gameDematerializeResource',
         'gameManager.consoleResource',
+        'gameManager.connectedUserResource',
         'gameManager.filters',
         'gameManager.services',
         'gameManager.directives',
