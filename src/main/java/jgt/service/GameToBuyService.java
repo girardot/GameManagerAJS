@@ -29,13 +29,13 @@ public class GameToBuyService {
     }
 
     @Transactional(readOnly = true)
-    public List findAllByOrder() {
-        return gameToBuyRepository.findAllByOrder();
+    public List findAllByOrder(String userEmail) {
+        return gameToBuyRepository.findAllByOrder(userEmail);
     }
 
     @Transactional
-    public GameToBuy saveGameToBuy(String gameToBuyTitle) {
-        List<GameToBuy> allGameToBuy = gameToBuyRepository.findAllByOrder();
+    public GameToBuy saveGameToBuy(String gameToBuyTitle, String userEmail) {
+        List<GameToBuy> allGameToBuy = gameToBuyRepository.findAllByOrder(userEmail);
         allGameToBuy.forEach(GameToBuy::increaseOrder);
 
         GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle);
@@ -50,7 +50,7 @@ public class GameToBuyService {
     }
 
     @Transactional
-    public boolean changerOrders(String stringIdsByOrder) {
+    public boolean changeOrders(String stringIdsByOrder) {
         List<GameToBuy> allGameToBuy = gameToBuyRepository.findAll();
 
         List<Long> idsByOrder = Lists.newArrayList(Splitter.on(",").split(stringIdsByOrder))
