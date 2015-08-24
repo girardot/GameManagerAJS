@@ -3,6 +3,7 @@ package jgt.service;
 import jgt.model.Console;
 import jgt.model.Game;
 import jgt.model.GameProgression;
+import jgt.model.User;
 import jgt.repository.ConsoleRepository;
 import jgt.repository.GameRepository;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class ConsoleGameService {
     @Inject
     private JsonConverter jsonConverter;
 
-    public List findAll() {
-        return consoleRepository.findAll();
+    public List findAll(String userEmail) {
+        return consoleRepository.findAll(userEmail);
     }
 
     @Transactional
