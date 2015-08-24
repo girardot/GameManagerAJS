@@ -19,6 +19,18 @@ angular.module('gameManager.directives', [])
             templateUrl: 'partials/games.html'
         };
     })
+    .directive('authenticatedUser', function () {
+        function initConnectedUser($scope, connectedUserResource) {
+            $scope.connectedUser = {id:'1', firstname:'toto', lastname:'tutu', email:'em'};
+            //$scope.connectedUser = connectedUserResource.query();
+        }
+
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/connectedUser.html',
+            controller: initConnectedUser
+        };
+    })
     .directive('toBuyGames', function () {
 
         function init($scope) {
