@@ -171,5 +171,10 @@ INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'The Las
 INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='The Last Of Us'), 1);
 INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='Out There'), 2);
 
+INSERT INTO USER(ID, EMAIL, FIRSTNAME, LASTNAME) VALUES(NEXT VALUE FOR hibernate_sequence, 'seb@gmail.com', 'sebastien', 'girardot');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='seb@gmail.com'), 'XBOX ONE');
+INSERT INTO GAME(ID, TITLE, PROGRESSION, CONSOLE_ID) VALUES (NEXT VALUE FOR hibernate_sequence,  'Far Cry 4', 0, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='XBOX ONE'));
+
 INSERT INTO CREDENTIALS(email, password) VALUES ('girardot.jul@gmail.com', 'abc');
+INSERT INTO CREDENTIALS(email, password) VALUES ('seb@gmail.com', 'abc');
 
