@@ -1,7 +1,6 @@
 import jgt.model.Credentials;
 import jgt.model.GameProgression;
 import jgt.service.*;
-import jgt.session.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -28,12 +27,13 @@ public class ServerGameManager {
         final ConsoleGameService consoleGameService = applicationContext.getBean(ConsoleGameService.class);
         final GameToBuyService toBuyGameService = applicationContext.getBean(GameToBuyService.class);
         final AuthenticationService authenticationService = applicationContext.getBean(AuthenticationService.class);
+        final UserService userService = applicationContext.getBean(UserService.class);
 
         staticFileLocation("/app"); // Static files
         setPort(Integer.valueOf(System.getenv("PORT")));
 
         // CONSOLE
-        get("/services/console", (request, response) -> consoleGameService.findAll(), jsonTransformer);
+        get("/services/console", (request, response) -> consoleGameService.findAll(getConnectedUserEmail(request.session())), jsonTransformer);
         post("/services/console", (request, response) -> consoleGameService.saveConsole(request.body()), jsonTransformer);
         delete("/services/console/:consoleId", (request, response) -> consoleGameService.deleteConsole(parseLong(request.params("consoleId"))));
 
@@ -49,10 +49,10 @@ public class ServerGameManager {
         delete("/services/console/game/:gameId", (request, response) -> consoleGameService.deleteGame(parseLong(request.params("gameId"))));
 
         // TO_BUY_GAME
-        get("/services/toBuyGame", (request, response) -> toBuyGameService.findAllByOrder(), jsonTransformer);
-        post("/services/toBuyGame", (request, response) -> toBuyGameService.saveGameToBuy(request.body()), jsonTransformer);
+        get("/services/toBuyGame", (request, response) -> toBuyGameService.findAllByOrder(getConnectedUserEmail(request.session())), jsonTransformer);
+        post("/services/toBuyGame", (request, response) -> toBuyGameService.saveGameToBuy(request.body(), getConnectedUserEmail(request.session())), jsonTransformer);
         delete("/services/toBuyGame/:gameToBuyId", (request, response) -> toBuyGameService.deleteGame(parseLong(request.params("gameToBuyId"))));
-        post("/services/toBuyGameOrder", (request, response) -> toBuyGameService.changerOrders(request.body()));
+        post("/services/toBuyGameOrder", (request, response) -> toBuyGameService.changeOrders(request.body()));
 
         // AUTHENTICATION
         post("/services/authentication", (request, response) -> {
@@ -61,16 +61,19 @@ public class ServerGameManager {
             Credentials credentials = jsonConverter.convertJsonToCredential(request.body());
 
             if (!authenticationService.tryToAuthenticate(credentials, isUserAuthenticated(session))) {
+                logger.info("Authentication Failed for {}", credentials.getEmail());
                 halt(UNAUTHORIZED_401, "Authentication Failed");
             }
 
             createNewSession(request, credentials.getEmail());
             session.attribute(SESSION_AUTHENTICATION_FIELD, true);
 
-            logger.info("authentication success for {}", SessionUtils.getConnectedUserEmail(session));
+            logger.info("authentication success for {}", getConnectedUserEmail(session));
             response.status(ACCEPTED_202);
             return true;
         }, jsonTransformer);
+
+        get("/services/connectedUser", (request, response) -> userService.findByEmail(getConnectedUserEmail(request.session())), jsonTransformer);
 
         // OTHER
         exception(Exception.class, (e, request, response) -> {
