@@ -22,10 +22,13 @@ public class ConsoleRepository {
         return query.from(console).where(console.id.eq(id)).uniqueResult(console);
     }
 
-    public List<Console> findAll() {
+    public List<Console> findAll(String userEmail) {
         QConsole console = QConsole.console;
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(console).list(console);
+        return query
+                .from(console)
+                .where(console.user.email.eq(userEmail))
+                .list(console);
     }
 
     public Console findByName(String name) {

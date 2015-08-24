@@ -5,6 +5,7 @@ import jgt.model.Game;
 import org.junit.Test;
 
 import javax.inject.Inject;
+import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.groups.Properties.extractProperty;
@@ -50,9 +51,33 @@ public class ConsoleRepositoryIntegrationTest extends AbstractIntegrationTest {
         // When
         Console console = consoleRepository.findByName("PS2");
 
-        //Then
+        // Then
         assertThat(console.getName()).isEqualTo("ps2");
         assertThat(extractProperty("title").from(console.getGames())).contains("gta3", "nhl 2004");
+    }
+
+    @Test
+    public void shoudl_find_all_console_for_a_user() {
+        // Given
+        String userEmail1 = "girardot.jul@gmail.com";
+
+        // When
+        List<Console> consoles = consoleRepository.findAll(userEmail1);
+
+        // Then
+        assertThat(extractProperty("user.email").from(consoles)).containsOnly(userEmail1);
+    }
+
+    @Test
+    public void shoudl_find_all_console_for_an_other_user() {
+        // Given
+        String userEmail = "seb@gmail.com";
+
+        // When
+        List<Console> consoles = consoleRepository.findAll(userEmail);
+
+        // Then
+        assertThat(extractProperty("user.email").from(consoles)).containsOnly(userEmail);
     }
 
 }
