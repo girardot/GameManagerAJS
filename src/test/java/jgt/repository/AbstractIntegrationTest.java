@@ -18,7 +18,6 @@ public class AbstractIntegrationTest extends AbstractTransactionalJUnit4SpringCo
         executeSqlScript("insert_data.sql", false);
     }
 
-
     @Test
     public void should_test_nothing() {
 
