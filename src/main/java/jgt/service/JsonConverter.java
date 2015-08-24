@@ -120,6 +120,21 @@ public class JsonConverter {
         }
     };
 
+    private final JsonSerializer<User> USER_JSON_SERIALIZER = new JsonSerializer<User>() {
+
+        @Override
+        public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException, JsonProcessingException {
+
+            jsonGenerator.writeStartObject();
+            jsonGenerator.writeNumberField("id", user.getId());
+            jsonGenerator.writeStringField("firstname", user.getFirstname());
+            jsonGenerator.writeStringField("lastname", user.getLastname());
+            jsonGenerator.writeStringField("email", user.getEmail());
+
+            jsonGenerator.writeEndObject();
+        }
+    };
+
     private final JsonSerializer<Credentials> CREDENTIALS_JSON_SERIALIZER = new JsonSerializer<Credentials>() {
 
         @Override
@@ -139,6 +154,7 @@ public class JsonConverter {
         module.addSerializer(Game.class, GAME_JSON_SERIALIZER);
         module.addSerializer(GameToBuy.class, GAME_TO_BUY_JSON_SERIALIZER);
         module.addSerializer(Credentials.class, CREDENTIALS_JSON_SERIALIZER);
+        module.addSerializer(User.class, USER_JSON_SERIALIZER);
         return module;
     }
 

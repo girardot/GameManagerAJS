@@ -1,9 +1,6 @@
 package jgt.service;
 
-import jgt.model.Console;
-import jgt.model.Credentials;
-import jgt.model.Game;
-import jgt.model.GameProgression;
+import jgt.model.*;
 import jgt.repository.ConsoleRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,6 +64,22 @@ public class JsonConverterTest {
 
         // Then
         assertThat(jsonGame).isEqualTo("{\"id\":1,\"title\":\"gameTitle\",\"console_id\":0,\"progression\":\"DONE\",\"isDematerialized\":\"false\"}");
+    }
+
+    @Test
+    public void should_convert_user_to_json() {
+        // Given
+        User user = new User();
+        user.setId(1L);
+        user.setFirstname("julien");
+        user.setLastname("girardot");
+        user.setEmail("girardot.jul@gmail.com");
+
+        // When
+        String jsonUser = jsonConverter.convertToJson(user);
+
+        // Then
+        assertThat(jsonUser).isEqualTo("{\"id\":1,\"firstname\":\"julien\",\"lastname\":\"girardot\",\"email\":\"girardot.jul@gmail.com\"}");
     }
 
     @Test
