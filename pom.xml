@@ -20,6 +20,7 @@
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <hsqldb.version>2.2.9</hsqldb.version>
         <querydsl-apt.version>3.1.1</querydsl-apt.version>
+        <liquibase-core.version>1.9.5</liquibase-core.version>
 
         <slf4j-log4j12.version>1.6.1</slf4j-log4j12.version>
 
@@ -153,6 +154,12 @@
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl-apt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-core.version}</version>
         </dependency>
 
         <!-- Jackson Dependencies -->
