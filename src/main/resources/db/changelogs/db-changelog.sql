@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset nvoxland:1
+--changeset jgt:1
 create table USER (
     id bigint not null,
     email varchar(255),
@@ -31,7 +31,7 @@ INSERT INTO USER(email, firstname, lastname)
 VALUES ('girardot.jul@gmail.com', 'julien', 'girardot');
 
 UPDATE GAME_TO_BUY
-SET user_id = (SELECT id FROM USER WHERE email='girardot.jul@gmail.com');
+SET user_id = 1;
 
 UPDATE CONSOLE
-SET user_id = (SELECT id FROM USER WHERE email='girardot.jul@gmail.com');
+SET user_id = 1;
