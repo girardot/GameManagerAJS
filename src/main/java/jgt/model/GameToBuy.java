@@ -26,9 +26,10 @@ public class GameToBuy {
     public GameToBuy() {
     }
 
-    public GameToBuy(String title) {
+    public GameToBuy(String title, User user) {
         toBuyOrder = 1;
         game = new Game(title);
+        this.user = user;
     }
 
     public long getId() {

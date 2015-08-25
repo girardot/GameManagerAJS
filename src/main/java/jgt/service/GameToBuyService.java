@@ -5,7 +5,9 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import jgt.model.GameToBuy;
+import jgt.model.User;
 import jgt.repository.GameToBuyRepository;
+import jgt.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,12 @@ public class GameToBuyService {
 
     private GameToBuyRepository gameToBuyRepository;
 
+    private UserRepository userRepository;
+
     @Inject
-    public GameToBuyService(GameToBuyRepository gameToBuyRepository) {
+    public GameToBuyService(GameToBuyRepository gameToBuyRepository, UserRepository userRepository) {
         this.gameToBuyRepository = gameToBuyRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
@@ -38,7 +43,8 @@ public class GameToBuyService {
         List<GameToBuy> allGameToBuy = gameToBuyRepository.findAllByOrder(userEmail);
         allGameToBuy.forEach(GameToBuy::increaseOrder);
 
-        GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle);
+        User user = userRepository.findByEmail(userEmail);
+        GameToBuy gameToBuy = new GameToBuy(gameToBuyTitle, user);
         gameToBuyRepository.saveOrUpdate(gameToBuy);
         return gameToBuy;
     }

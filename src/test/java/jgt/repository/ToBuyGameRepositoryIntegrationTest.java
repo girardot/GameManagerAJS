@@ -16,8 +16,11 @@ public class ToBuyGameRepositoryIntegrationTest extends AbstractIntegrationTest 
 
     @Test
     public void should_find_all_games_to_buy() throws Exception {
+        // Given
+        String userEmail = "girardot.jul@gmail.com";
+
         // When
-        List allGameToBuy = toBuyGameRepository.findAllByOrder();
+        List allGameToBuy = toBuyGameRepository.findAllByOrder(userEmail);
 
         // Then
         assertThat(allGameToBuy).hasSize(3);

@@ -18,8 +18,11 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void should_find_all_game_to_buy_in_order() throws JSONException {
-        // Given / When
-        List gamesToBuy = toBuyGameService.findAllByOrder();
+        // Given
+        String userEmail = "girardot.jul@gmail.com";
+
+        // When
+        List gamesToBuy = toBuyGameService.findAllByOrder(userEmail);
 
         // Then
         assertThat(gamesToBuy).hasSize(3);
@@ -30,10 +33,11 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void should_add_a_new_game_to_buy() throws JSONException {
         // Given
+        String userEmail = "girardot.jul@gmail.com";
         String newGameToBuyTitle = "new game to buy";
 
         // When
-        GameToBuy gameToBuySaved = toBuyGameService.saveGameToBuy(newGameToBuyTitle);
+        GameToBuy gameToBuySaved = toBuyGameService.saveGameToBuy(newGameToBuyTitle, userEmail);
 
         // Then
         assertThat(gameToBuySaved).isNotNull();
@@ -43,13 +47,14 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void should_reorder_games_when_add_a_new_one() throws JSONException {
         // Given
+        String userEmail = "girardot.jul@gmail.com";
         String newGameToBuyTitle = "new game to buy";
 
         // When
-        toBuyGameService.saveGameToBuy(newGameToBuyTitle);
+        toBuyGameService.saveGameToBuy(newGameToBuyTitle, userEmail);
 
         // Then
-        List gamesToBuy = toBuyGameService.findAllByOrder();
+        List gamesToBuy = toBuyGameService.findAllByOrder(newGameToBuyTitle);
         assertThat(gamesToBuy).hasSize(4);
         assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3, 4);
         assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly(newGameToBuyTitle, "game to buy", "game to buy 2", "game to buy 3");

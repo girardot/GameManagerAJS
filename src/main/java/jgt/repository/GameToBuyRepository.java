@@ -18,9 +18,12 @@ public class GameToBuyRepository {
 
     private static QGameToBuy gameToBuy = QGameToBuy.gameToBuy;
 
-    public List<GameToBuy> findAllByOrder() {
+    public List<GameToBuy> findAllByOrder(String userEmail) {
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(gameToBuy).orderBy(gameToBuy.toBuyOrder.asc()).list(gameToBuy);
+        return query
+                .from(gameToBuy)
+                .where(gameToBuy.user.email.eq(userEmail))
+                .orderBy(gameToBuy.toBuyOrder.asc()).list(gameToBuy);
     }
 
     public void saveOrUpdate(GameToBuy gameToBuy) {
