@@ -54,7 +54,7 @@ public class ToBuyGameServiceIntegrationTest extends AbstractIntegrationTest {
         toBuyGameService.saveGameToBuy(newGameToBuyTitle, userEmail);
 
         // Then
-        List gamesToBuy = toBuyGameService.findAllByOrder(newGameToBuyTitle);
+        List gamesToBuy = toBuyGameService.findAllByOrder(userEmail);
         assertThat(gamesToBuy).hasSize(4);
         assertThat(extractProperty("toBuyOrder").from(gamesToBuy)).containsExactly(1, 2, 3, 4);
         assertThat(extractProperty("game.title").from(gamesToBuy)).containsExactly(newGameToBuyTitle, "game to buy", "game to buy 2", "game to buy 3");

@@ -56,8 +56,8 @@ public class GameToBuyService {
     }
 
     @Transactional
-    public boolean changeOrders(String stringIdsByOrder) {
-        List<GameToBuy> allGameToBuy = gameToBuyRepository.findAll();
+    public boolean changeOrders(String stringIdsByOrder, String userEmail) {
+        List<GameToBuy> allGameToBuy = gameToBuyRepository.findAll(userEmail);
 
         List<Long> idsByOrder = Lists.newArrayList(Splitter.on(",").split(stringIdsByOrder))
                 .stream().map(Long::parseLong).collect(Collectors.toList());

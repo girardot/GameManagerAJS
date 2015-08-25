@@ -39,9 +39,9 @@ public class GameToBuyRepository {
         return query.from(gameToBuy).where(gameToBuy.game.title.equalsIgnoreCase(gameToBuyTitle)).uniqueResult(gameToBuy);
     }
 
-    public List<GameToBuy> findAll() {
+    public List<GameToBuy> findAll(String userEmail) {
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(gameToBuy).list(gameToBuy);
+        return query.from(gameToBuy).where(gameToBuy.user.email.eq(userEmail)).list(gameToBuy);
     }
 
 }

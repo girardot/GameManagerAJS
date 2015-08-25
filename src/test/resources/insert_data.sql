@@ -20,6 +20,6 @@ INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to
 INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='game to buy 2'), 2);
 INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='game to buy'), 1);
 INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='game to buy 3'), 3);
-INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='seb@gmail.com'), (SELECT id FROM GAME WHERE title='game to buy seb'), 3);
+INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT id FROM USER WHERE email='seb@gmail.com'), (SELECT id FROM GAME WHERE title='game to buy seb'), 1);
 
 INSERT INTO CREDENTIALS (email, password) VALUES ('girardot.jul@gmail.com', 'abc');

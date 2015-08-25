@@ -36,7 +36,7 @@ public class GameToBuyServiceTest extends AbstractIntegrationTest {
         String newOrder = find(allGameToBuyByOrder, gameToBuyNamePredicate("game to buy 3")).getId()
                 + "," + find(allGameToBuyByOrder, gameToBuyNamePredicate("game to buy")).getId()
                 + "," + find(allGameToBuyByOrder, gameToBuyNamePredicate("game to buy 2")).getId();
-        gameToBuyService.changeOrders(newOrder);
+        gameToBuyService.changeOrders(newOrder, userEmail);
 
         //Then
         List<GameToBuy> allGameToBuyWithNewOrder = gameToBuyRepository.findAllByOrder(userEmail);
