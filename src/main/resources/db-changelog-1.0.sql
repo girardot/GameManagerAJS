@@ -31,3 +31,22 @@ CREATE TABLE USER (
     LASTNAME VARCHAR(255),
     CONSTRAINT PK_USER PRIMARY KEY (id)
 );
+
+--changeset jgt:4
+ALTER TABLE CONSOLE ADD (
+  user_id bigint
+);
+
+alter table CONSOLE
+add constraint FK_CONSOLE_USER
+foreign key (user_id)
+references USER;
+
+ALTER TABLE GAME_TO_BUY ADD (
+  user_id bigint
+);
+
+alter table GAME_TO_BUY
+add constraint FK_GAME_TO_BUY_USER
+foreign key (user_id)
+references USER;
