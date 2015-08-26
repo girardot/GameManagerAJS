@@ -2,7 +2,12 @@
 
 --changeset jgt:1
 --comment: create user table
-CREATE TABLE USER (ID bigint NOT NULL,EMAIL VARCHAR(255),FIRSTNAME VARCHAR(255),LASTNAME VARCHAR(255),CONSTRAINT PK_USER PRIMARY KEY (id));
+CREATE TABLE USER (
+  ID INT PRIMARY  KEY NOT NULL,
+  EMAIL VARCHAR(255),
+  FIRSTNAME VARCHAR(255),
+  LASTNAME VARCHAR(255)
+);
 
 --changeset jgt:2
 alter table CONSOLE add constraint FK_CONSOLE_USER foreign key (user_id) references USER;
