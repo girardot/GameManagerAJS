@@ -1,6 +1,37 @@
 --liquibase formatted sql
 
 --changeset jgt:1
+
+CREATE TABLE DATABASECHANGELOGLOCK(
+    ID INTEGER NOT NULL,
+    LOCKED BOOLEAN NOT NULL,
+    LOCKGRANTED TIMESTAMP,
+    LOCKEDBY VARCHAR(255),
+    CONSTRAINT PK_DATABASECHANGELOGLOCK PRIMARY KEY(ID)
+);
+
+CREATE TABLE DATABASECHANGELOG(
+    ID VARCHAR(63) NOT NULL,
+    AUTHOR VARCHAR(63) NOT NULL,
+    FILENAME VARCHAR(200) NOT NULL,
+    DATEEXECUTED TIMESTAMP NOT NULL,
+    MD5SUM VARCHAR(32),
+    DESCRIPTION VARCHAR(255),
+    COMMENTS VARCHAR(255),
+    TAG VARCHAR(255),
+    LIQUIBASE VARCHAR(10),
+    CONSTRAINT PK_DATABASECHANGELOG PRIMARY KEY(ID,AUTHOR,FILENAME)
+);
+
+
+create table USER (
+    id bigint not null,
+    email varchar(255),
+    firstname varchar(255),
+    lastname varchar(255),
+    primary key (id)
+);
+
 INSERT INTO USER(email, firstname, lastname)
 VALUES ('girardot.jul@gmail.com', 'julien', 'girardot');
 
