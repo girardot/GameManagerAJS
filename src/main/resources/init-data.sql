@@ -1,19 +1,19 @@
-INSERT INTO USER(ID, EMAIL, FIRSTNAME, LASTNAME) VALUES(nextval('hibernate_sequence'), 'girardot.jul@gmail.com', 'julien', 'girardot-tripaut');
+INSERT INTO user(ID, EMAIL, FIRSTNAME, LASTNAME) VALUES(nextval('hibernate_sequence'), 'girardot.jul@gmail.com', 'julien', 'girardot-tripaut');
 
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PS4');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'SUPER NES');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PSP');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'DS');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PS ONE');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'WII');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'GBA');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'GAMECUBE');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PS2');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PS VITA');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'WII U');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), '3DS');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'XBOX 360');
-INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM USER WHERE email='girardot.jul@gmail.com'), 'PS3');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PS4');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'SUPER NES');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PSP');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'DS');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PS ONE');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'WII');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'GBA');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'GAMECUBE');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PS2');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PS VITA');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'WII U');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), '3DS');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'XBOX 360');
+INSERT INTO CONSOLE(ID, USER_ID, CONSOLE_NAME) VALUES (nextval('hibernate_sequence'), (SELECT ID FROM user WHERE email='girardot.jul@gmail.com'), 'PS3');
 
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), true, 'Bioshock Infinite', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), true, 'Devil May Cry', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
@@ -177,6 +177,6 @@ INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nex
 INSERT INTO GAME(ID, DEMATERIALIZED, TITLE, PROGRESSION, CONSOLE_ID) VALUES (nextval('hibernate_sequence'), false, 'uncharted drake s fortune', 2, (SELECT ID FROM CONSOLE WHERE CONSOLE_NAME='PS3'));
 
 INSERT INTO GAME (id, title) VALUES (nextval('hibernate_sequence'), 'Out There');
-INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (nextval('hibernate_sequence'), (SELECT id FROM USER WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='Out There'), 1);
+INSERT INTO GAME_TO_BUY (id, user_id, game_id, to_buy_order) VALUES (nextval('hibernate_sequence'), (SELECT id FROM user WHERE email='girardot.jul@gmail.com'), (SELECT id FROM GAME WHERE title='Out There'), 1);
 
 INSERT INTO CREDENTIALS(email, password) VALUES ('girardot.jul@gmail.com', 'abc');
