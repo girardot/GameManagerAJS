@@ -12,3 +12,4 @@ CREATE TABLE "user" (
 --changeset jgt:2
 --comment: add julien user
 INSERT INTO "user" (ID, EMAIL, FIRSTNAME, LASTNAME) VALUES (1, 'girardot.jul@gmail.com', 'julien', 'girardot');
+
