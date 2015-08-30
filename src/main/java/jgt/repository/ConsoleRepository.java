@@ -27,7 +27,7 @@ public class ConsoleRepository {
         JPAQuery query = new JPAQuery(entityManager);
         return query
                 .from(console)
-                .where(console.user.email.eq(userEmail))
+                .where(console.user.email.equalsIgnoreCase(userEmail))
                 .list(console);
     }
 

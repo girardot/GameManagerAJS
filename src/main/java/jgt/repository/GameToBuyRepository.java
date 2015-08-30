@@ -22,7 +22,7 @@ public class GameToBuyRepository {
         JPAQuery query = new JPAQuery(entityManager);
         return query
                 .from(gameToBuy)
-                .where(gameToBuy.user.email.eq(userEmail))
+                .where(gameToBuy.user.email.equalsIgnoreCase(userEmail))
                 .orderBy(gameToBuy.toBuyOrder.asc()).list(gameToBuy);
     }
 
@@ -41,7 +41,7 @@ public class GameToBuyRepository {
 
     public List<GameToBuy> findAll(String userEmail) {
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(gameToBuy).where(gameToBuy.user.email.eq(userEmail)).list(gameToBuy);
+        return query.from(gameToBuy).where(gameToBuy.user.email.equalsIgnoreCase(userEmail)).list(gameToBuy);
     }
 
 }

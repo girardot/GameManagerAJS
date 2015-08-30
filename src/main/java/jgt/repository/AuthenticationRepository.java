@@ -18,7 +18,7 @@ public class AuthenticationRepository {
     public Credentials findCredentialsBy(String email) {
         QCredentials qCredentials = QCredentials.credentials;
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(qCredentials).where(qCredentials.email.eq(email)).uniqueResult(qCredentials);
+        return query.from(qCredentials).where(qCredentials.email.equalsIgnoreCase(email)).uniqueResult(qCredentials);
     }
 
     public List<Credentials> findAllCredentials() {

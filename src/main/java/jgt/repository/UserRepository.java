@@ -19,7 +19,7 @@ public class UserRepository {
     public User findByEmail(String email) {
         QUser user = QUser.user;
         JPAQuery query = new JPAQuery(entityManager);
-        return query.from(user).where(user.email.eq(email)).uniqueResult(user);
+        return query.from(user).where(user.email.equalsIgnoreCase(email)).uniqueResult(user);
     }
 
 }
