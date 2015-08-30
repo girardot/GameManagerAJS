@@ -21,8 +21,8 @@ heroku pg:backups restore 'a081' gamemanagerajs::silver::resting-vastly-3226
 a081 is the PG Backup id in herokupostgres
 
 
-test
-
+git crendential from windows
+git config --global credential.helper wincred
 
 
 
