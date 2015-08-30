@@ -13,7 +13,7 @@ ALTER TABLE CONSOLE ADD (
 alter table CONSOLE
 add constraint FK_CONSOLE_USER
 foreign key (user_id)
-references user;
+references "user";
 
 ALTER TABLE GAME_TO_BUY ADD (
   user_id bigint
