@@ -8,11 +8,11 @@ angular.module('gameManager.authenticationControllers', [])
             $http.post('/services/authentication', {'email': credentials.email, 'password': credentials.password})
                 .success(function (user) {
 //                    Auth.setUser(user);
-                    $location.url('/');
+                    $location.path('/biblio');
                 })
                 .error(function (data) {
                     $scope.loginError = data.loginError;
-                    $location.url('/signIn');
+                    $location.path('/signIn');
                 });
         }
     })
