@@ -1,5 +1,8 @@
+import jgt.controller.ConsoleController;
+import jgt.controller.GameController;
+import jgt.controller.ToBuyGameController;
+import jgt.controller.UserController;
 import jgt.model.Credentials;
-import jgt.model.GameProgression;
 import jgt.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,47 +36,16 @@ public class ServerGameManager {
         setPort(Integer.valueOf(System.getenv("PORT")));
 
         // CONSOLE
-        get("/services/console", (request, response) -> consoleGameService.findAll(getConnectedUserEmail(request.session())), jsonTransformer);
-        post("/services/console", (request, response) -> consoleGameService.saveConsole(request.body()), jsonTransformer);
-        delete("/services/console/:consoleId", (request, response) -> consoleGameService.deleteConsole(parseLong(request.params("consoleId"))));
+        new ConsoleController(consoleGameService, jsonTransformer);
 
         // GAME
-        get("/services/console/:consoleId/game", (request, response) -> consoleGameService.findGameByConsoleId(parseLong(request.params("consoleId"))), jsonTransformer);
-        post("/services/console/:consoleId/game", (request, response) -> consoleGameService.saveGame(request.body()), jsonTransformer);
-        post("/services/console/:consoleId/game/:gameId/status", (request, response) -> {
-            long gameId = parseLong(request.params("gameId"));
-            GameProgression gameProgression = jsonConverter.convertJsonToGameProgression(request.body());
-            return consoleGameService.changeGameStatus(gameId, gameProgression);
-        }, jsonTransformer);
-        post("/services/console/:consoleId/game/:gameId/toogleDematerialized", (request, response) -> consoleGameService.toogleDematerialized(parseLong(request.params("gameId"))), jsonTransformer);
-        delete("/services/console/game/:gameId", (request, response) -> consoleGameService.deleteGame(parseLong(request.params("gameId"))));
+        new GameController(consoleGameService, jsonConverter, jsonTransformer);
 
         // TO_BUY_GAME
-        get("/services/toBuyGame", (request, response) -> toBuyGameService.findAllByOrder(getConnectedUserEmail(request.session())), jsonTransformer);
-        post("/services/toBuyGame", (request, response) -> toBuyGameService.saveGameToBuy(request.body(), getConnectedUserEmail(request.session())), jsonTransformer);
-        delete("/services/toBuyGame/:gameToBuyId", (request, response) -> toBuyGameService.deleteGame(parseLong(request.params("gameToBuyId"))));
-        post("/services/toBuyGameOrder", (request, response) -> toBuyGameService.changeOrders(request.body(), getConnectedUserEmail(request.session())));
+        new ToBuyGameController(toBuyGameService, jsonTransformer);
 
         // AUTHENTICATION
-        post("/services/authentication", (request, response) -> {
-
-            Session session = request.session();
-            Credentials credentials = jsonConverter.convertJsonToCredential(request.body());
-
-            if (!authenticationService.tryToAuthenticate(credentials, isUserAuthenticated(session))) {
-                logger.info("Authentication Failed for {}", credentials.getEmail());
-                halt(UNAUTHORIZED_401, "Authentication Failed");
-            }
-
-            createNewSession(request, credentials.getEmail());
-            session.attribute(SESSION_AUTHENTICATION_FIELD, true);
-
-            logger.info("authentication success for {}", getConnectedUserEmail(session));
-            response.status(ACCEPTED_202);
-            return true;
-        }, jsonTransformer);
-
-        get("/services/connectedUser", (request, response) -> userService.findByEmail(getConnectedUserEmail(request.session())), jsonTransformer);
+        new UserController(authenticationService, userService, jsonConverter, jsonTransformer);
 
         // OTHER
         exception(Exception.class, (e, request, response) -> {
