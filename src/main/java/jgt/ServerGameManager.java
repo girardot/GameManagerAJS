@@ -1,27 +1,23 @@
+package jgt;
+
 import jgt.controller.ConsoleController;
 import jgt.controller.GameController;
 import jgt.controller.ToBuyGameController;
 import jgt.controller.UserController;
-import jgt.model.Credentials;
 import jgt.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spark.Session;
 
-import static java.lang.Long.parseLong;
-import static jgt.session.SessionUtils.*;
-import static org.eclipse.jetty.http.HttpStatus.ACCEPTED_202;
-import static org.eclipse.jetty.http.HttpStatus.UNAUTHORIZED_401;
+import static jgt.session.SessionUtils.SESSION_AUTHENTICATION_FIELD;
 import static spark.Spark.*;
 
 public class ServerGameManager {
 
+    private static Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
 
     public static void main(String[] args) {
-
-        Logger logger = LoggerFactory.getLogger(ServerGameManager.class);
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
