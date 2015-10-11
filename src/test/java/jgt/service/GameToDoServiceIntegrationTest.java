@@ -11,7 +11,7 @@ import static jgt.model.GameProgression.TO_DO;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.extractProperty;
 
-public class GameToDoServiceTest extends AbstractIntegrationTest {
+public class GameToDoServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Inject
     private GameToDoService gameToDoService;

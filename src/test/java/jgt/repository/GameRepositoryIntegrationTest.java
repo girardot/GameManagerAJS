@@ -54,7 +54,7 @@ public class GameRepositoryIntegrationTest extends AbstractIntegrationTest {
         List<Game> ps3Games = gameRepository.findByConsoleId(ps2.getId());
 
         // Then
-        assertThat(ps3Games).hasSize(2);
+        assertThat(ps3Games).hasSize(3);
         assertThat(extractProperty("console.name").from(ps3Games)).containsOnly(consoleName);
     }
 

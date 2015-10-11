@@ -9,6 +9,7 @@ INSERT INTO CONSOLE (id, user_id, console_name) VALUES (NEXT VALUE FOR hibernate
 INSERT INTO CONSOLE (id, user_id, console_name) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT ID FROM user_account WHERE email='seb@gmail.com'), 'ps3');
 
 INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'call of duty', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps3'));
+INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'call of duty 2', 1, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
 INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'gta3', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
 INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'nhl 2004', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
 

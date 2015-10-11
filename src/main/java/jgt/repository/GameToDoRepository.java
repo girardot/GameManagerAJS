@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static jgt.model.GameProgression.TO_DO;
+
 @Repository
 public class GameToDoRepository {
 
@@ -22,6 +24,7 @@ public class GameToDoRepository {
         return query
                 .from(gameToDo)
                 .where(gameToDo.console.user.email.equalsIgnoreCase(userEmail))
+                .where(gameToDo.progression.eq(TO_DO))
                 .list(gameToDo);
     }
 
