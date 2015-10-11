@@ -7,6 +7,12 @@ angular.module('gameManager.directives', [])
             templateUrl: 'partials/delete-modal.html'
         };
     })
+    .directive('startToPlayModal', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/start-to-play-modal.html'
+        };
+    })
     .directive('consoles', function () {
         return {
             restrict: 'E',

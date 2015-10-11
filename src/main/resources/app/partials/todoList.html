@@ -1,14 +1,24 @@
+<start-to-play-modal></start-to-play-modal>
+
 <div class="panel panel-primary">
+    <div class="panel-heading">To Do Games</div>
 
-    <ol class="list-group to-buy-list">
+    <div class="panel-body">
+        <div class="input-group">
+            <input class="form-control" type="text" ng-model="gameNameSearch" placeholder="search">
+            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+        </div>
 
-        <li class="list-group-item text-center " ng-repeat="todo in todoList">
-            {{todo.title}}
-            <span class="glyphicon glyphicon-trash btn btn-xs btn-danger pull-right"
-                  ng-click="displayRemoveGameModal($index)"></span>
-            <span class="glyphicon glyphicon-euro btn btn-xs btn-info pull-right"
-                  ng-click="displayRemoveGameModal($index)"></span>
-        </li>
-    </ol>
+        <div>&nbsp;</div>
 
+        <ol class="list-group to-buy-list">
+
+            <li class="list-group-item text-center " ng-repeat="todo in todoList|filter:gameNameSearch">
+                {{todo.title}}
+             <span class="glyphicon glyphicon-play btn btn-xs btn-danger pull-right"
+                   ng-click="startToPlay($index)"></span>
+
+            </li>
+        </ol>
+    </div>
 </div>
