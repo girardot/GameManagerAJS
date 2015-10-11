@@ -1,9 +1,6 @@
 package jgt;
 
-import jgt.controller.ConsoleController;
-import jgt.controller.GameController;
-import jgt.controller.ToBuyGameController;
-import jgt.controller.UserController;
+import jgt.controller.*;
 import jgt.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +22,7 @@ public class ServerGameManager {
         final JsonConverter jsonConverter = applicationContext.getBean(JsonConverter.class);
         final ConsoleGameService consoleGameService = applicationContext.getBean(ConsoleGameService.class);
         final GameToBuyService toBuyGameService = applicationContext.getBean(GameToBuyService.class);
+        final GameToDoService gameToDoService = applicationContext.getBean(GameToDoService.class);
         final AuthenticationService authenticationService = applicationContext.getBean(AuthenticationService.class);
         final UserService userService = applicationContext.getBean(UserService.class);
 
@@ -39,6 +37,9 @@ public class ServerGameManager {
 
         // TO_BUY_GAME
         new ToBuyGameController(toBuyGameService, jsonTransformer);
+
+        // TO_DO_GAME
+        new ToDoGameController(gameToDoService, jsonTransformer);
 
         // AUTHENTICATION
         new UserController(authenticationService, userService, jsonConverter, jsonTransformer);

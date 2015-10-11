@@ -8,9 +8,9 @@ INSERT INTO user_account (id, firstname, lastname, email) VALUES (NEXT VALUE FOR
 INSERT INTO CONSOLE (id, user_id, console_name) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT ID FROM user_account WHERE email='girardot.jul@gmail.com'), 'ps2');
 INSERT INTO CONSOLE (id, user_id, console_name) VALUES (NEXT VALUE FOR hibernate_sequence, (SELECT ID FROM user_account WHERE email='seb@gmail.com'), 'ps3');
 
-INSERT INTO GAME (id, title, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'call of duty', (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps3'));
-INSERT INTO GAME (id, title, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'gta3', (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
-INSERT INTO GAME (id, title, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'nhl 2004', (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
+INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'call of duty', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps3'));
+INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'gta3', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
+INSERT INTO GAME (id, title, progression, console_id) VALUES (NEXT VALUE FOR hibernate_sequence, 'nhl 2004', 0, (SELECT id FROM CONSOLE WHERE CONSOLE_NAME='ps2'));
 
 INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to buy');
 INSERT INTO GAME (id, title) VALUES (NEXT VALUE FOR hibernate_sequence, 'game to buy 2');

@@ -13,7 +13,7 @@ import static com.google.common.collect.Iterables.find;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.extractProperty;
 
-public class GameToBuyServiceTest extends AbstractIntegrationTest {
+public class GameToBuyServiceIntegrationTest extends AbstractIntegrationTest {
 
     @Inject
     private GameToBuyService gameToBuyService;
