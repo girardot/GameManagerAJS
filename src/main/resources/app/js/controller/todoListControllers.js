@@ -16,11 +16,9 @@ angular.module('gameManager.todoListControllers', [])
 
             $('#modalStartToPlayButtonYes').unbind("click").on('click', function () {
                 closeModalStartToPlay();
-                var nextGameProgression = getNextProgression(gameProgression);
-                // TODO sans le gameID
-                // gameStatusResource.save({consoleId: $scope.selectedConsoleId, gameId: game.id, status: nextGameProgression}, function (data) {
-                //  $scope.games.splice(index, 1);
-                //});
+                gameStatusResource.save({consoleId: 0, gameId: game.id, status: 'IN_PROGRESS'}, function (data) {
+                    $scope.todoList.splice(index, 1);
+                });
             });
 
         };
