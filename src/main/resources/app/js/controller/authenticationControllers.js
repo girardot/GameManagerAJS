@@ -10,8 +10,8 @@ angular.module('gameManager.authenticationControllers', [])
 //                    Auth.setUser(user);
                     $location.path('/biblio');
                 })
-                .error(function (data) {
-                    $scope.loginError = data.loginError;
+                .error(function (user) {
+                    $scope.loginError = "Authentication error for :" + credentials.email;
                     $location.path('/signIn');
                 });
         }
