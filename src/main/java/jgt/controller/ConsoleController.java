@@ -12,7 +12,7 @@ public class ConsoleController {
     public ConsoleController(ConsoleGameService consoleGameService, JsonTransformer jsonTransformer) {
         get("/services/console", (request, response) -> consoleGameService.findAll(getConnectedUserEmail(request.session())), jsonTransformer);
 
-        post("/services/console", (request, response) -> consoleGameService.saveConsole(request.body()), jsonTransformer);
+        post("/services/console", (request, response) -> consoleGameService.saveConsole(getConnectedUserEmail(request.session()), request.body()), jsonTransformer);
 
         delete("/services/console/:consoleId", (request, response) -> consoleGameService.deleteConsole(parseLong(request.params("consoleId"))));
     }

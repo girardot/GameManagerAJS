@@ -3,9 +3,9 @@ package jgt.service;
 import jgt.model.Console;
 import jgt.model.Game;
 import jgt.model.GameProgression;
-import jgt.model.User;
 import jgt.repository.ConsoleRepository;
 import jgt.repository.GameRepository;
+import jgt.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +14,9 @@ import java.util.List;
 
 @Service
 public class ConsoleGameService {
+
+    @Inject
+    private UserRepository userRepository;
 
     @Inject
     private ConsoleRepository consoleRepository;
@@ -29,8 +32,9 @@ public class ConsoleGameService {
     }
 
     @Transactional
-    public Console saveConsole(String consoleJson) {
+    public Console saveConsole(String userEmail, String consoleJson) {
         Console console = new Console(consoleJson);
+        console.setUser(userRepository.findByEmail(userEmail));
         consoleRepository.saveOrUpdate(console);
         return console;
     }
