@@ -38,6 +38,16 @@ public class UserController {
             return userService.findByEmail(getConnectedUserEmail(request.session()));
         }, jsonTransformer);
 
+        post("/services/signOut", (request, response) -> {
+            Session session = request.session();
+            logger.info("start sign out for {}", getConnectedUserEmail(session));
+            session.attribute(SESSION_AUTHENTICATION_FIELD, false);
+            session.attribute(SESSION_EMAIL_FIELD, "");
+            logger.info("end sign out for {}", getConnectedUserEmail(session));
+            response.status(ACCEPTED_202);
+            return true;
+        }, jsonTransformer);
+
         get("/services/connectedUser", (request, response) -> userService.findByEmail(getConnectedUserEmail(request.session())), jsonTransformer);
 
     }
