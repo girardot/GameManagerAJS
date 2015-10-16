@@ -34,7 +34,8 @@ public class UserController {
 
             logger.info("authentication success for {}", getConnectedUserEmail(session));
             response.status(ACCEPTED_202);
-            return true;
+
+            return userService.findByEmail(getConnectedUserEmail(request.session()));
         }, jsonTransformer);
 
         get("/services/connectedUser", (request, response) -> userService.findByEmail(getConnectedUserEmail(request.session())), jsonTransformer);
