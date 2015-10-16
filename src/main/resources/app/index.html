@@ -30,8 +30,11 @@
         <li>
             <a href="#/tobuyList">TOBUY&nbsp;<span class='glyphicon glyphicon-euro'></span></a>
         </li>
-        <li class="active">
-            <a href="#/signIn">SIGN IN&nbsp;<span class='glyphicon glyphicon-lock'></span></a>
+        <li class="active" ng-show="!connectedUser.email">
+            <a href="#/signIn">SIGN IN&nbsp;<span class='glyphicon glyphicon-log-in'></span></a>
+        </li>
+        <li class="active" ng-show="connectedUser.email">
+            <a ng-click="signOut()">SIGN OUT&nbsp;<span class='glyphicon glyphicon-log-out'></span></a>
         </li>
     </ul>
 

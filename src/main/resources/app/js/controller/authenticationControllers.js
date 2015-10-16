@@ -14,10 +14,18 @@ angular.module('gameManager.authenticationControllers', [])
                     };
                     $location.path('/biblio');
                 })
-                .error(function (user) {
+                .error(function () {
                     $scope.loginError = "Authentication error for :" + credentials.email;
                     $location.path('/signIn');
                 });
-        }
+        };
+
+        $rootScope.signOut = function() {
+            $http.post('/services/signOut')
+                .success(function () {
+                    $rootScope.connectedUser = {};
+                    $location.path('/signIn');
+                });
+        };
     })
 ;
